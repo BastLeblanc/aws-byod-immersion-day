@@ -190,3 +190,4 @@ site/search/search_index.json
 .local/reporting/qs3.png
 .local/reporting/visualization1.png
 .local/reporting/visualization2.png
+.DS_Store
