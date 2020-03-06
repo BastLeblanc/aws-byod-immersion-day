@@ -1,0 +1,598 @@
+
+<!DOCTYPE doctype html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="ie=edge" http-equiv="x-ua-compatible"/>
+<meta content="AWS BYOD Immersion Day" name="description"/>
+<link href="https://data-engineering.labgui.de/03_visualization_and_reporting/README.html" rel="canonical"/>
+<meta content="Copy to clipboard" name="lang:clipboard.copy"/>
+<meta content="Copied to clipboard" name="lang:clipboard.copied"/>
+<meta content="en" name="lang:search.language"/>
+<meta content="True" name="lang:search.pipeline.stopwords"/>
+<meta content="True" name="lang:search.pipeline.trimmer"/>
+<meta content="No matching documents" name="lang:search.result.none"/>
+<meta content="1 matching document" name="lang:search.result.one"/>
+<meta content="# matching documents" name="lang:search.result.other"/>
+<meta content="[\s\-]+" name="lang:search.tokenizer"/>
+<link href="../img/favicon.ico" rel="shortcut icon"/>
+<meta content="mkdocs-1.0.4, mkdocs-material-4.4.3" name="generator"/>
+<title>Visualization and Reporting - AWS Data Engineering Immersion Day</title>
+<link href="../assets/stylesheets/application.30686662.css" rel="stylesheet"/>
+<link href="../assets/stylesheets/application-palette.a8b3c06d.css" rel="stylesheet"/>
+<meta content="#546e7a" name="theme-color"/>
+<script src="../assets/javascripts/modernizr.74668098.js"></script>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&amp;display=fallback" rel="stylesheet"/>
+<style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+<link href="../assets/fonts/material-icons.css" rel="stylesheet"/>
+</head>
+<body data-md-color-accent="orange" data-md-color-primary="blue-grey" dir="ltr">
+<svg class="md-svg">
+<defs>
+</defs>
+</svg>
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+<a class="md-skip" href="#lab-2-visualization-using-amazon-quicksight" tabindex="1">
+        Skip to content
+      </a>
+<header class="md-header" data-md-component="header">
+<nav class="md-header-nav md-grid">
+<div class="md-flex">
+<div class="md-flex__cell md-flex__cell--shrink">
+<a class="md-header-nav__button md-logo" href="https://data-engineering.labgui.de" title="AWS Data Engineering Immersion Day">
+<img height="24" src="../img/Amazon_Web_Services_Logo.svg" width="24"/>
+</a>
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+</div>
+<div class="md-flex__cell md-flex__cell--stretch">
+<div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+<span class="md-header-nav__topic">
+              AWS Data Engineering Immersion Day
+            </span>
+<span class="md-header-nav__topic">
+              
+                Visualization and Reporting
+              
+            </span>
+</div>
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="query" data-md-state="active" name="query" placeholder="Search" spellcheck="false" type="text"/>
+<label class="md-icon md-search__icon" for="__search"></label>
+<button class="md-icon md-search__icon" data-md-component="reset" tabindex="-1" type="reset">
+        
+      </button>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="">
+<div class="md-search-result" data-md-component="result">
+<div class="md-search-result__meta">
+            Type to start searching
+          </div>
+<ol class="md-search-result__list"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</nav>
+</header>
+<div class="md-container">
+<main class="md-main" role="main">
+<div class="md-main__inner md-grid" data-md-component="container">
+<div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav class="md-nav md-nav--primary" data-md-level="0">
+<label class="md-nav__title md-nav__title--site" for="__drawer">
+<a class="md-nav__button md-logo" href="https://data-engineering.labgui.de" title="AWS Data Engineering Immersion Day">
+<img height="48" src="../img/Amazon_Web_Services_Logo.svg" width="48"/>
+</a>
+    AWS Data Engineering Immersion Day
+  </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../index.html" title="Data Engineering">
+      Data Engineering
+    </a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-toggle md-nav__toggle" data-md-toggle="nav-2" id="nav-2" type="checkbox"/>
+<label class="md-nav__link" for="nav-2">
+      BYOD Labs
+    </label>
+<nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+<label class="md-nav__title" for="nav-2">
+        BYOD Labs
+      </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../01_ingestion_with_glue/ingestion_with_glue.html" title="Transformation">
+      Transformation
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../02_orchestration/orchestration.html" title="Orchestration">
+      Orchestration
+    </a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-toggle md-nav__toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+        Visualization and Reporting
+      </label>
+<a class="md-nav__link md-nav__link--active" href="README.html" title="Visualization and Reporting">
+      Visualization and Reporting
+    </a>
+<nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">Table of contents</label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#architectural-diagram">
+    Architectural Diagram
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#create-an-amazon-s3-bucket">
+    Create an Amazon S3 bucket
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#creating-amazon-athena-database-and-table">
+    Creating Amazon Athena Database and Table
+  </a>
+<nav class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#setting-up-athena-first-time-users">
+    Setting up Athena (first time users)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#create-database">
+    Create Database
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#create-a-table">
+    Create a Table
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#signing-up-for-amazon-quicksight-enterprise-edition">
+    Signing up for Amazon QuickSight Enterprise Edition
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configuring-amazon-quicksight-to-use-amazon-athena-as-data-source">
+    Configuring Amazon QuickSight to use Amazon Athena as data source
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#visualizing-the-data-using-amazon-quicksight">
+    Visualizing the data using Amazon QuickSight
+  </a>
+<nav class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#forecast-monthly-trend-for-your-quantity-column">
+    Forecast Monthly Trend for your Quantity Column
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#visualize-month-over-month-quantity">
+    Visualize Month over Month Quantity
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#review-ml-insights">
+    Review ML Insights
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#license">
+    License
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">Table of contents</label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#architectural-diagram">
+    Architectural Diagram
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#create-an-amazon-s3-bucket">
+    Create an Amazon S3 bucket
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#creating-amazon-athena-database-and-table">
+    Creating Amazon Athena Database and Table
+  </a>
+<nav class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#setting-up-athena-first-time-users">
+    Setting up Athena (first time users)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#create-database">
+    Create Database
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#create-a-table">
+    Create a Table
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#signing-up-for-amazon-quicksight-enterprise-edition">
+    Signing up for Amazon QuickSight Enterprise Edition
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configuring-amazon-quicksight-to-use-amazon-athena-as-data-source">
+    Configuring Amazon QuickSight to use Amazon Athena as data source
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#visualizing-the-data-using-amazon-quicksight">
+    Visualizing the data using Amazon QuickSight
+  </a>
+<nav class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#forecast-monthly-trend-for-your-quantity-column">
+    Forecast Monthly Trend for your Quantity Column
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#visualize-month-over-month-quantity">
+    Visualize Month over Month Quantity
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#review-ml-insights">
+    Review ML Insights
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#license">
+    License
+  </a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content">
+<article class="md-content__inner md-typeset"><a class="md-icon md-content__icon" download href="README.pdf" title="PDF Export"></a>
+<h1 id="lab-2-visualization-using-amazon-quicksight">Lab 2: Visualization using Amazon QuickSight<a class="headerlink" href="#lab-2-visualization-using-amazon-quicksight" title="Permanent link">¶</a></h1>
+<ul>
+<li><a href="#create-an-amazon-s3-bucket">Create an Amazon S3 bucket</a></li>
+<li><a href="#creating-amazon-athena-database-and-table">Creating Amazon Athena Database and Table</a><ul>
+<li><a href="#create-database">Create Athena Database</a></li>
+<li><a href="#create-a-table">Create Athena Table</a></li>
+</ul>
+</li>
+<li><a href="#signing-up-for-amazon-quicksight-standard-edition">Signing up for Amazon Quicksight Standard Edition</a></li>
+<li><a href="#configuring-amazon-quicksight-to-use-amazon-athena-as-data-source">Configuring Amazon QuickSight to use Amazon Athena as data source</a></li>
+<li><a href="#visualizing-the-data-using-amazon-quicksight">Visualizing the data using Amazon QuickSight</a><ul>
+<li><a href="#add-year-based-filter-to-visualize-the-dataset-for-the-year-2016">Add year based filter to visualize the dataset for the year 2016</a></li>
+<li><a href="#add-the-month-based-filter-for-the-month-of-january">Add the month based filter for the month of January</a></li>
+<li><a href="#visualize-the-data-by-hour-of-day-for-the-month-of-january-2016">Visualize the data by hour of day for the month of January 2016</a></li>
+<li><a href="#visualize-the-data-for-the-month-of-january-2016-for-all-taxi-typesyellow-green-fhv">Visualize the data for the month of January 2016 for all taxi types(yellow, green, fhv)</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="architectural-diagram">Architectural Diagram<a class="headerlink" href="#architectural-diagram" title="Permanent link">¶</a></h2>
+<p><img alt="architecture-overview-lab2.png" src="https://s3.amazonaws.com/us-east-1.data-analytics/labcontent/reinvent2017content-abd313/lab2/architecture-overview-lab2.png"/></p>
+<h2 id="create-an-amazon-s3-bucket">Create an Amazon S3 bucket<a class="headerlink" href="#create-an-amazon-s3-bucket" title="Permanent link">¶</a></h2>
+<blockquote>
+<p>Note: If you have already have an S3 bucket in your AWS Account you can skip this section. </p>
+</blockquote>
+<ol>
+<li>Open the <a href="https://s3.console.aws.amazon.com/s3/home?region=us-west-2">AWS Management console for Amazon S3</a></li>
+<li>On the S3 Dashboard, Click on <strong>Create Bucket</strong>. </li>
+</ol>
+<p><img alt="image" src="img/create-bucket.png"/></p>
+<ol>
+<li>
+<p>In the <strong>Create Bucket</strong> pop-up page, input a unique <strong>Bucket name</strong>. It is advised to choose a large bucket name, with many random characters and numbers (no spaces). </p>
+<ol>
+<li>Select the region as <strong>Oregon</strong>. </li>
+<li>Click <strong>Next</strong> to navigate to next tab. </li>
+<li>In the <strong>Set properties</strong> tab, leave all options as default. </li>
+<li>In the <strong>Set permissions</strong> tag, leave all options as default.</li>
+<li>In the <strong>Review</strong> tab, click on <strong>Create Bucket</strong></li>
+</ol>
+</li>
+</ol>
+<p><img alt="createbucketpopup.png" src="https://s3.amazonaws.com/us-east-1.data-analytics/labcontent/reinvent2017content-abd313/lab1/createbucketpopup.png"/></p>
+<h2 id="creating-amazon-athena-database-and-table">Creating Amazon Athena Database and Table<a class="headerlink" href="#creating-amazon-athena-database-and-table" title="Permanent link">¶</a></h2>
+<blockquote>
+<p>Note: If you have complete the <a href="../Lab1">Lab 1: Serverless Analysis of data in Amazon S3 using Amazon Athena</a> you can skip this section and go to the next section <a href="#signing-up-for-amazon-quicksight-standard-edition">Signing up for Amazon Quicksight Standard Edition</a></p>
+</blockquote>
+<p>Amazon Athena uses Apache Hive to define tables and create databases. Databases are a logical grouping of tables. When you create a database and table in Athena, you are simply describing the schema and location of the table data in Amazon S3. In case of Hive, databases and tables don’t store the data along with the schema definition unlike traditional relational database systems. The data is read from Amazon S3 only when you query the table. The other benefit of using Hive is that the metastore found in Hive can be used in many other big data applications such as Spark, Hadoop, and Presto. With Athena catalog, you can now have Hive-compatible metastore in the cloud without the need for provisioning a Hadoop cluster or RDS instance. For guidance on databases and tables creation refer <a href="https://cwiki.apache.org/confluence/display/Hive/LanguageManual+DDL">Apache Hive documentation</a>. The following steps provides guidance specifically for Amazon Athena.</p>
+<h3 id="setting-up-athena-first-time-users">Setting up Athena (first time users)<a class="headerlink" href="#setting-up-athena-first-time-users" title="Permanent link">¶</a></h3>
+<p>If you’re a first time Athena user, you might need to configure an S3 bucket, where Athena will store the query results.</p>
+<p><img alt="image" src="img/athena-setup.png"/></p>
+<p>You can use an already existing bucket with a dedicated folder or you can create a new, dedicated bucket.</p>
+<p><b>NOTE:</b> Make sure you have forward slash at the end of the S3 path</p>
+<h3 id="create-database">Create Database<a class="headerlink" href="#create-database" title="Permanent link">¶</a></h3>
+<ol>
+<li>Open the <a href="https://console.aws.amazon.com/athena/home">AWS Management Console for Athena</a>.</li>
+<li>If this is your first time visiting the AWS Management Console for Athena, you will get a Getting Started page. Choose <strong>Get Started</strong> to open the Query Editor. If this isn’t your first time, the Athena <strong>Query Editor</strong> opens.</li>
+<li>Make a note of the AWS region name, for example, for this lab you will need to choose the <strong>US West (Oregon)</strong> region.</li>
+<li>In the Athena <strong>Query Editor</strong>, you will see a query pane with an example query. Now you can start entering your query in the query pane.</li>
+<li>To create a database named <em>mydatabase</em>, copy the following statement, and then choose <strong>Run Query</strong>:</li>
+</ol>
+<pre><code class="sql">    CREATE DATABASE mydatabase
+</code></pre>
+<ol>
+<li>Ensure <em>mydatabase</em> appears in the DATABASE list on the <strong>Catalog</strong> dashboard</li>
+</ol>
+<p><img alt="athenacatalog.png" src="https://s3.amazonaws.com/us-east-1.data-analytics/labcontent/reinvent2017content-abd313/lab1/athenacatalog.png"/></p>
+<h3 id="create-a-table">Create a Table<a class="headerlink" href="#create-a-table" title="Permanent link">¶</a></h3>
+<ol>
+<li>
+<p>Ensure that current AWS region is <strong>US West (Oregon)</strong> region</p>
+</li>
+<li>
+<p>Ensure <strong>mydatabase</strong> is selected from the DATABASE list and then choose <strong>New Query</strong>.</p>
+</li>
+<li>
+<p>In the query pane, copy the following statement to create a the NYTaxiRides table, and then choose <strong>Run Query</strong>:</p>
+</li>
+</ol>
+<pre><code class="sql">  CREATE EXTERNAL TABLE NYTaxiRides (
+    vendorid STRING,
+    pickup_datetime TIMESTAMP,
+    dropoff_datetime TIMESTAMP,
+    ratecode INT,
+    passenger_count INT,
+    trip_distance DOUBLE,
+    fare_amount DOUBLE,
+    total_amount DOUBLE,
+    payment_type INT
+    )
+  PARTITIONED BY (YEAR INT, MONTH INT, TYPE string)
+  STORED AS PARQUET
+  LOCATION 's3://us-west-2.serverless-analytics/canonical/NY-Pub'
+</code></pre>
+<p>4.Ensure the table you just created appears on the Catalog dashboard for the selected database.</p>
+<p>Now that you have created the table you need to add the partition metadata to the Amazon Athena Catalog.</p>
+<ol>
+<li>Choose <strong>New Query</strong>, copy the following statement into the query pane, and then choose <strong>Run Query</strong> to add partition metadata.</li>
+</ol>
+<pre><code class="sql">    MSCK REPAIR TABLE NYTaxiRides
+</code></pre>
+<p>The returned result will contain information for the partitions that are added to NYTaxiRides for each taxi type (yellow, green, fhv) for every month for the year from 2009 to 2016</p>
+<h2 id="signing-up-for-amazon-quicksight-enterprise-edition">Signing up for Amazon QuickSight Enterprise Edition<a class="headerlink" href="#signing-up-for-amazon-quicksight-enterprise-edition" title="Permanent link">¶</a></h2>
+<ol>
+<li>Open the <a href="https://us-east-1.quicksight.aws.amazon.com/sn/start">AWS Management Console for QuickSight</a>.</li>
+</ol>
+<p><img alt="image" src="https://s3.amazonaws.com/us-east-1.data-analytics/labcontent/reinvent2017content-abd313/lab2/qsimage1.PNG"/></p>
+<ol>
+<li>If this is the first time you are accessing QuickSight, you will see a sign-up landing page for QuickSight. </li>
+<li>Click on <strong>Sign up for QuickSight</strong>.</li>
+</ol>
+<blockquote>
+<p><strong>Note:</strong> Chrome browser might timeout at this step. If that’s the case, try this step in Firefox/Microsoft Edge/Safari.</p>
+</blockquote>
+<ol>
+<li>On the next page, for the subscription type select the <strong>“Enterprise Edition”</strong> and click <strong>Continue</strong>. </li>
+</ol>
+<p><img alt="image" src="img/enterprise.png"/></p>
+<ol>
+<li>On the next page,</li>
+</ol>
+<p>i. Enter a unique <strong>QuickSight account name.</strong></p>
+<p>ii. Enter a valid email for <strong>Notification email address</strong>.</p>
+<p>iii. Just for this step, leave the <strong>QuickSight capacity region</strong> as <strong>N.Virginia</strong>. </p>
+<p>iv. Ensure that <strong>Enable autodiscovery of your data and users in your Amazon Redshift, Amazon RDS and AWS IAM Services</strong> and <strong>Amazon Athena</strong> boxes are checked. </p>
+<p>v. <strong>Click Finish</strong>. </p>
+<p><img alt="image" src="img/new-account-fields.png"/></p>
+<p>vi. You will be presented with a message <strong>Congratulations</strong>! <strong>You are signed up for Amazon QuickSight!</strong> on successful sign up. Click on <strong>Go to Amazon QuickSight</strong>. </p>
+<ol>
+<li><strong>Before continuing with the following steps, make sure you are in the N. Virginia Region to edit permissions.</strong></li>
+</ol>
+<p>Now, on the Amazon QuickSight dashboard, navigate to User Settings page on the Top-Right section and click <strong>Manage QuickSight</strong>.</p>
+<p><img alt="image" src="img/quicksight-first-page.png"/></p>
+<ol>
+<li>In this section, click on <strong>Security &amp; permissions</strong> and then click <strong>Add or remove</strong>.</li>
+</ol>
+<p align="center"><img src="img/updated1.png"/></p>
+<ol>
+<li>Click on <strong>Amazon S3</strong> and on the tab that says <strong>S3 buckets linked to QuickSight account</strong>.</li>
+<li>Ensure <strong>Select All</strong> is checked.</li>
+<li>Click on <strong>Select buckets</strong>.</li>
+</ol>
+<p><img alt="image" src="https://s3.amazonaws.com/us-east-1.data-analytics/labcontent/reinvent2017content-abd313/lab2/qsimage6.PNG"/></p>
+<ol>
+<li>When you are done doing all this, click <strong>Update</strong> to bring you back to the user settings back.</li>
+</ol>
+<h2 id="configuring-amazon-quicksight-to-use-amazon-athena-as-data-source">Configuring Amazon QuickSight to use Amazon Athena as data source<a class="headerlink" href="#configuring-amazon-quicksight-to-use-amazon-athena-as-data-source" title="Permanent link">¶</a></h2>
+<blockquote>
+<p>For this lab, you will need to choose the region where your data resides. </p>
+</blockquote>
+<p><img alt="image" src="img/oregon.png"/></p>
+<ol>
+<li>
+<p>Click on the region icon on the top-right corner of the page, and select the region where your data resides. </p>
+</li>
+<li>
+<p>Click on <strong>Manage data</strong> on the top-right corner of the webpage to review existing data sets.</p>
+</li>
+</ol>
+<p><img alt="image" src="img/oregon-manage.png"/></p>
+<ol>
+<li>
+<p>Click on <strong>New data set</strong> on the top-left corner of the webpage and review the options. </p>
+</li>
+<li>
+<p>Select <strong>Athena</strong> as a Data source.</p>
+</li>
+</ol>
+<p><img alt="image" src="img/connectors.png"/></p>
+<ol>
+<li>Enter the <strong>Data source</strong> <strong>name</strong> (e.g. <em>AthenaDataSource</em>).</li>
+</ol>
+<p><img alt="image" src="img/athena-ds.png"/></p>
+<ol>
+<li>Click <strong>Create data source</strong>.</li>
+<li>Select your created Athena database.</li>
+</ol>
+<p><img alt="image" src="img/athena-table.png"/></p>
+<ol>
+<li>
+<p>Choose the table you need to visualize its data.</p>
+</li>
+<li>
+<p>Choose <strong>Save and Visualize</strong> on top of the page.</p>
+</li>
+</ol>
+<h2 id="visualizing-the-data-using-amazon-quicksight">Visualizing the data using Amazon QuickSight<a class="headerlink" href="#visualizing-the-data-using-amazon-quicksight" title="Permanent link">¶</a></h2>
+<p>Before you start building dashboard graphs with QuickSight, pick two - three columns from your
+data set that meet the following criteria:
+1. The first column is a date column (can be year, month or day. Usually marked by <strong>calendar icon</strong>
+in <strong>Fields list</strong> on the left)
+2. The second column is a quantifiable number (revenue, count, distance, etc. Usually
+marked by a <strong>green hash #</strong>)
+3. The third column has categorical value, which means it has specific limited set of values (type,
+category, etc. Usually marked by <strong>ticket icon</strong>)</p>
+<p>Now that you have configured the data source and picked your columns to work with, we will
+start by forecasting values in future dates based on your sample data.</p>
+<h3 id="forecast-monthly-trend-for-your-quantity-column">Forecast Monthly Trend for your Quantity Column<a class="headerlink" href="#forecast-monthly-trend-for-your-quantity-column" title="Permanent link">¶</a></h3>
+<ol>
+<li>Under the <strong>Fields list</strong>, Select your <strong>Date</strong> column for x-axis by clicking on the field name.</li>
+<li>Change the visual type to a line chart by selecting the line chart icon highlighted in the screenshot below under <strong>Visual types</strong>.</li>
+</ol>
+<p>At this point, the Y-axis of the visual will be populated automatically with count of records
+that match each date individually. You can keep it that way and do forecasting for
+<strong>count of records</strong>, or choose another <strong>quantity attribute</strong> from Fields list to populate
+ Y-axis automatically and have more meaningful forecast.</p>
+<p>Before viewing the forecast, you can choose the level of aggregation you want for your <strong>date</strong>
+column to populate X-axis by year, month or day. 
+4. Click on the <strong>date</strong> field name in top <strong>Field Wells</strong> bar to reveal a sub-menu.
+5. Select <strong>Aggregate:Month</strong> to aggregate by month.</p>
+<p>You can also use the slider on the X-axis to select the range of values to appear in the graph.</p>
+<p><img alt="image" src="img/prepare-forecast.png"/></p>
+<ol>
+<li>Click arrow in top right corner of the visual and select <strong>Add forecast</strong>.</li>
+</ol>
+<p><img alt="image" src="img/forecast.png"/></p>
+<p><img alt="image" src="img/end.png"/></p>
+<p><strong>NOTE:</strong> Make sure your Y-axis is assigned to a quantity column before proceeding.</p>
+<h3 id="visualize-month-over-month-quantity">Visualize Month over Month Quantity<a class="headerlink" href="#visualize-month-over-month-quantity" title="Permanent link">¶</a></h3>
+<ol>
+<li>Add a new visual by duplicating the previous visual. Click on visual top right arrow and select <strong>Duplicate visual</strong>.</li>
+<li>Select <strong>KPI</strong> as the Visual Type (bottom left of the screen).</li>
+<li>In the field wells, click arrow in <strong>Date</strong> column to change the aggregation level to Month or as needed.</li>
+</ol>
+<p><img alt="image" src="img/kpi.png"/></p>
+<ol>
+<li>Now select format visual by clicking on arrow on top right corner of the KPI graph.</li>
+<li>Select <strong>Different as percent(%)</strong> under <strong>comparison method</strong> on the left.</li>
+</ol>
+<p><img alt="image" src="img/kpi-percent.png"/></p>
+<h3 id="review-ml-insights">Review ML Insights<a class="headerlink" href="#review-ml-insights" title="Permanent link">¶</a></h3>
+<ol>
+<li>Click the ‘Insights’ menu on the left. Notice all the suggested insights QuickSight has generated based on what has been built so far!</li>
+<li>Hover over any of the insights and click the ‘+’ to add it to the dashboard.</li>
+</ol>
+<p><img alt="image" src="img/add-insight.png"/></p>
+<p><strong>NOTE:</strong> You can customize the narrative by clicking on top right arrow of the visual and
+selecting <strong>Customize narrative</strong>.</p>
+<blockquote>
+<p>Note: The interesting outlier in the above graph is that on Jan23rd, 2016, you see the dip in the number of taxis across all types. Doing a quick google search for that date, gets us this weather article from NBC New York
+<img alt="image" src="https://s3.amazonaws.com/us-east-1.data-analytics/labcontent/reinvent2017content-abd313/lab2/qsimage22.PNG"/></p>
+</blockquote>
+<p><em>Using Amazon QuickSight, you were able to see patterns across a time-series data by building visualizations, performing ad-hoc analysis, and quickly generating insights.</em></p>
+<hr/>
+<h2 id="license">License<a class="headerlink" href="#license" title="Permanent link">¶</a></h2>
+<p>This library is licensed under the Apache 2.0 License. </p>
+</article>
+</div>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-nav">
+<nav class="md-footer-nav__inner md-grid">
+<a class="md-flex md-footer-nav__link md-footer-nav__link--prev" href="../02_orchestration/orchestration.html" rel="prev" title="Orchestration">
+<div class="md-flex__cell md-flex__cell--shrink">
+<i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+</div>
+<div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+<span class="md-flex__ellipsis">
+<span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Orchestration
+              </span>
+</div>
+</a>
+</nav>
+</div>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<script src="../assets/javascripts/application.ac79c3b0.js"></script>
+<script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
+</body>
+</html>

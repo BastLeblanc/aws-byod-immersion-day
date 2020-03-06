@@ -7,9 +7,9 @@ docs_dir: labs
 nav:
   - Data Engineering: index.md
   - BYOD Labs:
-    - Transformation: ingestion_with_glue.md
-    - Orchestration: orchestration.md
-    - Visualization and Reporting: visualization_and_reporting/README.md
+    - Transformation: 01_ingestion_with_glue/ingestion_with_glue.md
+    - Orchestration: 02_orchestration/orchestration.md
+    - Visualization and Reporting: 03_visualization_and_reporting/README.md
 #  - Presentation: Insight_Driven_Enterprises_Presentation.pdf
 theme:
   highlightjs: true
@@ -26,7 +26,7 @@ plugins:
   - pdf-export:
       verbose: false
 extra_css:
-  - css/extra.css
+#  - css/extra.css
 use_directory_urls: false
 extra:
   social:
