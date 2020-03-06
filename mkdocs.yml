@@ -1,0 +1,63 @@
+site_name: AWS Data Engineering Immersion Day
+site_url: https://data-engineering.labgui.de
+#repo_url: https://github.com/BastLeblanc/aws-byod-immersion-day
+#repo_name: 'GitHub'
+site_description: AWS BYOD Immersion Day
+docs_dir: labs
+nav:
+  - Data Engineering: index.md
+  - BYOD Labs:
+    - Transformation: ingestion_with_glue.md
+    - Orchestration: orchestration.md
+    - Visualization and Reporting: visualization_and_reporting/README.md
+#  - Presentation: Insight_Driven_Enterprises_Presentation.pdf
+theme:
+  highlightjs: true
+  #name: 'ivory'
+  name: 'material'
+  language: 'en'
+  palette:
+    primary: 'blue grey'
+    accent: 'orange'
+  logo: 'img/Amazon_Web_Services_Logo.svg'
+  favicon: 'img/favicon.ico'
+plugins:
+  - search
+  - pdf-export:
+      verbose: false
+extra_css:
+  - css/extra.css
+use_directory_urls: false
+extra:
+  social:
+#    - type: 'github'
+#      link: 'https://github.com/...'
+#    - type: 'twitter'
+#      link: 'https://twitter.com/...'
+markdown_extensions:
+  - admonition
+  - smarty
+#  - markdown.extensions.codehilite:
+#      guess_lang: false
+#  - markdown.extensions.def_list
+#  - markdown.extensions.footnotes
+#  - markdown.extensions.meta
+  - toc:
+      permalink: true
+#  - pymdownx.arithmatex
+#  - pymdownx.betterem:
+#      smart_enable: all
+#  - pymdownx.caret
+#  - pymdownx.critic
+#  - pymdownx.emoji:
+#      emoji_generator: !!python/name:pymdownx.emoji.to_svg
+#  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+#  - pymdownx.mark
+#  - pymdownx.smartsymbols
+#  - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
+#  - pymdownx.tilde
+  - fontawesome_markdown
+
