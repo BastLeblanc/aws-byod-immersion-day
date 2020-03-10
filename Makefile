@@ -5,5 +5,4 @@ clean:
 
 site:
 	mkdocs build
-#	aws s3 rm s3://data-engineering-immersion-day-byod --recursive
-#	cd site; aws s3 cp . s3://data-engineering-immersion-day-byod --recursive
+	aws s3 sync site/ s3://demos.bastil.cloud/byod/ --delete
