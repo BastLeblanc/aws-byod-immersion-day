@@ -173,29 +173,49 @@ Now, on the Amazon QuickSight dashboard, navigate to User Settings page on the T
 
 5. Enter the **Data source** **name** (e.g. *AthenaDataSource*).
 
-![image](img/athena-ds.png)
+6. Select the Athena **workgroup** you created specifically for Quicksight. Then **Validate the Connection**.
 
-6. Click **Create data source**.
-7. Select your created Athena database.
+![image](img/AthenaWorkGroup_DataSource.png)
 
-![image](img/athena-table.png)
+7. Click **Create data source**.
 
 8. Choose the table you need to visualize its data.
 
 9. Choose **Save and Visualize** on top of the page.
 
-## Visualizing the data using Amazon QuickSight
+***Alternative Option***
 
-Before you start building dashboard graphs with QuickSight, pick two - three columns from your
+You can choose to create a dataset using S3 as your data source. For this:
+* Make sure you have granted Amazon QuickSight access to any Amazon S3 buckets that you want to read files from.
+* Create a manifest file to identify the text files that you want to import. [Supported Formats for Amazon S3 Manifest Files](https://docs.aws.amazon.com/quicksight/latest/user/supported-manifest-file-format.html)
+
+## Preparing your data
+
+1. You can edit an existing data set to perform data preparation. To edit a data set from the Your **Data Sets page**, choose the data set, and then choose **Edit Data Set**. The data set opens in the data preparation page.
+*If you want to create a copy of the data set, choose **Duplicate** data set, and enter a name for the copy.*
+
+2. Select the fields that you will use for the visualization.
+![image](img/Select_Fields.png)
+
+We suggest that you pick two - three columns from your
 data set that meet the following criteria:
-1. The first column is a date column (can be year, month or day. Usually marked by **calendar icon**
+*. The first column is a date column (can be year, month or day. Usually marked by **calendar icon**
 in **Fields list** on the left)
-2. The second column is a quantifiable number (revenue, count, distance, etc. Usually
+*. The second column is a quantifiable number (revenue, count, distance, etc. Usually
 marked by a **green hash #**)
-3. The third column has categorical value, which means it has specific limited set of values (type,
+*. The third column has categorical value, which means it has specific limited set of values (type,
 category, etc. Usually marked by **ticket icon**)
 
-Now that you have configured the data source and picked your columns to work with, we will
+3. Optional - Change the data type. You can change the field's data type in one of the available data types.
+![image](img/Field_DataTypes.png)
+   
+   You can also modify the format of your date field(s) into one of the supported formats.
+![image](img/DateFormat.png)
+
+
+## Visualizing the data using Amazon QuickSight
+
+Now that you have configured the data source and prepared the dataset to work with, we will
 start by forecasting values in future dates based on your sample data.
 
 ### Forecast Monthly Trend for your Quantity Column
