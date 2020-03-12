@@ -2,22 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
      <loc>https://data-engineering.labgui.de/index.html</loc>
-     <lastmod>2020-03-11</lastmod>
+     <lastmod>2020-03-12</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://data-engineering.labgui.de/01_ingestion_with_glue/ingestion_with_glue.html</loc>
-     <lastmod>2020-03-11</lastmod>
+     <lastmod>2020-03-12</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://data-engineering.labgui.de/02_orchestration/orchestration.html</loc>
-     <lastmod>2020-03-11</lastmod>
+     <lastmod>2020-03-12</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://data-engineering.labgui.de/03_visualization_and_reporting/README.html</loc>
-     <lastmod>2020-03-11</lastmod>
+     <lastmod>2020-03-12</lastmod>
      <changefreq>daily</changefreq>
     </url>
 </urlset>
