@@ -1,16 +1,21 @@
 # Lab 2: Visualization using Amazon QuickSight
 
-* [Create an Amazon S3 bucket](#create-an-amazon-s3-bucket)
-* [Creating Amazon Athena Database and Table](#creating-amazon-athena-database-and-table)
-    * [Create Athena Database](#create-database)
-    * [Create Athena Table](#create-a-table)
-* [Signing up for Amazon Quicksight Standard Edition](#signing-up-for-amazon-quicksight-standard-edition)
-* [Configuring Amazon QuickSight to use Amazon Athena as data source](#configuring-amazon-quicksight-to-use-amazon-athena-as-data-source)
-* [Visualizing the data using Amazon QuickSight](#visualizing-the-data-using-amazon-quicksight)
-    * [Add year based filter to visualize the dataset for the year 2016](#add-year-based-filter-to-visualize-the-dataset-for-the-year-2016)
-    * [Add the month based filter for the month of January](#add-the-month-based-filter-for-the-month-of-january)
-    * [Visualize the data by hour of day for the month of January 2016](#visualize-the-data-by-hour-of-day-for-the-month-of-january-2016)
-    * [Visualize the data for the month of January 2016 for all taxi types(yellow, green, fhv)](#visualize-the-data-for-the-month-of-january-2016-for-all-taxi-typesyellow-green-fhv)
+- [Lab 2: Visualization using Amazon QuickSight](#Lab-2-Visualization-using-Amazon-QuickSight)
+  - [Architectural Diagram](#Architectural-Diagram)
+  - [Create an Amazon S3 bucket](#Create-an-Amazon-S3-bucket)
+  - [Creating Amazon Athena Database and Table](#Creating-Amazon-Athena-Database-and-Table)
+    - [Setting up Athena (first time users)](#Setting-up-Athena-first-time-users)
+    - [Create Database](#Create-Database)
+    - [Create a Table](#Create-a-Table)
+  - [Signing up for Amazon QuickSight Enterprise Edition](#Signing-up-for-Amazon-QuickSight-Enterprise-Edition)
+  - [Configuring Amazon QuickSight to use Amazon Athena as data source](#Configuring-Amazon-QuickSight-to-use-Amazon-Athena-as-data-source)
+  - [Preparing your data](#Preparing-your-data)
+  - [Visualizing the data using Amazon QuickSight](#Visualizing-the-data-using-Amazon-QuickSight)
+    - [Forecast Monthly Trend for your Quantity Column](#Forecast-Monthly-Trend-for-your-Quantity-Column)
+    - [Adding Filters](#Adding-Filters)
+    - [Visualize Month over Month Quantity](#Visualize-Month-over-Month-Quantity)
+    - [Review ML Insights](#Review-ML-Insights)
+  - [License](#License)
 
     
 

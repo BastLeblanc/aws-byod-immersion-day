@@ -6,4 +6,4 @@ led Labs around AWS data platform services.
 As of now we cover a few Data Engineering use-cases, such as hydrating the
 datalake, orchestration with Glue, data visualization and governance.
 
-Stay tuned, there's more to come.
+This workshop is designed to be followed using your own dataset, during the lab we use some examples of the NYC taxis dataset.
