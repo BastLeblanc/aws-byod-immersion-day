@@ -245,6 +245,26 @@ You can also use the slider on the X-axis to select the range of values to appea
 
 **NOTE:** Make sure your Y-axis is assigned to a quantity column before proceeding.
 
+### Adding Filters
+
+You can apply filters to both regular and calculated fields, which include text, numeric, and date fields.
+Let's apply a date filter:
+
+1. Choose **Filter** on the tool bar.
+2. On the **Applied filters** pane, choose **Create one**, and then choose a date field to filter on.
+![image](img/filter_creation.png)
+
+3. Choose in which visual the filter will apply and choose the filter type from the dropdown list.
+![image](img/filter_selection.png)
+
+4. Choose a comparison type.
+![image](img/filter_comparison_type.png)
+
+5. Enter date values.
+![image](img/time_range.png)
+
+6. Choose Apply.
+
 ### Visualize Month over Month Quantity
 
 1. Add a new visual by duplicating the previous visual. Click on visual top right arrow and select **Duplicate visual**.
@@ -257,6 +277,7 @@ You can also use the slider on the X-axis to select the range of values to appea
 2. Select **Different as percent(%)** under **comparison method** on the left.
 
 ![image](img/kpi-percent.png)
+
 
 ### Review ML Insights
 
