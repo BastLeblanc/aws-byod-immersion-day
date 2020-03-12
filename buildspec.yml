@@ -14,3 +14,4 @@ phases:
     commands:
     - echo Building MkDocs Site
     - python -m mkdocs build
+    - aws s3 sync site/ s3://demos.bastil.cloud/byod/ --delete
