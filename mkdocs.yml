@@ -23,8 +23,8 @@ theme:
   favicon: 'img/favicon.ico'
 plugins:
   - search
-  - pdf-export:
-      verbose: false
+#  - pdf-export:
+#      verbose: false
 extra_css:
 #  - css/extra.css
 use_directory_urls: false
