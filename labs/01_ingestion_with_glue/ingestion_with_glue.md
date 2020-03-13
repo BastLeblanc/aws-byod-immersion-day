@@ -29,8 +29,7 @@ separate folder with the table name. An example would be as follows:
 In this lab we will:<br>
 1. Create IAM role needed for the rest of the labs.<br>
 2. Configure a Glue crawler accessing the raw data.<br>
-3. Define a few Glue jobs which will extract the data from the raw folder and
-save it to the destination folder in [Apache Parquet](https://parquet.apache.org/) format (partitioning will be done later).
+3. Transform the files into Apache Parquet format (https://parquet.apache.org/) using Glue jobs.
 
 ### Create needed IAM Role
 
@@ -67,7 +66,7 @@ d.	ListBucket
 
 NOTE: “AWSGlueServiceRole” is an AWS Managed Policy to provide Glue with needed permissions to access S3 data. However, you still need to allow access to your specific S3 bucket for Glue by attaching “BYOD-S3Policy” created policy.
 
-#### Add a crawler
+### Add a crawler
 
 A crawler connects to a data store to determine the schema for your data, and then creates metadata
 tables in the data catalog.
@@ -96,11 +95,9 @@ tables in the data catalog.
 #### Schema Validation
 
 - In the AWS Glue navigation pane, click Databases > Tables. (You can also click the database name (e.g., "ticketdata" to browse the tables.). 
-- Within the Tables section of your database, click one table.
+- Within the Tables section of your database, click one table. Please note that each file you had under the bucket /raw is now a different table
 
-You may notice that some tables have column headers such as col0,col1,col2,col3. In absence of headers or when the crawler cannot determine the header type, default column headers are specified.
-
-This exercise shows an example of how to resolve this issue.
+You may notice that some tables have column headers such as col0,col1,col2,col3. In absence of headers or when the crawler cannot determine the header type, default column headers are specified. **If this is your case, please follow these steps to resolve**:
 
 - Click Edit Schema on the top right side. 
 - In the Edit Schema section, double-click col0 (column name) to open edit mode. Type a chosen name, e.g. “id” as the column name.
@@ -110,10 +107,13 @@ NOTE: If you have any "id" column as integer, please make sure type is set to "d
 
 - Click Save. 
 
-### Create the aggregation jobs
+### Transform the data to Parquet format
 
-In the following section, we will create some aggregations, which will
-serve as a primary data source for analysts.
+In the following section, we will create one job per each file to transform the data from csv, tsv, xls (typical input formats) to parquet.
+
+![parquet vs csv](./img/ingestion/csv_parquet.png)
+
+
 We place this data under the folder named "*curated*" in the data lake.
 
 - In the Glue Console select the **Jobs** section in the left navigation panel'
@@ -132,9 +132,15 @@ folder inside curated with the table name, and choose it as a location to store 
 results e.g., "s3://{YOUR_DATA_LAKE_BUCKET}/curated/{TABLE_NAME}"
 - Click Next.
 - You can edit schema mapping to destination in this step. If you have an id column as integer type, please make sure it's changed to double by clicking Data type col.
-- click Save job and edit script.
+- click Save and Run job.
 
 ![add a glue job](./img/ingestion/glue-job3.png)
+
+Now repeat this last step per each file/ table you had originally.
+
+So far, what we did is shown in the following diagram
+
+![add a glue job](./img/ingestion/steps_glue.png)
 
 **NOTE: You will be re-visiting this step at the end of the labs to edit generated script
 and do partitioning for your data. This will show you how your Athena queries will perform
