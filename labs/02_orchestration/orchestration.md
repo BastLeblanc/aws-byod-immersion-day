@@ -13,7 +13,9 @@ bucket (raw and curated).
 
 ![data-lake with raw and curated](./img/orchestration/s3_raw_and_curated.png)
 
-So far so good, however we'd probably like to automate this process and repeat it on a daily basis
+So far so good, what we have done its the following
+
+however we'd probably like to automate this process and repeat it on a daily basis
 for example.
 
 
@@ -24,7 +26,22 @@ refresh the data-set every once in a while.
 The next steps assume you need to perform some jobs before running the others. However, if your transformation jobs can run in parallel, feel free to add them in parallel in the pipeline.
 An example of dependent jobs would be if you have jobs that extracts data from other source and ingest it into your data lake before kicking off another transformation jobs.
 
-Let's navigate to the *Workflows* in the *ETL* section on the left side-pane.
+For this basic example we decided to automate the 
+- Crawl CSV data
+- Transformt to parquet
+- Crawl Parquet data (If you need help with this please go to the Resources section)
+
+The first two steps were done in the previous steps, ***please create the crawler for the parquet data***. The updated diagram of what we did plus the new crawler should look something like this
+
+![all_steps_glue](./img/orchestration/steps_glue.png)
+
+Now, lets automate this process so we dont have to worry about it....
+
+It shoud look something like this
+
+![complete workflow](./img/orchestration/workflow_complete.png)
+
+Let's get started - navigate to the *Workflows* in the *ETL* section on the left side-pane.
 
 ![add workflow](./img/orchestration/wf1.png)
 
@@ -37,21 +54,20 @@ Once the workflow is created add the first trigger to it.
 
 ![configuring the trigger](./img/orchestration/wf3.png)
 
-- make sure you selected the *Add New* tab;
-- define a *Name* for the new trigger (`transform-data`);
-- specify the *Frequency* before you press **Add** (let's say you run this
-    workflow at the 30th minute of every hour);
+1. Make sure you selected the *Add New* tab;
+2. Define a *Name* for the new trigger (`trigger-crawler-csv`);
+3. Specify the *Frequency* before you press **Add** (let's say you run this workflow once a day);
 
 <!---![adding jobs to the trigger](./img/orchestration/wf4.png)--->
 
-Start by clicking on the newly created trigger, then add the needed jobs
-to it (that will run in parallel).
+Start by clicking on the newly created trigger, then add the needed crawler
+to it
 
-![adding jobs to the trigger](./img/orchestration/wf5.png)
+![adding crawler to the trigger](./img/orchestration/wf51.png)
 
-###Adding dependent jobs (Optional)
+###Adding dependent jobs
 
-Next we add one more trigger to start the aggregation as soon the ingestion is
+Next we add one more trigger to start the parque transformation as soon the ingestion is
 finished. Let's start by clicking on the **Add trigger** option in the top right
 corner of the workflow editor.
 
@@ -70,7 +86,7 @@ job, once all the ingestion jobs are finished.
 
 Now we have a trigger, we just need 2 more steps:
 
-- add the dependency jobs (the ones to be watched)
+- add the dependency jobs (the ones that will trigger the next job), in this case its the crawler
 - add the job which needs to be triggered once all watched ones are completed;
 
 ![adding jobs to the trigger](./img/orchestration/wf9.png)
@@ -78,7 +94,11 @@ Now we have a trigger, we just need 2 more steps:
 Select the jobs that need to run first, make sure that we're watching for the
 **SUCCEEDED** event and push **Add**.
 
-![adding jobs to the trigger](./img/orchestration/wf10.png)
+![adding jobs to the trigger](./img/orchestration/wf91.png)
+
+now, add the jobs to trigger
+
+![adding jobs to the trigger](./img/orchestration/wf10-1.png)
 
 <!--- Now we define the job to be triggered:
 
@@ -86,11 +106,54 @@ Select the jobs that need to run first, make sure that we're watching for the
 
 <!---![adding jobs to the trigger](./img/orchestration/wf12.png)--->
 
-We are almost there, however there's one more thing: the data we just generated
-is not available in the data catalog for wider audiences.
-Let's configure a one more crawler for our curated data and add it to the workflow.
+We are almost there, however there's one more thing: we need to add the crawler for the curated data - Please follow the same steps
+1. Add a triget
+2. Add a job to watched (In this case the transform job)
+3. Add a job to be trigger (In this case the crawler-parquet)
+   
 
-## Register the staged data tables in the data catalog
+### Reviewing the results
+
+<!---If everything went according to the plan, we should see something similar to the
+screenshot below (this is just an example):
+
+![final workflow](./img/orchestration/wf-end-result.png)--->
+
+Once we are
+ready, we can try out the workflow by clicking on **Run** in the **Actions**
+menu.
+
+> Once you selected a job, you can monitor it the execution status in the *History* TAB in the bottom
+> panel;
+> If the job(s) succeeded, visit the *Metrics* TAB to see resource utilisation
+> and data movement information;
+> Also note that the jobs can take quite a bit of time to end, about 15 minutes in total.
+
+When jobs succeed you should find in your S3
+bucket a folder called *curated* with subfolders for all your tables.
+
+![check out the execution results](./img/orchestration/wf-observe1.png)
+
+By selecting the latest Job and clicking on the **View run details** you can
+monitor the execution results of the data processing pipeline:
+
+Once the pipeline succeeded at least once, we should be able to observe the newly
+created databases in the data catalog.
+
+![check out the execution results](./img/orchestration/dc-1.png)
+
+When you navigate to the **Tables** you will observe tables created from your data files.
+
+<!---![check out the execution results](./img/orchestration/dc-2.png)--->
+
+"What can I do with it?", you may wonder. Stay tuned, we will cover this in
+great details in the next session.
+
+
+
+## Resources
+
+###Register the staged data tables in the data catalog
 
 Navigate to the **Crawlers** section in the left pane and press **Add crawler**.
 
@@ -114,47 +177,6 @@ We return to the *Workflows* in the left side pane, select our created workflow 
 - Select the **Add jobs/crawlers to trigger** option;
 - This time select the **Crawlers** tab and check your curated
     crawler.
-   
 
-### Reviewing the results
 
-<!---If everything went according to the plan, we should see something similar to the
-screenshot below (this is just an example):
 
-![final workflow](./img/orchestration/wf-end-result.png)--->
-
-**NOTE:** In your created workflow, it starts by executing the jobs. However, because there is always
-new data being added or updated in your raw folder, you should later add your created crawler
-in the very beginning as the trigger to your transformation jobs.
-
-Once we are
-ready, we can try out the workflow by clicking on **Run** in the **Actions**
-menu.
-
-> Once you selected a job, you can monitor it the execution status in the *History* TAB in the bottom
-> panel;
-> If the job(s) succeeded, visit the *Metrics* TAB to see resource utilisation
-> and data movement information;
-> Also note that the jobs can take quite a bit of time to end, about 15 minutes in total.
-
-When jobs succeed you should find in your S3
-bucket a folder called *curated* with subfolders for all your tables.
-
-![check out the execution results](./img/orchestration/wf-observe1.png)
-
-By selecting the latest Job and clicking on the **View run details** you can
-monitor the execution results of the data processing pipeline:
-
-![check out the execution results](./img/orchestration/wf-observe3.png)
-
-Once the pipeline succeeded at least once, we should be able to observe the newly
-created databases in the data catalog.
-
-![check out the execution results](./img/orchestration/dc-1.png)
-
-When you navigate to the **Tables** you will observe tables created from your data files.
-
-<!---![check out the execution results](./img/orchestration/dc-2.png)--->
-
-"What can I do with it?", you may wonder. Stay tuned, we will cover this in
-great details in the next session.
