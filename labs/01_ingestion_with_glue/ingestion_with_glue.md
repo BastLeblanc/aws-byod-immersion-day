@@ -112,14 +112,11 @@ glueContext = GlueContext(SparkContext.getOrCreate())
 job = Job(glueContext)
 
 ## DONT FORGET TO PUT IN YOUR INPUT AND OUTPUT FOLDER LOCATIONS.
-your_bucket_name = ""
-your_table_name = ""
+## DONT FORGET TO PUT IN YOUR INPUT AND OUTPUT FOLDER LOCATIONS.
+input_location = "s3://YOUR-BUCKET-NAME/raw/YOUR-TABLE-NAME"
+output_location = "s3://YOUR-BUCKET-NAME/curated/YOUR-TABLE-NAME"
 
-
-input_location = "s3://"+your_bucket_name+"/raw/"+your_table_name
-output_location = "s3://"+your_bucket_name+"/curated/"+your_table_name
-
-job.init("byod-workshop" + datetime.datetime.now().timestamp())
+job.init("byod-workshop" + str(datetime.datetime.now().timestamp()))
 
 dynamicF = glueContext.create_dynamic_frame_from_options(
     connection_type="s3",
