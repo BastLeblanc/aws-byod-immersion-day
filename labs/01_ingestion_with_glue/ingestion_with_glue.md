@@ -80,7 +80,7 @@ In this lab we will:
 
 NOTE: “AWSGlueServiceRole” is an AWS Managed Policy to provide Glue with needed permissions to access S3 data. However, you still need to allow access to your specific S3 bucket for Glue by attaching “BYOD-S3Policy” created policy.
 
-#### Creating a Development Endpoint and Notebook (First Part)
+### Creating a Development Endpoint and Notebook (First Part)
 
 1. On the left menu, click in Dev. enpoints and **Add endpoint**. 
 2. Development endpoint name: `byod`
@@ -199,7 +199,7 @@ NOTE: If you have any "id" column as integer, please make sure type is set to "d
 - Click Save. 
 
 
-#### Creating a Development Endpoint and Notebook (Second Part)
+### Creating a Development Endpoint and Notebook (Second Part)
 
 1. Go to Notebooks, click Create notebook 
 2. Notebook name: aws-glue-`byod`
