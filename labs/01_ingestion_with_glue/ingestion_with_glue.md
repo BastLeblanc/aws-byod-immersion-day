@@ -80,6 +80,20 @@ In this lab we will:
 
 NOTE: “AWSGlueServiceRole” is an AWS Managed Policy to provide Glue with needed permissions to access S3 data. However, you still need to allow access to your specific S3 bucket for Glue by attaching “BYOD-S3Policy” created policy.
 
+#### Creating a Development Endpoint and Notebook (First Part)
+
+1. On the left menu, click in Dev. enpoints and **Add endpoint**. 
+2. Development endpoint name: `byod`
+3. IAM role: `byod`
+4. Click **Next** 
+5. Select Skip networking information
+6. Click **Next** 
+7. Click **Next** - No need to Add SSH public key for Now
+8. Click **Finish** 
+
+It will take a while to create the endpoint - we will be back to this step. Please continue.
+
+
 ## Transform the data to Parquet format
 
 In the following section, we will create one job per each file to transform the data from csv, tsv, xls (typical input formats) to parquet.
@@ -183,6 +197,15 @@ You may notice that some tables have column headers such as col0,col1,col2,col3.
 NOTE: If you have any "id" column as integer, please make sure type is set to "double".
 
 - Click Save. 
+
+
+#### Creating a Development Endpoint and Notebook (Second Part)
+
+1. Go to Notebooks, click Create notebook 
+2. Notebook name: aws-glue-`byod`
+3. Attach to development: choose the endopoint created some steps back
+4. Choose an existing IAM Role and choose the IAM role created some steps back.
+5. **Create notebook**
 
 
 **NOTE: You will be re-visiting this step at the end of the labs to edit generated script and do partitioning for your data. This will show you how your Athena queries will perform better after partitioning. Currently running jobs multiple times will result in duplicate files being created in destination folders, which can give wrong results later with your queries. We will handle this in the partitioning section later. In the mean time, make sure your destination folders are empty each time if you want to run your jobs. We will run all jobs as a pipeline in the next lab.**
