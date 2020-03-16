@@ -80,7 +80,7 @@ In this lab we will:
 
 NOTE: “AWSGlueServiceRole” is an AWS Managed Policy to provide Glue with needed permissions to access S3 data. However, you still need to allow access to your specific S3 bucket for Glue by attaching “BYOD-S3Policy” created policy.
 
-### Transform the data to Parquet format
+## Transform the data to Parquet format
 
 In the following section, we will create one job per each file to transform the data from csv, tsv, xls (typical input formats) to parquet.
 
@@ -142,7 +142,7 @@ job.commit()
 
 Now repeat this last step per each file / table you had originally.
 
-### Add a crawler
+## Add a crawler
 
 Now that we have the data in Parquet format, we need to infer the schema. 
 Glue crawler connects to a data store to determine the schema for your data, and then creates metadata
@@ -169,7 +169,7 @@ tables in the data catalog.
 - select the newly created crawler and push the **Run crawler** button. It will
     take a few minutes until it populates the data catalog.
     
-#### Schema Validation
+## Schema Validation
 
 - In the AWS Glue navigation pane, click Databases > Tables. (You can also click the database name (e.g., "ticketdata" to browse the tables.). 
 - Within the Tables section of your database, click one table. Please note that each file you had under the bucket /raw is now a different table
