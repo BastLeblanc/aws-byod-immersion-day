@@ -25,9 +25,8 @@ separate folder with the table name. An example would be as follows:
 
 In this lab we will:
 
-1. Create IAM role needed for the rest of the labs.
-2. Configure a Glue crawler accessing the raw data.
-3. Transform the files into Apache Parquet format (https://parquet.apache.org/) using Glue jobs.
+1. Create IAM roles needed for the rest of the labs.
+2. Transform the files into Apache Parquet format (https://parquet.apache.org/) using Glue jobs.
 
 ### Configure Permissions
 
@@ -142,5 +141,48 @@ job.commit()
 ![add a glue job](./img/ingestion/glue-job3.png)
 
 Now repeat this last step per each file / table you had originally.
+
+### Add a crawler
+
+Now that we have the data in Parquet format, we need to infer the schema. 
+Glue crawler connects to a data store to determine the schema for your data, and then creates metadata
+tables in the data catalog.
+
+- start by navigating to the *Crawlers* menu on the navigation pane, then press
+**Add crawler**.
+- specify the name: {choose-name}-ds and press **Next**;
+- choose *Data stores* as *Crawler source type* and press **Next**;
+- Choose *S3* as data store. Add S3 path where your raw data resides
+    and press **Next*;
+- At this stage we don't add any other data source;
+- Choose the *glue-processor-role* as IAM Role and proceed to the schedule;
+- Leave the *Run on demand* option at the Frequency section and press **Next**;
+
+![add a new database](./img/ingestion/crawler2.png)
+
+- Click on the **Add database** button and specify {choose-name}_src as
+    database name (this will be the name representing the source database in the
+    data catalog). Press **Next** and **Finish**;
+
+![add a new database](./img/ingestion/crawler3.png)
+
+- select the newly created crawler and push the **Run crawler** button. It will
+    take a few minutes until it populates the data catalog.
+    
+#### Schema Validation
+
+- In the AWS Glue navigation pane, click Databases > Tables. (You can also click the database name (e.g., "ticketdata" to browse the tables.). 
+- Within the Tables section of your database, click one table. Please note that each file you had under the bucket /raw is now a different table
+
+You may notice that some tables have column headers such as col0,col1,col2,col3. In absence of headers or when the crawler cannot determine the header type, default column headers are specified. **If this is your case, please follow these steps to resolve**:
+
+- Click Edit Schema on the top right side. 
+- In the Edit Schema section, double-click col0 (column name) to open edit mode. Type a chosen name, e.g. “id” as the column name.
+- Repeat the preceding step to change the remaining column names to match those shown in the following figure.
+
+NOTE: If you have any "id" column as integer, please make sure type is set to "double".
+
+- Click Save. 
+
 
 **NOTE: You will be re-visiting this step at the end of the labs to edit generated script and do partitioning for your data. This will show you how your Athena queries will perform better after partitioning. Currently running jobs multiple times will result in duplicate files being created in destination folders, which can give wrong results later with your queries. We will handle this in the partitioning section later. In the mean time, make sure your destination folders are empty each time if you want to run your jobs. We will run all jobs as a pipeline in the next lab.**
