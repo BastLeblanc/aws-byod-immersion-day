@@ -128,7 +128,7 @@ CREATE  DATABASE  mydatabase
 
   
 
-6. Ensure *mydatabase* appears in the DATABASE list on the **Catalog** dashboard
+5. Ensure *mydatabase* appears in the DATABASE list on the **Catalog** dashboard
 
 ![image](img/athena_database.png)
   
@@ -183,10 +183,10 @@ LOCATION  's3://us-west-2.serverless-analytics/canonical/NY-Pub'
 
   
 
-4.Ensure the table you just created appears on the Catalog dashboard for the selected database.
+4. Ensure the table you just created appears on the Catalog dashboard for the selected database.
 
   
-
+#### Adding Partition Meta-data
 Now that you have created the table you need to add the partition metadata to the Amazon Athena Catalog.
 
   
