@@ -13,8 +13,6 @@
 	 * [Using Columnar Storage](#using-columnar-storage)
 	 * [Partitioning your Data](#partitioning-your-data)
  * [Using 'CREATE TABLE AS SELECT'](#using-create-table-as-select)
-	 * [Using CTAS to create subset tables](#using-ctas-to-create-subset-tables)
-	 * [Comparing Results](#comparing-results)
  * [Detecting New Partitions](#detecting-new-partitions)
  * [Joining Tables](#joining-tables)
  * [(Optional) Creating Views](#creating-views)
@@ -83,9 +81,7 @@ If you’re a first time Athena user, you will have to configure an S3 bucket, w
 
 5. In the **Review** tab, click on **Create Bucket**
 
-  
-
-![createbucketpopup.png](https://s3.amazonaws.com/us-east-1.data-analytics/labcontent/reinvent2017content-abd313/lab1/createbucketpopup.png)
+![image](img/athena-s3.png)
 
 ### Setting up Amazon Athena
 
@@ -105,7 +101,7 @@ You can use an already existing bucket with a dedicated folder or you can create
 **[OPTIONAL]**
   
 
-> Note: If you have complete the [Lab 1: Serverless Analysis of data in Amazon S3 using Amazon Athena](../Lab1) you can skip this section and go to the next section [Signing up for Amazon Quicksight Standard Edition](#signing-up-for-amazon-quicksight-standard-edition)
+> Note: If you have complete the [Lab 1: Ingestion with Glue](../01_ingestion_with_glue) you can skip this section and go to the next section [(Optional) Amazon Athena Best Practices](#amazon-athena-best-practices)
 
   
 
@@ -257,7 +253,7 @@ To see the benefit of partitioning, let's run the same query on the raw (non par
 
 SELECT count(*) AS FilterCount 
 from {raw_table_name} 
-where {condition_on_partitioned_column
+where {condition_on_partitioned_column}
 
 ```
 
@@ -288,9 +284,8 @@ In this lab we will show you how to create a subset table from the original tabl
 
 > Note: This lab will run on the Curated Table
 
-### Using CTAS to create subset tables
 
-#### First subset - partitioned
+### Using CTAS to create First subset - partitioned
  1. Open the [AWS Management Console for Athena](https://console.aws.amazon.com/athena/home) and make sure you are on the same AWS Region.
  2. Choose the *{curated database}* from the dropdown menu and execute the following query:
  ```sql
@@ -312,7 +307,7 @@ where {CTAS_condition}
  3. Navigate to S3 and check the newly created files
  ![image](img/athena_ctas_s3_nobuck.png)
 
-#### Second subset - partitioned and bucketed
+### Using CTAS to create Second subset - partitioned and bucketed
  
 
  1. Choose the *{curated database}* from the dropdown menu and execute the following query:
@@ -401,7 +396,7 @@ If your table has sub-partitions (for example; partition by year and month), cre
 
 
  7. Wait for the query to finish and check the results.
-   ![image](img/athena_showpart.png)
+   ![image](img/athena_showpart2.png)
    
  8. Run the ```SHOW PARTITIONS {curated_table_name}``` query again and wait for the query to finish. You will notice in the results that Athena now recogises the new partitions.
    ![image](img/athena_newpart_msc.png)
