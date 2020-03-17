@@ -75,7 +75,7 @@ data_DF.show()
 
 Now, depending on the time format, please select which line of code you will use according to your date type format.
 
-**ISO 8601 TIMESTAMP¶**
+**ISO 8601 TIMESTAMP**
 Below is example code that can be used to do the conversion from ISO 8601 date format.
 
 ``` python 
@@ -83,14 +83,15 @@ Below is example code that can be used to do the conversion from ISO 8601 date f
 data_df=data_df.withColumn('trx_date', date_format(data_df['{YOUR_DATE_COL_NAME}'], "y-M").cast(DateType()))
 ```
 
-**UNIX TIMESTAMP¶**
+**UNIX TIMESTAMP**
 
 ``` python
 ## Adding trx_date date column with y-M format converting a current timestamp/unix date format
 data_df=data_df.withColumn('trx_date', date_format(from_unixtime(data_df['{YOUR_DATE_COL_NAME}']), "y-M").cast(DateType()))
 ```
 
-**OTHER DATE FORMATS¶**
+**OTHER DATE FORMATS**
+
 To convert unique data formats, we use to_date() function to specify how to parse your value specifying date literals in second attribute (Look at resources section for more information).
 
 ``` python
@@ -98,7 +99,7 @@ To convert unique data formats, we use to_date() function to specify how to pars
 data_df=data_df.withColumn('trx_date', date_format(to_date(data_df['{YOUR_DATE_COL_NAME}'], {DATE_LITERALS}), "y-M").cast(DateType()))
 ```
 
-####Example NY Taxis dataset
+#### Example NY Taxis dataset
 
 ``` python 
 ## Adding trx_date date column with y-M format converting a current timestamp/unix date format
@@ -119,9 +120,17 @@ taxis_date2_df.show()
 
 ## Run this in a Glue Job
 
+
+Please add this lines to the end of your notebook 
+
+``` python
+datasource1 = DynamicFrame.fromDF(taxis_date2_df, glueContext, "datasource1")
+datasink4 = glueContext.write_dynamic_frame.from_options(frame = datasource1, connection_type = "s3", connection_options = {"path": "s3://YOUR_BUCKET"}, format = "parquet", transformation_ctx = "datasink4")
+```
+
 Now, lets export our job and move it into a glue job.
 
-![exporting notebook to glue](./img/orchestration/notebook-to-glue.png)
+![exporting notebook to glue](./img/notebook-to-glue.png)
 
 1. Click File
 2. Download as > Pyspark (txt)
