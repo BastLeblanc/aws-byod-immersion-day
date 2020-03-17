@@ -1,7 +1,6 @@
 # Introduction
 
-In this Lab we will create a schema from your data optimized for analytics and place the result in an S3 bucket
-based data lake.
+In this Lab we will create a schema from your data optimized for analytics and place the result in an S3 bucket based data lake.
 
 ## Before you begin
 
@@ -82,17 +81,16 @@ NOTE: “AWSGlueServiceRole” is an AWS Managed Policy to provide Glue with nee
 
 ### Creating a Development Endpoint and Notebook (First Part)
 
-1. On the left menu, click in Dev. enpoints and **Add endpoint**. 
+1. On the left menu, click in Dev. enpoints and **Add endpoint**.
 2. Development endpoint name: `byod`
 3. IAM role: `byod`
-4. Click **Next** 
+4. Click **Next**
 5. Select Skip networking information
-6. Click **Next** 
-7. Click **Next** - No need to Add SSH public key for Now
-8. Click **Finish** 
+6. Click **Next**
+7. Click **Next** \- No need to Add SSH public key for Now
+8. Click **Finish**
 
 It will take a while to create the endpoint - we will be back to this step. Please continue.
-
 
 ## Transform the data to Parquet format
 
@@ -104,8 +102,7 @@ We will place this data under the folder named "*curated*" in the data lake.
 
 * In the Glue Console select the **Jobs** section in the left navigation panel'
 * Click on the *Add job* button;
-* specify a name (preferably **TABLE-NAME-1-job**) in the name field, then select the
-*"glue-processor-role"*;
+* specify a name (preferably **TABLE-NAME-1-job**) in the name field, then select the *"glue-processor-role"*;
 * select the option "*A new script to be authored by you*";
 * Provide a script name (preferably **TABLE-NAME-1-job-script.py**)
 * Tick the checkbox for "*Job Metrics*", under **Monitoring Options** and hit **Next**;
@@ -124,8 +121,7 @@ from awsglue.job import Job
 glueContext = GlueContext(SparkContext.getOrCreate())
 job = Job(glueContext)
 
-## DONT FORGET TO PUT IN YOUR INPUT AND OUTPUT FOLDER LOCATIONS.
-## DONT FORGET TO PUT IN YOUR INPUT AND OUTPUT FOLDER LOCATIONS.
+## DONT FORGET TO PUT IN YOUR INPUT AND OUTPUT FOLDER LOCATIONS BELOW.
 input_location = "s3://YOUR-BUCKET-NAME/raw/YOUR-TABLE-NAME"
 output_location = "s3://YOUR-BUCKET-NAME/curated/YOUR-TABLE-NAME"
 
@@ -158,54 +154,46 @@ Now repeat this last step per each file / table you had originally.
 
 ## Add a crawler
 
-Now that we have the data in Parquet format, we need to infer the schema. 
+Now that we have the data in Parquet format, we need to infer the schema.
 Glue crawler connects to a data store to determine the schema for your data, and then creates metadata
 tables in the data catalog.
 
-- start by navigating to the *Crawlers* menu on the navigation pane, then press
-**Add crawler**.
-- specify the name: {choose-name}-ds and press **Next**;
-- choose *Data stores* as *Crawler source type* and press **Next**;
-- Choose *S3* as data store. Add S3 path where your raw data resides
-    and press **Next*;
-- At this stage we don't add any other data source;
-- Choose the *glue-processor-role* as IAM Role and proceed to the schedule;
-- Leave the *Run on demand* option at the Frequency section and press **Next**;
+* start by navigating to the *Crawlers* menu on the navigation pane, then press **Add crawler**.
+* specify the name: {choose-name}-ds and press **Next**;
+* choose *Data stores* as *Crawler source type* and press **Next**;
+* Choose *S3* as data store. Add S3 path where your raw data resides and press \**Next*;
+* At this stage we don't add any other data source;
+* Choose the *glue-processor-role* as IAM Role and proceed to the schedule;
+* Leave the *Run on demand* option at the Frequency section and press **Next**;
+* Click on the **Add database** button and specify {choose-name}\_src as database name (this will be the name representing the source database in the data catalog). Press **Next** and **Finish**;
 
 ![add a new database](./img/ingestion/crawler2.png)
 
-- Click on the **Add database** button and specify {choose-name}_src as
-    database name (this will be the name representing the source database in the
-    data catalog). Press **Next** and **Finish**;
-
 ![add a new database](./img/ingestion/crawler3.png)
 
-- select the newly created crawler and push the **Run crawler** button. It will
-    take a few minutes until it populates the data catalog.
-    
+* select the newly created crawler and push the **Run crawler** button. It will take a few minutes until it populates the data catalog.
+
 ## Schema Validation
 
-- In the AWS Glue navigation pane, click Databases > Tables. (You can also click the database name (e.g., "ticketdata" to browse the tables.). 
-- Within the Tables section of your database, click one table. Please note that each file you had under the bucket /raw is now a different table
+* In the AWS Glue navigation pane, click Databases > Tables. (You can also click the database name (e.g., "ticketdata" to browse the tables.).
+* Within the Tables section of your database, click one table. Please note that each file you had under the bucket /raw is now a different table
 
 You may notice that some tables have column headers such as col0,col1,col2,col3. In absence of headers or when the crawler cannot determine the header type, default column headers are specified. **If this is your case, please follow these steps to resolve**:
 
-- Click Edit Schema on the top right side. 
-- In the Edit Schema section, double-click col0 (column name) to open edit mode. Type a chosen name, e.g. “id” as the column name.
-- Repeat the preceding step to change the remaining column names to match those shown in the following figure.
+* Click Edit Schema on the top right side.
+* In the Edit Schema section, double-click col0 (column name) to open edit mode. Type a chosen name, e.g. “id” as the column name.
+* Repeat the preceding step to change the remaining column names to match those shown in the following figure.
 
 NOTE: If you have any "id" column as integer, please make sure type is set to "double".
 
-- Click Save. 
-
+* Click Save.
 
 ### Creating a Development Endpoint and Notebook (Second Part)
 
-1. Go to Notebooks, click Create notebook 
+1. Go to Notebooks, click Create notebook
 2. Notebook name: aws-glue-`byod`
 3. Attach to development: choose the endopoint created some steps back
 4. Choose an existing IAM Role and choose the IAM role created some steps back.
 5. **Create notebook**
-
 
 **NOTE: You will be re-visiting this step at the end of the labs to edit generated script and do partitioning for your data. This will show you how your Athena queries will perform better after partitioning. Currently running jobs multiple times will result in duplicate files being created in destination folders, which can give wrong results later with your queries. We will handle this in the partitioning section later. In the mean time, make sure your destination folders are empty each time if you want to run your jobs. We will run all jobs as a pipeline in the next lab.**
