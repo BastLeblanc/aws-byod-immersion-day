@@ -44,7 +44,7 @@ taxis_conv=taxis.select_fields(['COLUMN1_TO_KEEP/RENAME','COLUMN2_TO_KEEP']).ren
 taxis_conv.printSchema()
 ```
 
-####Example NY Taxis dataset
+#### Example NY Taxis dataset
 
 ``` python
 taxis_conv=taxis.select_fields(['tpep_pickup_datetime','trip_distance']).rename_field('tpep_pickup_datetime', 'pickup_datetime')
