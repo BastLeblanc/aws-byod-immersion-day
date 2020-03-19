@@ -6,16 +6,12 @@
  *  [Setting up Amazon S3 and Athena for Storing Query Results](#setting-up-amazon-s3-and-athena-for-storing-query-results)
 	 * [Creating an Amazon S3 Bucket](#creating-an-amazon-s3-bucket)
 	 * [Setting up Amazon Athena](#setting-up-amazon-athena)
- *  [(Optional) Creating Amazon Athena Database and Table](#creating-amazon-athena-database-and-table)
-	 *  [Create Athena Database](#create-database)
-	 *  [Create Athena Table](#create-a-table)
+ * [Start Exploring with Athena](#start-exploring-with-athena)
  * [(Optional) Amazon Athena Best Practices](#amazon-athena-best-practices)
-	 * [Using Columnar Storage](#using-columnar-storage)
-	 * [Partitioning your Data](#partitioning-your-data)
- * [Using 'CREATE TABLE AS SELECT'](#using-create-table-as-select)
- * [Detecting New Partitions](#detecting-new-partitions)
  * [Joining Tables](#joining-tables)
+ * [Create Table as Select Queries](#create-table-as-select-queries)
  * [(Optional) Creating Views](#creating-views)
+
   
 
 ## Architectural Diagram
@@ -95,410 +91,145 @@ You can use an already existing bucket with a dedicated folder or you can create
 
 ![image](img/athena-setup.png)
 
-<b>NOTE:</b> Make sure you have forward slash at the end of the S3 path
+> Note: Make sure you have forward slash at the end of the S3 path
 
-## Creating Amazon Athena Database and Table
-**[OPTIONAL]**
-  
+## Start Exploring with Athena
 
-> Note: If you have complete the [Lab 1: Ingestion with Glue](../01_ingestion_with_glue) you can skip this section and go to the next section [(Optional) Amazon Athena Best Practices](#amazon-athena-best-practices)
+After initial setup you can start exploring your data with Athena. You can run normal SQL queries using the **Query Editor** in Athena console. To run your first query follow the below: 
 
-  
+> Note:  If you do not have a database created, you can follow [Lab 1: Ingestion with Glue](../01_ingestion_with_glue/ingestion_with_glue.md) to create your first database. Alternatively, you can follow this lab to [create your first database and table using Athena](./optional.md#creating-amazon-athena-database-and-table).
 
-Amazon Athena uses Apache Hive to define tables and create databases. Databases are a logical grouping of tables. When you create a database and table in Athena, you are simply describing the schema and location of the table data in Amazon S3\. In case of Hive, databases and tables don’t store the data along with the schema definition unlike traditional relational database systems. The data is read from Amazon S3 only when you query the table. The other benefit of using Hive is that the metastore found in Hive can be used in many other big data applications such as Spark, Hadoop, and Presto. With Athena catalog, you can now have Hive-compatible metastore in the cloud without the need for provisioning a Hadoop cluster or RDS instance. For guidance on databases and tables creation refer [Apache Hive documentation](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+DDL). The following steps provides guidance specifically for Amazon Athena.
+ 1. Navigate to Athena console
 
-### Create a Database
+ 2. In the right pane, choose the database name
+![image](img/athena-db-selec.png)
 
-  
+ 3. After selecting the DB, browse the tables and explore the schema clicking on the table. 
+![image](img/athena-table-selec.png)
 
-1. Open the [AWS Management Console for Athena](https://console.aws.amazon.com/athena/home).
-2. Make a note of the AWS region name.
+ 4. On the left pane, enter the first query and click on **Run query**
+![image](img/athena-first-query.png)
 
-3. In the Athena **Query Editor**, you will see a query pane with an example query. Now you can start entering your query in the query pane.
 
-4. To create a database named *mydatabase*, copy the following statement, and then choose **Run Query**:
-
-  
-
-````sql
-
-CREATE  DATABASE  mydatabase
-
-````
-
-  
-
-5. Ensure *mydatabase* appears in the DATABASE list on the **Catalog** dashboard
-
-![image](img/athena_database.png)
-  
-
-### Create a Table
-
-  
-
-1. Ensure that you are on the same AWS Region
-
-  
-
-2. Ensure **mydatabase** is selected from the DATABASE list and then choose **New Query**.
-
-  
-
-3. In the query pane, copy the following statement to create a the NYTaxiRides table, and then choose **Run Query**:
-
-  
-
-````sql
-
-CREATE  EXTERNAL  TABLE NYTaxiRides (
-
-vendorid STRING,
-
-pickup_datetime TIMESTAMP,
-
-dropoff_datetime TIMESTAMP,
-
-ratecode INT,
-
-passenger_count INT,
-
-trip_distance DOUBLE,
-
-fare_amount DOUBLE,
-
-total_amount DOUBLE,
-
-payment_type INT
-
-)
-
-PARTITIONED BY (YEAR  INT, MONTH  INT, TYPE string)
-
-STORED AS  PARQUET
-
-LOCATION  's3://us-west-2.serverless-analytics/canonical/NY-Pub'
-
-````
-
-  
-
-4. Ensure the table you just created appears on the Catalog dashboard for the selected database.
-
-  
-#### Adding Partition Meta-data
-Now that you have created the table you need to add the partition metadata to the Amazon Athena Catalog.
-
-  
-
-1. Choose **New Query**, copy the following statement into the query pane, and then choose **Run Query** to add partition metadata.
-
-  
-
-```sql
-
-MSCK REPAIR TABLE NYTaxiRides
-
-```
-
-The returned result will contain information for the partitions that are added to NYTaxiRides for each taxi type (yellow, green, fhv) for every month for the year from 2009 to 2016
-
-
-## Amazon Athena Best Practices
-**[OPTIONAL]**
- 
- In the first Lab we did two transformations to the data; *changed the format to parquet* and *partitioned the data*. This section discusses why columnar storage and partitioning are common best practices that enable you to get the most out of Athena. 
-
-Before doing this let's discuss how Athena [pricing](https://aws.amazon.com/athena/pricing/) works. With Athena, you are charged for the number of bytes scanned by Amazon Athena, rounded up to the nearest megabyte, with a 10MB minimum per query. Thus, the aim is to run the query with least amount of data scanned.
-
-We will run the same query before and after we do the optimisation to see how both significantly reduce the amount of data scanned 
-  
-### Using Columnar Storage
-Apache Parquet is a popular columnar storage format that is optimised for fast retrieval of data and used in AWS analytical applications. Parquet and other popular columnar storage formats have *three* main benefits that make them suitable for using with Athena; 
-
- - *Compression by column*, and thus, better compression rate and lower storage cost.
- - *Predicate pushdown* enables Athena queries to fetch only the blocks it needs, improving query performance. When an Athena query obtains specific column values from your data, it uses statistics from data block predicates, such as max/min values, to determine whether to read or skip the block.
- - *Splitting of data* allows Athena to split the reading of data to multiple readers and increase parallelism during its query processing.
-
-Now let's compare the amount of data scanned when we run the same query on the raw and curated tables
-
- 1.  Open the [AWS Management Console for Athena](https://console.aws.amazon.com/athena/home) and make sure you are on the same AWS Region.
- 2. Choose the *{raw database}* from the dropdown menu and execute the following query:
-
-```sql
-
-SELECT * FROM {raw_table_name}
-
-```
-
- 3. Wait the query to execute and note the amount of **Data scanned** by the query. 
- ![image](img/athena_query_noparq.png)
- 
- 4. Let's run the same query on the optimised data to compare the difference. Choose the *{curated database}* from the dropdown menu and execute the same query with the new {curated_table_name}.
- 5. Wait for the query to execute the note the amount of **Data Scanned**
- ![image](img/athena_query_parq.png)
-
-You noticed in this lab by converting to Columnar storage format, you significantly reduced the amount of data scanned, and thus, reducing Athena costs and improving performance.
-
-### Partitioning your Data
-
-By partitioning your data, you can restrict the amount of data scanned by each query, thus improving performance and reducing cost. Athena leverages Hive for partitioning data. You can partition your data by any key. A common practice is to partition the data based on time, often leading to a multi-level partitioning scheme.
-
-To see the benefit of partitioning, let's run the same query on the raw (non partitioned) and curated (partitioned). This time the query should filter the results using the *WHERE* clause in the SQL statement. The aim is use the column used to partition the data to filter the results.
-
-1.  Open the [AWS Management Console for Athena](https://console.aws.amazon.com/athena/home) and make sure you are on the same AWS Region.
- 2. Choose the *{raw database}* from the dropdown menu and execute the following query:
-
-```sql
-
-SELECT count(*) AS FilterCount 
-from {raw_table_name} 
-where {condition_on_partitioned_column}
-
-```
-
- 3. Wait the query to execute and note the amount of **Data scanned** by the query. 
- ![image](img/athena_query_nopart.png)
- 
- 4. Let's run the same query on the optimised data to compare the difference. Choose the *{curated database}* from the dropdown menu and execute the same query with the new {table_name_curated}.
- 5. Wait for the query to execute the note the amount of **Data Scanned**
- ![image](img/athena_query_part.png)
-
-You learnt in this lab that if you have many queries that are filtered in the WHERE clause, then the column used to filter the query result would be a good partitioning candidate. By partitioning your data you will  significantly reduce the amount of data scanned, and thus, reducing Athena costs and improving performance. 
-
-
-## Using 'CREATE TABLE AS SELECT'
-
+##  Amazon Athena Best Practices
 **[OPTIONAL]**
 
-A `CREATE TABLE AS SELECT` (CTAS) query creates a new table in Athena from the results of a `SELECT` statement from another query. Athena stores data files created by the CTAS statement in a specified location in Amazon S3.
+ *Columnar Storage*, *Partitioning* and *Bucketing* are common best practices that should be used to store and structure the data to be analysed with Athena. 
 
-Use CTAS queries to:
+In [Lab 1: Ingestion with Glue](../01_ingestion_with_glue/ingestion_with_glue.md) we converted the data format from *row-based* (csv, json, etc..) to columnar (parquet). To explore other optimisations that could be employed, check [Athena Best Practices Lab](./athena_best_practices.md).
 
--   Create tables from query results in one step, without repeatedly querying raw data sets. This is useful if you want to create a new table from the results of joining two tables.
--   Transform query results into other storage formats, such as Parquet and ORC. This improves query performance and reduces query costs in Athena.
--   Create copies of existing tables that contain only the data (subset of the table) you need.
-- Bucketing your data, which another common technique to improve Athena performance and cost. For more information, see [Bucketing vs Partitioning](https://docs.aws.amazon.com/athena/latest/ug/bucketing-vs-partitioning.html)
-
-In this lab we will show you how to create a subset table from the original table with partitioning enabled. We will also create the same subset but with partitioning and bucketing enabled. We will then execute the same query on both subset tables and  and compare the results.
-
-> Note: This lab will run on the Curated Table
-
-
-### Using CTAS to create First subset - partitioned
- 1. Open the [AWS Management Console for Athena](https://console.aws.amazon.com/athena/home) and make sure you are on the same AWS Region.
- 2. Choose the *{curated database}* from the dropdown menu and execute the following query:
- ```sql
-
-CREATE TABLE subset 
-WITH (
-      format = 'PARQUET', 
-      external_location = 's3://{athena-s3-bucket}/{first_subset}/', 
-      partitioned_by = ARRAY['{col1}','{col2}', etc ...], 
-) 
-AS SELECT * 
-FROM {curated_table_name}
-where {CTAS_condition}
-
-```
-
-![image](img/athena_ctas_buck.png)
-
- 3. Navigate to S3 and check the newly created files
- ![image](img/athena_ctas_s3_nobuck.png)
-
-### Using CTAS to create Second subset - partitioned and bucketed
+##  Joining Tables
  
-
- 1. Choose the *{curated database}* from the dropdown menu and execute the following query:
- ```sql
- CREATE TABLE subset_bucketed 
-WITH (
-      format = 'PARQUET', 
-      external_location = 's3://{athena-s3-bucket}/{first_subset}/', 
-      partitioned_by = ARRAY['{col1}','{col2}',etc..], 
-      bucketed_by = ARRAY['{primary_key}'], 
-      bucket_count = 5) 
-AS SELECT * 
-FROM {curated_table_name}
-WHERE {CTAS_condition}
-
-```
-
-![image](img/athena_ctas_buck.png)
-
- 2. Navigate to S3 and check the newly created files. Notice that data within one partition is bucketed into *5 (configured in the CTAS query)* different files
- ![image](img/athena_ctas_s3_buck.png)
- 
-### Comparing Results
- 
- > Note: **{primary_key}** here should be the column used for ***bucketing***. Columns with high cardinality (high number or unique values) that are spread evenly are good candidates for *bucketing*.
-
- 1. In Athena Console, execute the following query on the new table (subset)
-   ```sql
-AS SELECT * 
-FROM subset
-WHERE {primary_key} = {value} 
-
-```
-
- 2. Wait for the query to finish and note the amount of **data scanned** by the query.
-  ![image](img/athena_subset_nobuck.png)
-
- 3. In the **Query Editor**, execute the following query on the new table (subset_bucketed)
-   ```sql
-AS SELECT * 
-FROM subset_bucketed
-WHERE {primary_key} = {value} 
-
-```
-
- 4. Wait for the query to finish and note the amount of **data scanned** by the query.
-  ![image](img/athena_subset_buck.png)
-
-In this lab we learnt that bucketing is also a very useful optimisation. Columns with high cardinality (high number of unique values) that are evenly spread are good candidates for bucketing. Bucketing distribute the data to different files within a partition. So if we want to filter a partition, Athena will only scan the relevant bucket files not the whole partition.
-
-
-## Detecting New Partitions
-**[OPTIONAL]**
-
-> Note: This lab will run on the Curated dataset and table
-> 
-If a new partition is added, the **Data Catalog** used by Athena should be updated to recognise the new partition. A common way to detect newly added partitions is to run the Glue Crawler once a new partition is added. In Lab 2 we went through how to orchestrate your jobs and crawlers to run periodically or with on-demand triggers. Another approach is to use [MSCK RERAIR TABLE](https://docs.aws.amazon.com/athena/latest/ug/msck-repair-table.html) command to automatically add the partitions to the catalog. This command if the partitioning structure conforms to Hive structure *(s3://dataset/{col1=value}/{col2=value})*. If the portioning structure does not conform to Hive *(for example: s3://dataset/2019/Jan and s3://dataset/2018/Feb)*, then you might have to run the Crawler or manually add the partitions by using ALTER TABLE in Athena
-
-In this section we will manually create a new partition in S3. Check if Athena recognises the partition, load all partitions and check again.
-
-
-
- 1. Open the [AWS Management console for Amazon S3](https://s3.console.aws.amazon.com/s3/home?region=eu-west-1)
- 
- 2. Navigate into your **curated dataset** folder and add a new folder (partition) by clicking on **Create Folder**. We will not need to add data to the partition
-  ![image](img/athena_s3_addpart.png)
-  
- 3. If you do not have sub-partitions (for example; year only) proceed to the next step. 
-If your table has sub-partitions (for example; partition by year and month), create a new empty folder inside your new partition. The end result should be something like this; s3://{bucket_name}/{curated_dataset}/{col1=value}/{col2=value}
-
- 4. Let's see if Athena can recognise the new partitions. Go to Athena Console, in the **Query Editor** pane type the following SQL
-   ```sql
- SHOW PARTITIONS {curated_table_name}
-
-```
-
- 5. Wait for the query to finish and check the results. You will notice that you will not find the newly created partition.
-   ![image](img/athena_showpart.png)
-   
- 6. In the **Query Editor** pane execute the following SQL command
-
-  ```sql
- MSCK REAPAIR TABLE {curated_table_name}
-
-```
-
-
- 7. Wait for the query to finish and check the results.
-   ![image](img/athena_showpart2.png)
-   
- 8. Run the ```SHOW PARTITIONS {curated_table_name}``` query again and wait for the query to finish. You will notice in the results that Athena now recogises the new partitions.
-   ![image](img/athena_newpart_msc.png)
-
-
- ## Joining Tables
- 
-This section shows how to join two tables together. If you are familiar with SQL JOINs please proceed to the [next section](#creating-views).
+This section shows how to join two tables together. 
 
 ### Create a new Table
 > Note: If you already have *two* tables that could be joined together skip this step and proceed to [next sub-section](#sql-joins)
 > 
-Before joining *two* tables, let's create a new table (with mocked data) with a foreign key relationship with our *{curated_table_name}*
+Before joining *two* tables, let's create a new table (with mocked data) and will refer to it in this lab as {table2}with a foreign key relationship with our *{curated_table_name}*
 
  1. Open the [AWS Management Console for Athena](https://console.aws.amazon.com/athena/home) and make sure you are on the same AWS Region.
  2. Choose the *{curated database}* from the dropdown menu and execute the following query:
  ```sql
- CREATE  EXTERNAL  TABLE {mocked_table_nale} (
+ CREATE  EXTERNAL  TABLE {table2} (
 
-vendorid BIGINT,
+{col1} BIGINT,
 
-vendor_name STRING,
+{col2} STRING,
 
-CAR_COUNT BIGINT
+col{3} BIGINT,
+
+...........
 
 )
 
 STORED AS  PARQUET
 
-LOCATION  ''s3://{athena-s3-bucket}/{mocked_table}/''
+LOCATION  ''s3://{athena-s3-bucket}/{table2}/''
 
 ```
 
+> Note: You not need to create the S3 folder before running the query; Athena will do it for you. Just choose the S3 path to store the data. Feel free to use any path as long as you own the S3 bucket and it is in the same region you are using through out this lab.
+
  3. Now let's insert some mocked data to the new table. The data should have foreign key relationship with the original table.
  ```sql
-INSERT  INTO  {mocked_table_name} ({column1},{column2}, {column3}, ...)  
+INSERT  INTO  {table2} ({column1},{column2}, {column3}, ...)  
 VALUES ({value1.1}, {value2.1}, {value3.1}, ...),
 ({value1.2}, {value2.2}, {value3.2}, ...),
-({value1.3}, {value2.3}, {value3.3}, ...);
+({value1.3}, {value2.3}, {value3.3}, ...)
+............;
 ```
 
    ![image](img/athena_insert.png)
 
- 4. Make sure the data is inserted by executing  ```SELECT * FROM {mocked_table_name}```
+ 4. Make sure the data is inserted by executing  ```SELECT * FROM {table2}```
 
 ### SQL Joins
 
 Here are the different types of the JOINs in SQL:
 
--   **(INNER) JOIN**: Returns records that have matching values in both tables
--   **LEFT (OUTER) JOIN**: Returns all records from the left table, and the matched records from the right table
--   **RIGHT (OUTER) JOIN**: Returns all records from the right table, and the matched records from the left table
--   **FULL (OUTER) JOIN**: Returns all records when there is a match in either left or right table
-
-In this lab we will explore different types of JOINs:
-
- 
-
- 1. *Inner Join*:- Run the following query in the **Query Editor**
+ - *Inner Join*:- Returns records that have matching values in both tables. Run the following query in the **Query Editor**
  ```sql
-SELECT {mocked_table}.{column_name}, count(*) AS Total
-FROM {mocked_table}
-INNER JOIN {original_table} ON {original_table}.{forgein_key}={mocked_table}.{forgeinkey}
-GROUP BY {mocked_table}.{vendor_name}
+SELECT {table1}.{col1}, {table2}.{col3}, {table2}.{col5} 
+FROM {table1}
+INNER JOIN {table2} ON {table1}.{key}={table2}.{key}
 ```
-   ![image](img/athena_inner.png)
-   
-	 In the above example because vendor2 is not in the {mocked_table} and vendor3 is not the {original_table}, both were excluded when doing ```INNER JOINS```
  
- 2. *Left Join*:- If you use the same query but replace ```INNER``` with ```LEFT```. We will see results that either matched with the right table or entries from the left table
+ 
+ - *Left Join*:- If you use the same query but replace ```INNER``` with ```LEFT```. We will see records from left table  and the matched records from the right table
  ```sql
-SELECT {mocked_table}.{column_name}, count(*) AS Total
-FROM {mocked_table}
-LEFT JOIN {original_table} ON {original_table}.{forgein_key}={mocked_table}.{forgeinkey}
-GROUP BY {mocked_table}.{vendor_name}
+SELECT {table1}.{col1}, {table2}.{col3}, {table2}.{col5} 
+FROM {table1}
+LEFT JOIN {table2} ON {table1}.{key}={table2}.{key}
 ```
-   ![image](img/athena_left.png)
-   
-	  In the above example because vendor2 is not in the Left Table ({mocked_table}) it's excluded from the results. All other records in the Left Table are are included.
+ 
+ - *Right Join*:-  Returns all records from the right table, and the matched records from the left table
+ ```sql
+SELECT {table1}.{col1}, {table2}.{col3}, {table2}.{col5} 
+FROM {table1}
+RIGHT JOIN {table2} ON {table1}.{key}={table2}.{key}
+```
+ 
+ - *Full Join*:- All records are returned
+ ```sql
+SELECT {table1}.{col1}, {table2}.{col3}, {table2}.{col5} 
+FROM {table1}
+FULL JOIN {table2} ON {table1}.{key}={table2}.{key}
+```
+
+### Storing SQL Join Results
+
+There are two options to store the results from a SQL join statement; *physically* and *virtually*
+
+ - *Physically:* When the results are written to S3. Useful, if the data does not change frequently. This is useful when integrating Quicksight with Athena. To store the join results in S3, check [Create Table as Select Queries](#create-table-as-select-queries)
+ - *Virtually*: A logical representation of the data is stored as View. Every time the view queried, the query the created the view runs again. To create a view from the join, check [Creating Views](#creating-views) 
+
+## 'Create Table as Select' Queries
+A `CREATE TABLE AS SELECT` (CTAS) query creates a new table in Athena from the results of a `SELECT` statement from another query. Athena stores data files created by the CTAS statement in a specified location in Amazon S3.
+
+This is useful in joins because it creates tables from join query results in one step, without repeatedly querying raw data sets. In this section we walk through how create a table from join query (or any query) results and store it in S3.
+
+ 1. Open the [AWS Management Console for Athena](https://console.aws.amazon.com/athena/home) and make sure you are on the same AWS Region.
+ 
+ 2. Choose the *{curated database}* from the dropdown menu and execute the following query:
+ > Note: Make sure that the S3 folder [used store the files] is empty before running the query. If the folder contains any objects, the query will fail.
+ > There is no need to create the folder before running the query, Athena will create it for you.
+  ```sql
+CREATE Table {join_table_name} 
+WITH (
+      format = 'PARQUET', 
+      external_location = 's3://{athena-s3-bucket}/{join_table_folder}', 
+      partitioned_by = ARRAY['{col1}','{col2}']#optional 
+AS {your_join_query}
+```
+The above query creates a new table, stores the results in parquet format, in this s3://{athena-s3-bucket}/{join_table_folder} location.
+
+
+ 3. Wait for the query to execute. After it finishes you can see the newly created view under **Tables** on the right pane.
+
+![image](img/athena-join-table.png)
 
  
- 3. *Right Join*:- This is the same as the above but it applies on the Right table {original_table}. We will see results that either matched with the left table or entries from the right table
-  ```sql
-SELECT {mocked_table}.{column_name}, count(*) AS Total
-FROM {mocked_table}
-LEFT JOIN {original_table} ON {original_table}.{forgein_key}={mocked_table}.{forgeinkey}
-GROUP BY {mocked_table}.{vendor_name}
-```
-   ![image](img/athena_right.png)
-
-	In the above example because vendor3 is not in the right Table ({original_table}) it's excluded from the results. All other records in the right Table are included. And because vendor2 is not in the left table {mocked_table}, is does not have a name and thus empty field
-
- 4. *Full Join*:- All records are returned
-  ```sql
-SELECT {mocked_table}.{column_name}, count(*) AS Total
-FROM {mocked_table}
-FULL JOIN {original_table} ON {original_table}.{forgein_key}={mocked_table}.{forgeinkey}
-GROUP BY {mocked_table}.{vendor_name}
-```
-   ![image](img/athena_full.png)
- 
- ## Creating Views
+## Creating Views
 **[OPTIONAL]**
 
 A view in Amazon Athena is a logical, not a physical table. The query that defines a view runs each time the view is referenced in a query. In this section, we walk through how to create a view:
