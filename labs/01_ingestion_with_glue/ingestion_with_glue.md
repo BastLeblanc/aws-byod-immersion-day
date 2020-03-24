@@ -4,7 +4,7 @@ In this Lab we will create a schema from your data optimized for analytics and p
 
 ## Before you begin
 
-Please make sure now you selected the region where your data resides.
+Please make sure now you select the region where your data resides.
 All resources to be created **must** be in the same region.
 
 ## Preparing your environment
@@ -81,13 +81,15 @@ NOTE: “AWSGlueServiceRole” is an AWS Managed Policy to provide Glue with nee
 
 ### Creating a Development Endpoint and Notebook (First Part)
 
+Go to Glue in the console https://console.aws.amazon.com/glue/
+
 1. On the left menu, click in Dev. enpoints and **Add endpoint**.
 2. Development endpoint name: `byod`
 3. IAM role: `byod`
 4. Click **Next**
 5. Select Skip networking information
 6. Click **Next**
-7. Click **Next** \- No need to Add SSH public key for Now
+7. Click **Next** \- No need to Add SSH public key for now
 8. Click **Finish**
 
 It will take a while to create the endpoint - we will be back to this step. Please continue.
@@ -190,10 +192,8 @@ NOTE: If you have any "id" column as integer, please make sure type is set to "d
 
 ### Creating a Development Endpoint and Notebook (Second Part)
 
-1. Go to Notebooks, click Create notebook
+1. In the glue console, Go to Notebooks, click Create notebook
 2. Notebook name: aws-glue-`byod`
 3. Attach to development: choose the endopoint created some steps back
 4. Choose an existing IAM Role and choose the IAM role created some steps back.
 5. **Create notebook**
-
-**NOTE: You will be re-visiting this step at the end of the labs to edit generated script and do partitioning for your data. This will show you how your Athena queries will perform better after partitioning. Currently running jobs multiple times will result in duplicate files being created in destination folders, which can give wrong results later with your queries. We will handle this in the partitioning section later. In the mean time, make sure your destination folders are empty each time if you want to run your jobs. We will run all jobs as a pipeline in the next lab.**
