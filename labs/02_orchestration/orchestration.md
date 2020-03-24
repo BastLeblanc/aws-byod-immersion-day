@@ -18,7 +18,7 @@ Another example of dependent jobs are jobs that extracts data from other source 
 
 For this basic example we decided to automate the following steps:
 
-* Transform data to parquet
+* Transform data into parquet
 * Crawl Parquet/ curated data
 
 The first two steps were done in the previous part. The updated diagram of what we did including the crawler should look something like this:
@@ -77,7 +77,7 @@ For the Event, we want that after the previous job is done (SUCCESS) then trigge
 
 ![adding jobs to the trigger](./img/orchestration/wf9.png)
 
-3. Add a job to be triggered (In this case the crawler created in the previous step - you probably nameed it something like this {choose-name}-ds ))
+3. Add a job to be triggered (In this case the crawler created in the previous step - you probably nameed it something like this {choose-name}-ds )
 
 ![adding jobs to the trigger](./img/orchestration/wf51.png)
 
@@ -101,7 +101,7 @@ When you navigate to the **Tables**, you will observe tables created from your d
 
 "What can I do with it?", you may wonder. Stay tuned, we will cover this in great details in the next session.
 
-## Orchestrate the data pipeline using the Workflow feature
+## Orchestrate YOUR data pipeline using Workflows
 
 We just walked you trough an example, now its time you think about your own workflow case. Which are those jobs that have to run on a recurring/ schedule basis? 
 Please note that this was a lineal job, but you can run some jobs in parallel, you can add them in parallel in the pipeline.
