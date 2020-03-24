@@ -1,12 +1,7 @@
-# Lab 2: Visualization using Amazon QuickSight
+# Lab 3: Visualization using Amazon QuickSight
 
-- [Lab 2: Visualization using Amazon QuickSight](#Lab-2-Visualization-using-Amazon-QuickSight)
+- [Lab 3: Visualization using Amazon QuickSight](#Lab-2-Visualization-using-Amazon-QuickSight)
   - [Architectural Diagram](#Architectural-Diagram)
-  - [Create an Amazon S3 bucket](#Create-an-Amazon-S3-bucket)
-  - [Creating Amazon Athena Database and Table](#Creating-Amazon-Athena-Database-and-Table)
-    - [Setting up Athena (first time users)](#Setting-up-Athena-first-time-users)
-    - [Create Database](#Create-Database)
-    - [Create a Table](#Create-a-Table)
   - [Signing up for Amazon QuickSight Enterprise Edition](#Signing-up-for-Amazon-QuickSight-Enterprise-Edition)
   - [Configuring Amazon QuickSight to use Amazon Athena as data source](#Configuring-Amazon-QuickSight-to-use-Amazon-Athena-as-data-source)
   - [Preparing your data](#Preparing-your-data)
@@ -17,97 +12,12 @@
     - [Review ML Insights](#Review-ML-Insights)
   - [License](#License)
 
-    
 
 ## Architectural Diagram
 ![architecture-overview-lab2.png](https://s3.amazonaws.com/us-east-1.data-analytics/labcontent/reinvent2017content-abd313/lab2/architecture-overview-lab2.png)
 
 
-## Create an Amazon S3 bucket
-> Note: If you have already have an S3 bucket in your AWS Account you can skip this section. 
-
-1. Open the [AWS Management console for Amazon S3](https://s3.console.aws.amazon.com/s3/home?region=us-west-2)
-2. On the S3 Dashboard, Click on **Create Bucket**. 
-
-![image](img/create-bucket.png)
-
-3. In the **Create Bucket** pop-up page, input a unique **Bucket name**. It is advised to choose a large bucket name, with many random characters and numbers (no spaces). 
-
-    1. Select the region as **Oregon**. 
-    2. Click **Next** to navigate to next tab. 
-    3. In the **Set properties** tab, leave all options as default. 
-    4. In the **Set permissions** tag, leave all options as default.
-    5. In the **Review** tab, click on **Create Bucket**
-
-![createbucketpopup.png](https://s3.amazonaws.com/us-east-1.data-analytics/labcontent/reinvent2017content-abd313/lab1/createbucketpopup.png)
-
-## Creating Amazon Athena Database and Table
-
-> Note: If you have complete the [Lab 1: Serverless Analysis of data in Amazon S3 using Amazon Athena](../Lab1) you can skip this section and go to the next section [Signing up for Amazon Quicksight Standard Edition](#signing-up-for-amazon-quicksight-standard-edition)
-
-Amazon Athena uses Apache Hive to define tables and create databases. Databases are a logical grouping of tables. When you create a database and table in Athena, you are simply describing the schema and location of the table data in Amazon S3\. In case of Hive, databases and tables don’t store the data along with the schema definition unlike traditional relational database systems. The data is read from Amazon S3 only when you query the table. The other benefit of using Hive is that the metastore found in Hive can be used in many other big data applications such as Spark, Hadoop, and Presto. With Athena catalog, you can now have Hive-compatible metastore in the cloud without the need for provisioning a Hadoop cluster or RDS instance. For guidance on databases and tables creation refer [Apache Hive documentation](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+DDL). The following steps provides guidance specifically for Amazon Athena.
-
-### Setting up Athena (first time users)
-
-If you’re a first time Athena user, you might need to configure an S3 bucket, where Athena will store the query results.
-
-![image](img/athena-setup.png)
-
-You can use an already existing bucket with a dedicated folder or you can create a new, dedicated bucket.
-
-<b>NOTE:</b> Make sure you have forward slash at the end of the S3 path
-
-### Create Database
-
-1. Open the [AWS Management Console for Athena](https://console.aws.amazon.com/athena/home).
-2. If this is your first time visiting the AWS Management Console for Athena, you will get a Getting Started page. Choose **Get Started** to open the Query Editor. If this isn't your first time, the Athena **Query Editor** opens.
-3. Make a note of the AWS region name, for example, for this lab you will need to choose the **US West (Oregon)** region.
-4. In the Athena **Query Editor**, you will see a query pane with an example query. Now you can start entering your query in the query pane.
-5. To create a database named *mydatabase*, copy the following statement, and then choose **Run Query**:
-
-````sql
-    CREATE DATABASE mydatabase
-````
-
-6.	Ensure *mydatabase* appears in the DATABASE list on the **Catalog** dashboard
-
-![athenacatalog.png](https://s3.amazonaws.com/us-east-1.data-analytics/labcontent/reinvent2017content-abd313/lab1/athenacatalog.png)
-
-### Create a Table
-
-1. Ensure that current AWS region is **US West (Oregon)** region
-
-2. Ensure **mydatabase** is selected from the DATABASE list and then choose **New Query**.
-
-3. In the query pane, copy the following statement to create a the NYTaxiRides table, and then choose **Run Query**:
-
-````sql
-  CREATE EXTERNAL TABLE NYTaxiRides (
-    vendorid STRING,
-    pickup_datetime TIMESTAMP,
-    dropoff_datetime TIMESTAMP,
-    ratecode INT,
-    passenger_count INT,
-    trip_distance DOUBLE,
-    fare_amount DOUBLE,
-    total_amount DOUBLE,
-    payment_type INT
-    )
-  PARTITIONED BY (YEAR INT, MONTH INT, TYPE string)
-  STORED AS PARQUET
-  LOCATION 's3://us-west-2.serverless-analytics/canonical/NY-Pub'
-````
-
-4.Ensure the table you just created appears on the Catalog dashboard for the selected database.
-
-Now that you have created the table you need to add the partition metadata to the Amazon Athena Catalog.
-
-1. Choose **New Query**, copy the following statement into the query pane, and then choose **Run Query** to add partition metadata.
-
-```sql
-    MSCK REPAIR TABLE NYTaxiRides
-```
-The returned result will contain information for the partitions that are added to NYTaxiRides for each taxi type (yellow, green, fhv) for every month for the year from 2009 to 2016
+In this lab you will be using the S3 bucket with your data and the Athena table you created in the previous lab.
 
 ## Signing up for Amazon QuickSight Enterprise Edition
 
@@ -202,8 +112,7 @@ You can choose to create a dataset using S3 as your data source. For this:
 2. Select the fields that you will use for the visualization.
 ![image](img/Select_Fields.png)
 
-We suggest that you pick two - three columns from your
-data set that meet the following criteria:
+3. We suggest that you pick two - three columns from your data set that meet the following criteria:
 *. The first column is a date column (can be year, month or day. Usually marked by **calendar icon**
 in **Fields list** on the left)
 *. The second column is a quantifiable number (revenue, count, distance, etc. Usually
@@ -211,7 +120,7 @@ marked by a **green hash #**)
 *. The third column has categorical value, which means it has specific limited set of values (type,
 category, etc. Usually marked by **ticket icon**)
 
-3. Optional - Change the data type. You can change the field's data type in one of the available data types.
+4. Optional - Change the data type. You can change the field's data type in one of the available data types.
 ![image](img/Field_DataTypes.png)
    
    You can also modify the format of your date field(s) into one of the supported formats.
