@@ -170,6 +170,8 @@ Now repeat this last step per each file / table you had originally.
 
 ## Add a crawler
 
+Note: To proceed with this step, you need to finished for the previous job to finish.
+
 Now that we have the data in Parquet format, we need to infer the schema.
 Glue crawler connects to a data store to determine the schema for your data, and then creates metadata
 tables in the data catalog.
