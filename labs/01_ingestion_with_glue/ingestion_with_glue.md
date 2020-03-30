@@ -85,7 +85,7 @@ Go to Glue in the console https://console.aws.amazon.com/glue/
 
 1. On the left menu, click in Dev. enpoints and **Add endpoint**.
 2. Development endpoint name: `byod`
-3. IAM role: `byod`
+3. IAM role: **glue-processor-role**
 4. Click **Next**
 5. Select Skip networking information
 6. Click **Next**
