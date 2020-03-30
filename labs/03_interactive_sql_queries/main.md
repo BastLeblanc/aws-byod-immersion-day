@@ -23,13 +23,13 @@ Amazon Athena is an interactive query service that makes it easy to analyze data
 In this lab, we will use Athena to explore, analyze and prepare the data for visualization in QuickSight. This lab is divided into three sections; one manadatory and two optional:
 
 *  To start working with Athena, continue on this lab and follow throught the different section. Next lab is [Setting up Workgroups](#setting-up-workgroups)
-*  [Optional] To review Athena best practices, click on [Amazon Athena Best Practices](./athena_best_practices.md)
 *  [Optional] In [lab 1](../01_ingestion_with_glue/ingestion_with_glue.md), we used Glue Crawlers to create our Database and Tables. To create your Database and tables using Athena, click [here](./athena.md)
+*  [Optional] To review Athena best practices, click on [Amazon Athena Best Practices](./athena_best_practices.md)
 
 
 ## Architectural Diagram
 
-  
+This is an example Architecture, the raw data in S3 is CSV format and curated data is Parquet. Amazon Athena will be used to query both data sources if needed. 
 
 ![architecture-overview-lab2.png](https://s3.amazonaws.com/us-east-1.data-analytics/labcontent/reinvent2017content-abd313/lab2/architecture-overview-lab2.png)
 
