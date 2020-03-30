@@ -16,7 +16,16 @@
 
   
 
-  
+## Introduction
+
+Amazon Athena is an interactive query service that makes it easy to analyze data in Amazon S3 using standard SQL. Athena is serverless, so there is no infrastructure to setup or manage, and you can start analyzing data immediately. You don’t even need to load your data into Athena, it works directly with data stored in S3.
+
+In this lab, we will use Athena to explore, analyze and prepare the data for visualization in QuickSight. This lab is divided into three sections; one manadatory and two optional:
+
+*  To start working with Athena, continue on this lab and follow throught the different section. Next lab is [Setting up Workgroups](#setting-up-workgroups)
+*  [Optional] To review Athena best practices, click on [Amazon Athena Best Practices](./athena_best_practices.md)
+*  [Optional] In [lab 1](../01_ingestion_with_glue/ingestion_with_glue.md), we used Glue Crawlers to create our Database and Tables. To create your Database and tables using Athena, click [here](./athena.md)
+
 
 ## Architectural Diagram
 
