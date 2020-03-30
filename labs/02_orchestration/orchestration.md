@@ -11,18 +11,18 @@ At this stage we have Glue Jobs configured to covert our raw data into Parquet. 
 
 ## Orchestrate the data pipeline using the Workflow feature
 
-The plan is to create a pipeline, which will refresh the data-set every once in a while.
+When you only have a Glue job or a single Crawler that needs to be run periodically, you can schedule it with Glue scheduler or maybe you can use Cloudwatch events with a Lambda function. But if you need more complex flows - for example chaining multiple jobs and crawlers, running different jobs in parallel - Glue provides a workflow mechanism.
 
-The next steps assume you need to perform some jobs before running the others. However, if your transformation jobs can run in parallel, feel free to add them in parallel in the pipeline.
+The example presented here assumes a lineal/ dependant approach - some jobs before running the others. The plan is to create a pipeline, which will refresh the data-set every once in a while.
 
-An example of dependent jobs would be if you have jobs that extracts data from other source and ingest it into your data lake before kicking off another transformation jobs.
+Another example of dependent jobs are jobs that extracts data from other source and ingest it into your data lake before kicking off another transformation jobs.
 
 For this basic example we decided to automate the following steps:
 
-* Transform to parquet
+* Transform data into parquet
 * Crawl Parquet/ curated data
 
-The first two steps were done in the previous part. The updated diagram of what we did plus the new crawler should look something like this:
+The first two steps were done in the previous part. The updated diagram of what we did including the crawler should look something like this:
 
 ![all_steps_glue](./img/orchestration/steps_glue.png)
 
@@ -34,19 +34,20 @@ Once we are done, it should look something like this:
 
 Let's get started - navigate to the *Workflows* in the *ETL* section on the left side-pane.
 
-![add workflow](./img/orchestration/wf1.png)
-
 * we start by clicking on the **Add Workflow** button;
 * add a name for our workflow (e.g. `byod`) and press the **Add Workflow** button;
 
+![add workflow](./img/orchestration/wf1.png)
+
+Now, in the new created workflow, please click on **Add Trigger**
+
 ![add triggers](./img/orchestration/wf2.png)
 
-Once the workflow is created, add the first trigger to it.
+
+* Make sure you select the *Add New* tab;
+* Define a *Name* for the new trigger (`trigger-parquet-job`);
 
 ![configuring the trigger](./img/orchestration/wf3.png)
-
-1. Make sure you selected the *Add New* tab;
-2. Define a *Name* for the new trigger (`trigger-parquet-job`);
 
 Now, let's specify the *Frequency* before you press **Add** (let's say you run this workflow once a day);
 ![configuring the scheduler](./img/orchestration/wf3-1.png)
@@ -55,7 +56,7 @@ Now, we need to configure the job that is going to be triggered. Click **Add Nod
 
 ![adding node](./img/orchestration/wf4.png)
 
-Select the job that needs to run first, then click **Add**.
+Select the job that needs to run first- In this case, we want the transformation job created in the first step (you probably named it **TABLE-NAME-1-job**), then click **Add**.
 
 ![adding jobs to the trigger](./img/orchestration/wf5.png)
 
@@ -65,15 +66,19 @@ We are almost there, however there's one more thing: we need to add the crawler 
 
 ![adding jobs to the trigger](./img/orchestration/wf6.png)
 
+Make sure you Add new one. Choose a name and the trigger to be **Event**
+
 ![adding jobs to the trigger](./img/orchestration/wf7.png)
 
-2. Add a job to be watched (In this case the transform job)
+For the Event, we want that after the previous job is done (SUCCESS) then trigger the crawler
 
 ![adding jobs to the trigger](./img/orchestration/wf8.png)
 
+2. Add a job to be watched (In this case the transform job)
+
 ![adding jobs to the trigger](./img/orchestration/wf9.png)
 
-3. Add a job to be triggered (In this case the crawler-parquet)
+3. Add a job to be triggered (In this case the crawler created in the previous step - you probably nameed it something like this {choose-name}-ds )
 
 ![adding jobs to the trigger](./img/orchestration/wf51.png)
 
@@ -96,3 +101,10 @@ Once the pipeline succeeded at least once, we should be able to observe the newl
 When you navigate to the **Tables**, you will observe tables created from your data files.
 
 "What can I do with it?", you may wonder. Stay tuned, we will cover this in great details in the next session.
+
+## Orchestrate YOUR data pipeline using Workflows
+
+We just walked you trough an example, now its time you think about your own workflow case. Which are those jobs that have to run on a recurring/ schedule basis? 
+Please note that this was a lineal job, but you can run some jobs in parallel, you can add them in parallel in the pipeline.
+Think about how your workflow will look like, you can ask help to one of the support members from AWS.
+

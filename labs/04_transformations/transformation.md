@@ -11,6 +11,7 @@ We will start by importing all the libraries we need
 
 ``` python
 import sys
+import datetime
 from awsglue.transforms import *
 from awsglue.utils import getResolvedOptions
 from pyspark.context import SparkContext

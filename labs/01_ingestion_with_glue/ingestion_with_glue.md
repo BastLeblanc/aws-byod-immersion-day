@@ -4,12 +4,20 @@ In this Lab we will create a schema from your data optimized for analytics and p
 
 ## Before you begin
 
-Please make sure now you selected the region where your data resides.
+Please make sure now you select the region where your data resides.
 All resources to be created **must** be in the same region.
 
 ## Preparing your environment
 
-Before you start, make sure your raw data files are saved in a separate bucket in a folder
+The encoding of your raw files should be UTF-8. You should export your files from your source with UTF-8 encoding. For this workshop, you may convert the encoding before uploading files to S3 bucket with text editing tools, such as Sublime Text
+
+or by using this Linux command: 
+``` python iconv -f <current-encoding of file> -t utf-8 data.csv outputfile.csv```
+    
+if you dont know the encoding, you can use this command to determine: "
+``` python enca -L none data.csv```
+
+Also before you start, make sure your raw data files are saved in a separate bucket in a folder
 called "raw". Each file should be a separate table. Each table file should be preferably in a
 separate folder with the table name. An example would be as follows:
 
@@ -81,13 +89,15 @@ NOTE: “AWSGlueServiceRole” is an AWS Managed Policy to provide Glue with nee
 
 ### Creating a Development Endpoint and Notebook (First Part)
 
+Go to Glue in the console https://console.aws.amazon.com/glue/
+
 1. On the left menu, click in Dev. enpoints and **Add endpoint**.
 2. Development endpoint name: `byod`
-3. IAM role: `byod`
+3. IAM role: **glue-processor-role**
 4. Click **Next**
 5. Select Skip networking information
 6. Click **Next**
-7. Click **Next** \- No need to Add SSH public key for Now
+7. Click **Next** \- No need to Add SSH public key for now
 8. Click **Finish**
 
 It will take a while to create the endpoint - we will be back to this step. Please continue.
@@ -146,13 +156,21 @@ glueContext.write_dynamic_frame.from_options(frame = dynamicF,
 job.commit()
 ```
 
-* **Save**. Then **Run job**.
+Click * **Save** and  **Run Job**
 
 ![add a glue job](./img/ingestion/glue-job3.png)
+
+Check the status of the job by selecting the job and go to history tab in the lower panel. In order to continue we need to wait until this job is done, this can take around 5 minutes, depending on the size of your dataset.
+
+![add a glue job](./img/ingestion/seejob.png)
+
+To make sure the job transformed the data, go to S3, you should see a new sub-folder called curated with data on it.
 
 Now repeat this last step per each file / table you had originally.
 
 ## Add a crawler
+
+Note: To proceed with this step, you need to wait for the previous job to finish.
 
 Now that we have the data in Parquet format, we need to infer the schema.
 Glue crawler connects to a data store to determine the schema for your data, and then creates metadata
@@ -190,10 +208,8 @@ NOTE: If you have any "id" column as integer, please make sure type is set to "d
 
 ### Creating a Development Endpoint and Notebook (Second Part)
 
-1. Go to Notebooks, click Create notebook
+1. In the glue console, Go to Notebooks, click Create notebook
 2. Notebook name: aws-glue-`byod`
 3. Attach to development: choose the endopoint created some steps back
-4. Choose an existing IAM Role and choose the IAM role created some steps back.
+4. Create a new IAM Role.
 5. **Create notebook**
-
-**NOTE: You will be re-visiting this step at the end of the labs to edit generated script and do partitioning for your data. This will show you how your Athena queries will perform better after partitioning. Currently running jobs multiple times will result in duplicate files being created in destination folders, which can give wrong results later with your queries. We will handle this in the partitioning section later. In the mean time, make sure your destination folders are empty each time if you want to run your jobs. We will run all jobs as a pipeline in the next lab.**
