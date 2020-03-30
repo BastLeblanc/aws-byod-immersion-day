@@ -9,7 +9,15 @@ All resources to be created **must** be in the same region.
 
 ## Preparing your environment
 
-Before you start, make sure your raw data files are saved in a separate bucket in a folder
+The encoding of your raw files should be UTF-8. You should export your files from your source with UTF-8 encoding. For this workshop, you may convert the encoding before uploading files to S3 bucket with text editing tools, such as Sublime Text
+
+or by using this Linux command: 
+``` python iconv -f <current-encoding of file> -t utf-8 data.csv outputfile.csv```
+    
+if you dont know the encoding, you can use this command to determine: "
+``` python enca -L none data.csv```
+
+Also before you start, make sure your raw data files are saved in a separate bucket in a folder
 called "raw". Each file should be a separate table. Each table file should be preferably in a
 separate folder with the table name. An example would be as follows:
 
