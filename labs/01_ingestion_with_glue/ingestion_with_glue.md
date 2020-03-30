@@ -209,5 +209,5 @@ NOTE: If you have any "id" column as integer, please make sure type is set to "d
 1. In the glue console, Go to Notebooks, click Create notebook
 2. Notebook name: aws-glue-`byod`
 3. Attach to development: choose the endopoint created some steps back
-4. Choose an existing IAM Role and choose the IAM role created some steps back.
+4. Create a new IAM Role.
 5. **Create notebook**
