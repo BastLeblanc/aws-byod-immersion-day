@@ -11,7 +11,10 @@
 
 ## Introduction
 
-In the first Lab ([Lab 1: Ingestion with Glue](../01_ingestion_with_glue/ingestion_with_glue.md)) we did two transformations to the data; *changed the format to parquet* and *partitioned the data*. Another technique is *bucketing*. Which buckets your data within single partition. This lab discusses [common best practices](https://aws.amazon.com/blogs/big-data/top-10-performance-tuning-tips-for-amazon-athena/)) that enable you to get the most out of Athena.
+In the first Lab ([Lab 1: Ingestion with Glue](../01_ingestion_with_glue/ingestion_with_glue.md)) we did one transformation to the data; *changed the format to parquet*. *Partitioning* and *bucketing* are other common best practices. Partitioning, 
+
+
+Which buckets your data within single partition. This lab discusses [common best practices](https://aws.amazon.com/blogs/big-data/top-10-performance-tuning-tips-for-amazon-athena/)) that enable you to get the most out of Athena.
 
 Before doing this let's discuss how Athena [pricing](https://aws.amazon.com/athena/pricing/) works. With Athena, you are charged for the number of bytes scanned by Amazon Athena, rounded up to the nearest megabyte, with a 10MB minimum per query. Thus, the aim is to run the query with least amount of data scanned.
 
@@ -72,7 +75,7 @@ You learnt in this lab that if you have many queries that are filtered in the WH
 
 ## Bucketing your Data
 
-Another way to partition your data is to _bucket_ the data within a single partition. With bucketing, you can specify one or more columns containing rows that you want to group together, and put those rows into multiple buckets. This allows you to query only the bucket that you need to read when the bucketed columns value is specified.
+An additional optimisation supported by Athena is *bucketing*. Partitioning is used to group similar types of data based on a specific column. Bucketing is commonly used to combine data within a partition into a number of equal groups, or files. Therefore, partitioning is best suited for low cardinality columns and bucketing is best suited for high cardinality columns.
 
 Bucketing your data, is another common technique that improves Athena performance and cost. For more information, see [Bucketing vs Partitioning](https://docs.aws.amazon.com/athena/latest/ug/bucketing-vs-partitioning.html). 
 
