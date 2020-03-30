@@ -11,10 +11,9 @@
 
 ## Introduction
 
-In the first Lab ([Lab 1: Ingestion with Glue](../01_ingestion_with_glue/ingestion_with_glue.md)) we did one transformation to the data; *changed the format to parquet*. *Partitioning* and *bucketing* are other common best practices. Partitioning, 
+In the first Lab ([Lab 1: Ingestion with Glue](../01_ingestion_with_glue/ingestion_with_glue.md)) we did one transformation to the data; *changed the format to parquet*. *Partitioning* and *bucketing* are other common best practices. Partitioning, is a way to organizes tables into partitions by dividing tables into different parts based on partition keys. While Bucketing, buckets your data into groups within a single partition. 
 
-
-Which buckets your data within single partition. This lab discusses [common best practices](https://aws.amazon.com/blogs/big-data/top-10-performance-tuning-tips-for-amazon-athena/)) that enable you to get the most out of Athena.
+This lab discusses [common best practices](https://aws.amazon.com/blogs/big-data/top-10-performance-tuning-tips-for-amazon-athena/)) that enable you to get the most out of Athena.
 
 Before doing this let's discuss how Athena [pricing](https://aws.amazon.com/athena/pricing/) works. With Athena, you are charged for the number of bytes scanned by Amazon Athena, rounded up to the nearest megabyte, with a 10MB minimum per query. Thus, the aim is to run the query with least amount of data scanned.
 
