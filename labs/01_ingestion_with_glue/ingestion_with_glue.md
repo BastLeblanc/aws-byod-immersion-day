@@ -148,11 +148,15 @@ glueContext.write_dynamic_frame.from_options(frame = dynamicF,
 job.commit()
 ```
 
-* **Save**. 
+Click * **Save** and  **Run Job**
 
 ![add a glue job](./img/ingestion/glue-job3.png)
 
 Now repeat this last step per each file / table you had originally.
+
+Check the status of the job by selecting the job and go to history tab in the lower panel. In order to continue we need to wait until this job is done, this can take around 5 minutes, depending on the size of your dataset.
+
+To make sure the job transformed the data, go to S3, you should see a new sub-folder called curated with data on it.
 
 ## Add a crawler
 
