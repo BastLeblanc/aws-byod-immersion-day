@@ -11,6 +11,7 @@ At this stage we have Glue Jobs configured to covert our raw data into Parquet. 
 
 ## Orchestrate the data pipeline using the Workflow feature
 
+When you only have a Glue job or a single Crawler that needs to be run periodically, you can schedule it with Glue scheduler or maybe you can use Cloudwatch events with a Lambda function. But if you need more complex flows - for example chaining multiple jobs and crawlers, running different jobs in parallel - Glue provides a workflow mechanism.
 
 The example presented here assumes a lineal/ dependant approach - some jobs before running the others. The plan is to create a pipeline, which will refresh the data-set every once in a while.
 
