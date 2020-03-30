@@ -148,7 +148,7 @@ glueContext.write_dynamic_frame.from_options(frame = dynamicF,
 job.commit()
 ```
 
-* **Save**. Then **Run job**.
+* **Save**. 
 
 ![add a glue job](./img/ingestion/glue-job3.png)
 
