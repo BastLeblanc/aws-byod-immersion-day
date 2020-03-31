@@ -1,3 +1,8 @@
+- [Orchestrating the data pipline](#Orchestrating-the-data-pipline)
+  - [Orchestrate the data pipeline using the Workflow feature](#Orchestrate-the-data-pipeline-using-the-Workflow-feature)
+    - [Reviewing the results](#Reviewing-the-results)
+  - [Orchestrate YOUR data pipeline using Workflows](#Orchestrate-YOUR-data-pipeline-using-Workflows)
+
 # Orchestrating the data pipline
 
 In this lab we will continue to work with [Glue](https://aws.amazon.com/glue/) and convert the raw data we have extracted in [the previous lab](../01_ingestion_with_glue/ingestion_with_glue.md) into a curated data set by making some automation.
@@ -108,3 +113,4 @@ We just walked you trough an example, now its time you think about your own work
 Please note that this was a lineal job, but you can run some jobs in parallel, you can add them in parallel in the pipeline.
 Think about how your workflow will look like, you can ask help to one of the support members from AWS.
 
+Now go to lab 3 : [Interactive SQL Queries](../03_interactive_sql_queries/main.md)

@@ -7,3 +7,11 @@ As of now we cover a few Data Engineering use-cases, such as hydrating the
 datalake, orchestration with Glue, data visualization and governance.
 
 This workshop is designed to be followed using your own dataset, during the lab we use some examples of the NYC taxis dataset.
+
+
+## Getting Started !
+
+Ready to get started ?
+
+* [Check the pre-requisites](00_Prerequisites/Prerequisites.md)
+* [Start lab 1](01_ingestion_with_glue/ingestion_with_glue.md)

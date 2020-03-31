@@ -1,3 +1,15 @@
+- [Introduction](#Introduction)
+  - [Before you begin](#Before-you-begin)
+  - [Preparing your environment](#Preparing-your-environment)
+    - [Configure Permissions](#Configure-Permissions)
+      - [Creating a Policy for Amazon S3 Bucket (Console)](#Creating-a-Policy-for-Amazon-S3-Bucket-Console)
+      - [Creating a Role for AWS Service Glue (Console)](#Creating-a-Role-for-AWS-Service-Glue-Console)
+    - [Creating a Development Endpoint and Notebook (First Part)](#Creating-a-Development-Endpoint-and-Notebook-First-Part)
+  - [Transform the data to Parquet format](#Transform-the-data-to-Parquet-format)
+  - [Add a crawler](#Add-a-crawler)
+  - [Schema Validation](#Schema-Validation)
+    - [Creating a Development Endpoint and Notebook (Second Part)](#Creating-a-Development-Endpoint-and-Notebook-Second-Part)
+
 # Introduction
 
 In this Lab we will create a schema from your data optimized for analytics and place the result in an S3 bucket based data lake.
@@ -213,3 +225,6 @@ NOTE: If you have any "id" column as integer, please make sure type is set to "d
 3. Attach to development: choose the endopoint created some steps back
 4. Create a new IAM Role.
 5. **Create notebook**
+
+
+Now go to lab 2 : [Orchestration](../02_orchestration/orchestration.md)
