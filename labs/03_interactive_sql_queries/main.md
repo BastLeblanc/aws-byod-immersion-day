@@ -272,9 +272,30 @@ LOCATION  's3://{athena-s3-bucket}/{table2_name}/'
 
 ```
 
+
+Example query would look like the following:
+
+```sql
+
+CREATE  EXTERNAL  TABLE mocked_table_1 (
+
+vendor_id BIGINT,
+
+vendor_name STRING,
+
+CAR_COUNT BIGINT
+
+)
+
+STORED AS  PARQUET
+
+LOCATION  's3://athena-query-results-byod/mocked_table_1/'
+
+
+```
   
 
-> Note: You not need to create the S3 folder before running the query; Athena will do it for you. Just choose the S3 path to store the data. Feel free to use any path as long as you own the S3 bucket and it is in the same region you are using through out this lab.
+> Note: You not need to create the S3 folder before running the query; Athena will do it for you. Just choose the S3 path to store the data. However, the S3 bucket should exist before running the query. Feel free to use any path as long as you own the S3 bucket and it is in the same region you are using through out this lab.
 
   
 
@@ -294,7 +315,14 @@ VALUES ({value1.1}, {value2.1}, {value3.1}, ...),
 
 ```
 
-  
+	Example query would look like the following:
+
+```sql
+
+INSERT  INTO  mocked_table_1 (vendor_id,vendor_name,car_count)  
+VALUES (1,'company1', 30),(3,'company3', 511)
+
+  ```
 
 ![image](img/athena_insert.png)
 
@@ -322,6 +350,17 @@ SELECT {table1_name}.{col1_name}, {table2_name}.{col3_name}, {table2_name}.{col5
 FROM {table1_name}
 
 INNER JOIN {table2_name} ON {table1_name}.{key}={table2_name}.{key}
+
+```
+
+In the below example, we are counting the records that matched the join condition:
+
+```sql
+
+SELECT  mocked_table_1.vendor_name, count(*) AS Total
+FROM mocked_table_1
+INNER JOIN nyc_taxi_duration_curated ON nyc_taxi_duration_curated.vendor_id=mocked_table_1.vendor_id
+GROUP BY mocked_table_1.vendor_name
 
 ```
 
@@ -389,7 +428,9 @@ This is useful in joins because it creates tables from join query results in one
 
 1. Open the [AWS Management Console for Athena](https://console.aws.amazon.com/athena/home) and make sure you are on the same AWS Region.
 
-2. Choose the *{curated database}* from the dropdown menu and execute the following query:
+2. Choose the *{curated database}* from the dropdown menu 
+
+3. Use the following to create the CTAS query:
 
 > Note: Make sure that the S3 folder [used to store the files] is empty before running the query. If the folder contains any objects, the query will fail.
 
@@ -413,13 +454,23 @@ AS {your_join_query}
 
 The above query creates a new table, stores the results in parquet format, in this s3://{athena-s3-bucket}/{join_table_folder} location.
 
-  
-  
+In the below example, we are creating a table from a ```FULL JOIN``` and storing the results in Parquet format in the specified S3 path:
 
-3. Wait for the query to execute. After it finishes you can see the newly created view under **Tables** on the right pane.
+```sql
+CREATE TABLE join_table
+WITH (
+      format = 'PARQUET', 
+      external_location = 's3://athena-query-results-byod/join_table/'
+  )
+AS SELECT  mocked_table_1.vendor_name, count(*) AS Total
+FROM mocked_table_1
+FULL JOIN nyc_taxi_duration_curated ON nyc_taxi_duration_curated.vendor_id=mocked_table_1.vendor_id
+GROUP BY mocked_table_1.vendor_name
+```
+
+4. Wait for the query to execute. After it finishes you can see the newly created view under **Tables** on the left pane.
 
   
-
 ![image](img/athena-join-table.png)
 
   
@@ -444,9 +495,19 @@ CREATE VIEW {view_name} AS {your_query}
 
 ```
 
+In the below example, we are creating a view from a ```FULL JOIN```
+
+```sql
+CREATE VIEW join_view
+AS SELECT  mocked_table_1.vendor_name, count(*) AS Total
+FROM mocked_table_1
+FULL JOIN nyc_taxi_duration_curated ON nyc_taxi_duration_curated.vendor_id=mocked_table_1.vendor_id
+GROUP BY mocked_table_1.vendor_name
+```
+
   
 
-3. Wait for the query to execute. After it finishes you can see the newly created view under **Views** on the right pane.
+3. Wait for the query to execute. After it finishes you can see the newly created view under **Views** on the left pane.
 
   
 
