@@ -84,6 +84,7 @@ You may create separate workgroups for different teams in your organisation. In 
   
 
 7. In the top bar, make sure you are currently on the new workgroup.
+> Note: If the workgroup did not change, try clearing the browser cookies or change the browser.
 
 ![image](img/athena_workgroup_validate.png)
 
@@ -121,31 +122,9 @@ If you’re a first time Athena user, you will have to configure an S3 bucket, w
 
   
 
-3. In the **Create Bucket** pop-up page, input a unique **Bucket name**. It is advised to choose a large bucket name, with many random characters and numbers (no spaces).
+3. In the **Create Bucket** pop-up page, input a unique **Bucket name**. It is advised to choose a large bucket name, with many random characters and numbers (no spaces). Select the region and make sure you are using the same region used throughout the lab.
 
-  
 
-  
-
-1. Select the region and make sure you are using the same region used throughout the lab.
-
-  
-
-2. Click **Next** to navigate to next tab.
-
-  
-
-3. In the **Set properties** tab, leave all options as default.
-
-  
-
-4. In the **Set permissions** tag, leave all options as default.
-
-  
-
-5. In the **Review** tab, click on **Create Bucket**
-
-  
 
 ![image](img/athena-s3.png)
 
@@ -155,7 +134,7 @@ If you’re a first time Athena user, you will have to configure an S3 bucket, w
 
   
 
-You can use an already existing bucket with a dedicated folder or you can create a new, dedicated bucket.
+You can use an already existing bucket with a dedicated folder or you can create a new, dedicated bucket. Here, we will use the bucket we created earlier.
 
   
 
@@ -165,17 +144,14 @@ You can use an already existing bucket with a dedicated folder or you can create
 
   
 
-3. Fill in the required information and click **Save**
+3. Fill in the S3 path (the bucket we created earlier) in **Query result location** field and click **Save**
 
-  
+  > Note: Make sure you have forward slash at the end of the S3 path
 
 ![image](img/athena-setup.png)
 
   
 
-> Note: Make sure you have forward slash at the end of the S3 path
-
-  
 
 ## Start Exploring with Athena
 
@@ -193,7 +169,7 @@ After initial setup you can start exploring your data with Athena. You can run n
 
   
 
-2. In the right pane, choose the database name
+2. In the left pane, choose the database name
 
 ![image](img/athena-db-selec.png)
 
@@ -205,7 +181,17 @@ After initial setup you can start exploring your data with Athena. You can run n
 
   
 
-4. On the left pane, enter the first query and click on **Run query**
+4. On the right pane, enter the first query and click on **Run query**. 
+
+For example, the below query returns all records inside the table. Remove the the curly braces - {} - and replace it with your table name.
+
+```sql
+
+SELECT *
+
+FROM {name_of_your_table}
+
+```
 
 ![image](img/athena-first-query.png)
 
@@ -244,23 +230,23 @@ Before joining *two* tables, let's create a new table (with mocked data) and wil
 
 1. Open the [AWS Management Console for Athena](https://console.aws.amazon.com/athena/home) and make sure you are on the same AWS Region.
 
-2. Choose the *{curated database}* from the dropdown menu and execute the following query:
+2. Choose the *{curated database}* from the dropdown menu and execute ```CREATE EXTRENAL TABLE``` query. Replace any curly braces - {} - with your actual values :
 
 ```sql
 
-CREATE  EXTERNAL  TABLE {table2} (
+CREATE  EXTERNAL  TABLE {table2_name} (
 
   
 
-{col1} BIGINT,
+{col1_name} BIGINT,
 
   
 
-{col2} STRING,
+{col2_name} STRING,
 
   
 
-col{3} BIGINT,
+{col3_name} BIGINT,
 
   
 
@@ -276,7 +262,7 @@ STORED AS  PARQUET
 
   
 
-LOCATION  ''s3://{athena-s3-bucket}/{table2}/''
+LOCATION  's3://{athena-s3-bucket}/{table2_name}/'
 
   
 
@@ -292,7 +278,7 @@ LOCATION  ''s3://{athena-s3-bucket}/{table2}/''
 
 ```sql
 
-INSERT  INTO {table2} ({column1},{column2}, {column3}, ...)
+INSERT  INTO {table2_name} ({col1_name},{col2_name}, {col3_name}, ...)
 
 VALUES ({value1.1}, {value2.1}, {value3.1}, ...),
 
@@ -320,17 +306,18 @@ VALUES ({value1.1}, {value2.1}, {value3.1}, ...),
 
 Here are the different types of the JOINs in SQL:
 
-  
+> Note: The following are just examples to show you the syntax of each JOIN type. Feel free to include any columns that could be added, just replace the {col_name} with your actual column names. In addition to this replace {table1_name} with the actual table name
+
 
 -  *Inner Join*:- Returns records that have matching values in both tables. Run the following query in the **Query Editor**
 
 ```sql
 
-SELECT {table1}.{col1}, {table2}.{col3}, {table2}.{col5}
+SELECT {table1_name}.{col1_name}, {table2_name}.{col3_name}, {table2_name}.{col5_name}
 
-FROM {table1}
+FROM {table1_name}
 
-INNER JOIN {table2} ON {table1}.{key}={table2}.{key}
+INNER JOIN {table2_name} ON {table1_name}.{key}={table2_name}.{key}
 
 ```
 
@@ -338,11 +325,11 @@ INNER JOIN {table2} ON {table1}.{key}={table2}.{key}
 
 ```sql
 
-SELECT {table1}.{col1}, {table2}.{col3}, {table2}.{col5}
+SELECT {table1_name}.{col1_name}, {table2_name}.{col3_name}, {table2_name}.{col5_name}
 
-FROM {table1}
+FROM {table1_name}
 
-LEFT JOIN {table2} ON {table1}.{key}={table2}.{key}
+LEFT JOIN {table2_name} ON {table1_name}.{key}={table2_name}.{key}
 
 ```
 
@@ -350,11 +337,11 @@ LEFT JOIN {table2} ON {table1}.{key}={table2}.{key}
 
 ```sql
 
-SELECT {table1}.{col1}, {table2}.{col3}, {table2}.{col5}
+SELECT {table1_name}.{col1_name}, {table2_name}.{col3_name}, {table2_name}.{col5_name}
 
-FROM {table1}
+FROM {table1_name}
 
-RIGHT JOIN {table2} ON {table1}.{key}={table2}.{key}
+RIGHT JOIN {table2_name} ON {table1_name}.{key}={table2_name}.{key}
 
 ```
 
@@ -362,11 +349,11 @@ RIGHT JOIN {table2} ON {table1}.{key}={table2}.{key}
 
 ```sql
 
-SELECT {table1}.{col1}, {table2}.{col3}, {table2}.{col5}
+SELECT {table1_name}.{col1_name}, {table2_name}.{col3_name}, {table2_name}.{col5_name}
 
-FROM {table1}
+FROM {table1_name}
 
-FULL JOIN {table2} ON {table1}.{key}={table2}.{key}
+FULL JOIN {table2_name} ON {table1_name}.{key}={table2_name}.{key}
 
 ```
 
@@ -382,7 +369,7 @@ There are two options to store the results from a SQL join statement; *physicall
 
 -  *Physically:* When the results are written to S3. Useful, if the data does not change frequently. This is useful when integrating Quicksight with Athena. To store the join results in S3, check [Create Table as Select Queries](#create-table-as-select-queries)
 
--  *Virtually*: A logical representation of the data is stored as View. Every time the view queried, the query the created the view runs again. To create a view from the join, check [Creating Views](#creating-views)
+-  *Virtually*: A logical representation of the data is stored as View. Every time the view queried, the query that created the view runs again. To create a view from the join, check [Creating Views](#creating-views)
 
   
 
@@ -414,7 +401,7 @@ format = 'PARQUET',
 
 external_location = 's3://{athena-s3-bucket}/{join_table_folder}',
 
-partitioned_by = ARRAY['{col1}','{col2}']#optional
+partitioned_by = ARRAY['{col1_name}','{col2_name}']#optional
 
 AS {your_join_query}
 
