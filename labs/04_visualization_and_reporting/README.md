@@ -1,6 +1,6 @@
-# Lab 3: Visualization using Amazon QuickSight
+# Lab 4: Visualization using Amazon QuickSight
 
-- [Lab 3: Visualization using Amazon QuickSight](#Lab-2-Visualization-using-Amazon-QuickSight)
+- [Lab 4: Visualization using Amazon QuickSight](#Lab-4-Visualization-using-Amazon-QuickSight)
   - [Architectural Diagram](#Architectural-Diagram)
   - [Signing up for Amazon QuickSight Enterprise Edition](#Signing-up-for-Amazon-QuickSight-Enterprise-Edition)
   - [Configuring Amazon QuickSight to use Amazon Athena as data source](#Configuring-Amazon-QuickSight-to-use-Amazon-Athena-as-data-source)
@@ -215,8 +215,7 @@ This library is licensed under the Apache 2.0 License.
 
 
 
-
-
+Now go to lab 5 : [Transformation](../05_transformations/transformation.md)
 
 
 
