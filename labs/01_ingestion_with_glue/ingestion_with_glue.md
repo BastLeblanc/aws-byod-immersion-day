@@ -125,6 +125,7 @@ We will place this data under the folder named "*curated*" in the data lake.
 * In the Glue Console select the **Jobs** section in the left navigation panel'
 * Click on the *Add job* button;
 * specify a name (preferably **TABLE-NAME-1-job**) in the name field, then select the *"glue-processor-role"*;
+* select Type: **Spark**
 * select the option "*A new script to be authored by you*";
 * Provide a script name (preferably **TABLE-NAME-1-job-script.py**)
 * Tick the checkbox for "*Job Metrics*", under **Monitoring Options** and hit **Next**;
@@ -170,9 +171,10 @@ job.commit()
 
 Click * **Save** and  **Run Job**
 
+
 ![add a glue job](./img/ingestion/glue-job3.png)
 
-Check the status of the job by selecting the job and go to history tab in the lower panel. In order to continue we need to wait until this job is done, this can take around 5 minutes, depending on the size of your dataset.
+Check the status of the job by selecting the job and go to history tab in the lower panel. In order to continue we need to wait until this job is done, this can take around 5 minutes (and up to 10 minutes to start), depending on the size of your dataset.
 
 ![add a glue job](./img/ingestion/seejob.png)
 
@@ -191,7 +193,7 @@ tables in the data catalog.
 * start by navigating to the *Crawlers* menu on the navigation pane, then press **Add crawler**.
 * specify the name: {choose-name}-ds and press **Next**;
 * choose *Data stores* as *Crawler source type* and press **Next**;
-* Choose *S3* as data store. Add S3 path where your raw data resides and press \**Next*;
+* Choose *S3* as data store. Add S3 path where your curated data resides and press \**Next*;
 * At this stage we don't add any other data source;
 * Choose the *glue-processor-role* as IAM Role and proceed to the schedule;
 * Leave the *Run on demand* option at the Frequency section and press **Next**;
