@@ -1,7 +1,4 @@
-- [Lab 2 Orchestrating the data pipeline](#Lab-2-Orchestrating-the-data-pipeline)
-  - [Orchestrate the data pipeline using the Workflow feature](#Orchestrate-the-data-pipeline-using-the-Workflow-feature)
-    - [Reviewing the results](#Reviewing-the-results)
-  - [Orchestrate YOUR data pipeline using Workflows](#Orchestrate-YOUR-data-pipeline-using-Workflows)
+[0-Prerequisites](../00_Prerequisites/Prerequisites.md) > [1-Ingestion](../01_ingestion_with_glue/README.md) > 2-Orchestration > [3-Interactive-SQL](../03_interactive_sql_queries/README.md) > [4-Visualisation](../04_visualization_and_reporting/README.md) > [5-Transformations](../05_transformations/README.md)
 
 # Lab 2 Orchestrating the data pipeline
 

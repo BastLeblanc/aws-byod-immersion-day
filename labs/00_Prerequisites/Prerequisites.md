@@ -1,3 +1,5 @@
+0-Prerequisites > [1-Ingestion](../01_ingestion_with_glue/README.md) > [2-Orchestration](../02_orchestration/README.md) > [3-Interactive-SQL](../03_interactive_sql_queries/README.md) > [4-Visualisation](../04_visualization_and_reporting/README.md) > [5-Transformations](../05_transformations/README.md)
+
 # Prerequisites
 
 Before getting straight into the lab, you need to follow these preparation steps. The labs are designed in a "bring your own data" mindset, these instructions are here to help you prepare you own dataset.
@@ -11,4 +13,4 @@ Before getting straight into the lab, you need to follow these preparation steps
 - Structure your data in S3 so that each table would be in a separate folder, with the whole data in separate bucket. (explained in lab 1)
 - Before uploading your data files to S3, make sure the files are UTF-8 encoding format. You can use terminal commands to detect your current format and use Mac TextEdit to convert (will differ on your used OS).
  
-Ready to go to lab 1 : [Ingestion with Glue](../01_ingestion_with_glue/ingestion_with_glue.md)
+You are now ready to go to lab 1 : [Ingestion with Glue](../01_ingestion_with_glue/README.md)

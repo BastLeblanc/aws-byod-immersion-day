@@ -16,4 +16,4 @@ Note that to upload automatically to S3 you need to configure your AWS CLI tool.
 Ready to get started ?
 
 * [Check the pre-requisites](labs/00_Prerequisites/Prerequisites.md)
-* [Start lab 1](labs/01_ingestion_with_glue/ingestion_with_glue.md)
+* [Start lab 1 directly](labs/01_ingestion_with_glue/ingestion_with_glue.md)
