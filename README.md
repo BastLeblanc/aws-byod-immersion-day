@@ -13,5 +13,5 @@ Required pre-requisites
 
 Ready to get started ?
 
-* [Check the pre-requisites](labs/00_Prerequisites/Prerequisites.md)
+* [Check the pre-requisites](labs/00_Prerequisites/README.md)
 * [Start lab 1 directly](labs/01_ingestion_with_glue/README.md)

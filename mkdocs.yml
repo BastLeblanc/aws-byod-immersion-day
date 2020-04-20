@@ -6,7 +6,7 @@ site_description: Bring Your Own Data Labs
 docs_dir: labs
 nav:
   - Intro: README.md
-  - 0-Prerequisites: 00_Prerequisites/Prerequisites.md
+  - 0-Prerequisites: 00_Prerequisites/README.md
   - 1-Ingestion: 01_ingestion_with_glue/README.md
   - 2-Orchestration: 02_orchestration/README.md
   - 3-Interactive-SQL: 
