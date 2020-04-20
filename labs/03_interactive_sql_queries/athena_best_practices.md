@@ -1,17 +1,9 @@
-# Amazon Athena Best Practices
+# Lab 03 - Optional - Amazon Athena Best Practices
 
-* [Introduction](#introduction)
-* [Using Columnar Storage](#using-columnar-storage)
-* [Partitioning your Data](#partitioning-your-data)
-* [Bucketing your Data](#bucketing-your-data)
-	* [What is 'CREATE TABLE AS SELECT'](#what-is-create-table-as-select)
-	* [Using CTAS to create Partitioned Subset](#using-ctas-to-create-partitioned-subset)
-	* [Using CTAS to create Partitioned and Bucketed Subset](#using-ctas-to-create-partitioned-and-bucketed-subset)
-	* [Comparing Results](#comparing-results)
 
 ## Introduction
 
-In the first Lab ([Lab 1: Ingestion with Glue](../01_ingestion_with_glue/ingestion_with_glue.md)) we did one transformation to the data; *changed the format to parquet*. *Partitioning* and *bucketing* are other common best practices. Partitioning, is a way to organizes tables into partitions by dividing tables into different parts based on partition keys. While Bucketing, buckets your data into groups within a single partition. 
+In the first Lab ([Lab 1: Ingestion with Glue](../01_ingestion_with_glue/README.md)) we did one transformation to the data; *changed the format to parquet*. *Partitioning* and *bucketing* are other common best practices. Partitioning, is a way to organizes tables into partitions by dividing tables into different parts based on partition keys. While Bucketing, buckets your data into groups within a single partition. 
 
 This lab discusses [common best practices](https://aws.amazon.com/blogs/big-data/top-10-performance-tuning-tips-for-amazon-athena/)) that enable you to get the most out of Athena.
 

@@ -1,4 +1,4 @@
-# Optional Labs
+# Lab 3: Interactive SQL - Optional Labs
 
  * [Introduction](#introduction)
  * [Creating Amazon Athena Database and Table](#creating-amazon-athena-database-and-table)
@@ -14,7 +14,7 @@ These are optional labs:
 ## Creating Amazon Athena Database and Table
   
 
-> Note: If you  completed the [Lab 1: Ingestion with Glue](../01_ingestion_with_glue/ingestion_with_glue.md) you can skip this section and go back to [Start Exploring with Athena](./main.md/#start-exploring-with-athena)
+> Note: If you  completed the [Lab 1: Ingestion with Glue](../01_ingestion_with_glue/README.md) you can skip this section and go back to [Start Exploring with Athena](./main.md/#start-exploring-with-athena)
 
 One other method to populate the Data Catalog is using Amazon Athena. If you have a simple dataset and you already know the schema, you can manually populate the Data Catlog using SQL DDL statements. You eneter these SQL DDL statements in Athena Console and Athena will execute them **free of charge**
 

@@ -217,4 +217,4 @@ NOTE: If you have any "id" column as integer, please make sure type is set to "d
 5. **Create notebook**
 
 
-Now go to lab 2 : [Orchestration](../02_orchestration/orchestration.md)
+Now go to lab 2 : [Orchestration](../02_orchestration/README.md)

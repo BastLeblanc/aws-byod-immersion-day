@@ -1,16 +1,20 @@
-site_name: AWS Data Engineering Immersion Day
-site_url: https://data-engineering.labgui.de
-#repo_url: https://github.com/BastLeblanc/aws-byod-immersion-day
-#repo_name: 'GitHub'
-site_description: AWS BYOD Immersion Day
+site_name: Bring your own data labs
+site_url: https://github.com/BastLeblanc/aws-byod-immersion-day
+repo_url: https://github.com/BastLeblanc/aws-byod-immersion-day
+repo_name: 'GitHub'
+site_description: Bring Your Own Data Labs
 docs_dir: labs
 nav:
-  - Data Engineering: index.md
-  - BYOD Labs:
-    - Transformation: 01_ingestion_with_glue/ingestion_with_glue.md
-    - Orchestration: 02_orchestration/orchestration.md
-    - Visualization and Reporting: 03_visualization_and_reporting/README.md
-#  - Presentation: Insight_Driven_Enterprises_Presentation.pdf
+  - Intro: README.md
+  - 0-Prerequisites: 00_Prerequisites/Prerequisites.md
+  - 1-Ingestion: 01_ingestion_with_glue/README.md
+  - 2-Orchestration: 02_orchestration/README.md
+  - 3-Interactive-SQL: 
+    - 3-Interactive-SQL lab: 03_interactive_sql_queries/README.md
+    - 3-1 SQL Optional lab 1 : 03_interactive_sql_queries/optional.md
+    - 3-2 SQL Optional Amazon Athena Best Practices: 03_interactive_sql_queries/athena_best_practices.md
+  - 4-Visualisation:  04_visualization_and_reporting/README.md
+  - 5-Transformations: 05_transformations/README.md
 theme:
   highlightjs: true
   #name: 'ivory'

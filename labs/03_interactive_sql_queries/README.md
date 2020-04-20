@@ -12,7 +12,7 @@ Amazon Athena is an interactive query service that makes it easy to analyze data
 In this lab, we will use Athena to explore, analyze and prepare the data for visualization in QuickSight. This lab is divided into three sections; one manadatory and two optional:
 
 *  To start working with Athena, continue on this lab and follow throught the different section. Next lab is [Setting up Workgroups](#setting-up-workgroups)
-*  [Optional] In [lab 1](../01_ingestion_with_glue/ingestion_with_glue.md), we used Glue Crawlers to create our Database and Tables. To create your Database and tables using Athena, click [here](./optional.md)
+*  [Optional] In [lab 1](../01_ingestion_with_glue/README.md), we used Glue Crawlers to create our Database and Tables. To create your Database and tables using Athena, click [here](./optional.md)
 *  [Optional] To review Athena best practices, click on [Amazon Athena Best Practices](./athena_best_practices.md)
 
 
@@ -174,7 +174,7 @@ After initial setup you can start exploring your data with Athena. You can run n
 
   
 
-> Note: If you do not have a database created, you can follow [Lab 1: Ingestion with Glue](../01_ingestion_with_glue/ingestion_with_glue.md) to create your first database. Alternatively, you can follow this lab to [create your first database and table using Athena](./optional.md#creating-amazon-athena-database-and-table).
+> Note: If you do not have a database created, you can follow [Lab 1: Ingestion with Glue](../01_ingestion_with_glue/README.md) to create your first database. Alternatively, you can follow this lab to [create your first database and table using Athena](./optional.md#creating-amazon-athena-database-and-table).
 
   
 
@@ -211,7 +211,7 @@ After initial setup you can start exploring your data with Athena. You can run n
 
   
 
-In [Lab 1: Ingestion with Glue](../01_ingestion_with_glue/ingestion_with_glue.md) we converted the data format from *row-based* (csv, json, etc..) to columnar (parquet). To explore other optimisations that could be employed, check [Athena Best Practices Lab](./athena_best_practices.md). In addition to this, see [Top Performance Tuning Tips for Amazon Athena](http://aws.amazon.com/blogs/big-data/top-10-performance-tuning-tips-for-amazon-athena/) for general best practices that should be done when working with Athena.
+In [Lab 1: Ingestion with Glue](../01_ingestion_with_glue/README.md) we converted the data format from *row-based* (csv, json, etc..) to columnar (parquet). To explore other optimisations that could be employed, check [Athena Best Practices Lab](./athena_best_practices.md). In addition to this, see [Top Performance Tuning Tips for Amazon Athena](http://aws.amazon.com/blogs/big-data/top-10-performance-tuning-tips-for-amazon-athena/) for general best practices that should be done when working with Athena.
 
   
 

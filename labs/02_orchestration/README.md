@@ -2,9 +2,9 @@
 
 # Lab 2 Orchestrating the data pipeline
 
-In this lab we will continue to work with [Glue](https://aws.amazon.com/glue/) and convert the raw data we have extracted in [the previous lab](../01_ingestion_with_glue/ingestion_with_glue.md) into a curated data set by making some automation.
+In this lab we will continue to work with [Glue](https://aws.amazon.com/glue/) and convert the raw data we have extracted in [the previous lab](../01_ingestion_with_glue/README.md) into a curated data set by making some automation.
 
-> **Please note**: this Lab depends on the steps executed in the [Transformation](../01_ingestion_with_glue/ingestion_with_glue.md) LAB;
+> **Please note**: this Lab depends on the steps executed in the [Transformation](../01_ingestion_with_glue/README.md) LAB;
 > In case you didn't finish that one yet, now is the time :)
 
 At this stage we have Glue Jobs configured to covert our raw data into Parquet. We should be able to observe 2 main folders in our data-lake bucket (raw and curated).
@@ -110,4 +110,4 @@ We just walked you trough an example, now its time you think about your own work
 Please note that this was a lineal job, but you can run some jobs in parallel, you can add them in parallel in the pipeline.
 Think about how your workflow will look like, you can ask help to one of the support members from AWS.
 
-Now go to lab 3 : [Interactive SQL Queries](../03_interactive_sql_queries/main.md)
+Now go to lab 3 : [Interactive SQL Queries](../03_interactive_sql_queries/README.md)
