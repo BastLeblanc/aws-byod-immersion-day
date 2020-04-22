@@ -516,4 +516,4 @@ CREATE [ OR REPLACE ] VIEW {view_name} AS {your_query}
 
 ```
 
-Now go to lab 4 : [Vizualization](../04_visualization_and_reporting/README.md)
+Now go to lab 4 : [Visualization](../04_visualization_and_reporting/README.md)
