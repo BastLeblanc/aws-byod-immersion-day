@@ -7,7 +7,7 @@ In this lab we will continue to work with [Glue](https://aws.amazon.com/glue/) a
 > **Please note**: this Lab depends on the steps executed in the [Transformation](../01_ingestion_with_glue/README.md) LAB;
 > In case you didn't finish that one yet, now is the time :)
 
-At this stage we have Glue Jobs configured to covert our raw data into Parquet. We should be able to observe 2 main folders in our data-lake bucket (raw and curated).
+At this stage we have Glue Jobs configured to convert our raw data into Parquet. We should be able to observe 2 main folders in our data-lake bucket (raw and curated).
 
 ![data-lake with raw and curated](./img/orchestration/s3_raw_and_curated.png)
 
@@ -64,7 +64,7 @@ Select the job that needs to run first- In this case, we want the transformation
 
 We are almost there, however there's one more thing: we need to add the crawler for the curated data - Please follow the same steps
 
-1. Add a triger
+1. Add a trigger
 
 ![adding jobs to the trigger](./img/orchestration/wf6.png)
 
@@ -106,7 +106,7 @@ When you navigate to the **Tables**, you will observe tables created from your d
 
 ## Orchestrate YOUR data pipeline using Workflows
 
-We just walked you trough an example, now its time you think about your own workflow case. Which are those jobs that have to run on a recurring/ schedule basis? 
+We just walked you through an example, now its time you think about your own workflow case. Which are those jobs that have to run on a recurring/ schedule basis? 
 Please note that this was a lineal job, but you can run some jobs in parallel, you can add them in parallel in the pipeline.
 Think about how your workflow will look like, you can ask help to one of the support members from AWS.
 

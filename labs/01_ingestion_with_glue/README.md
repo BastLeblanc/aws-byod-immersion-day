@@ -16,7 +16,7 @@ The encoding of your raw files should be UTF-8. You should export your files fro
 or by using this Linux command: 
 ``` python iconv -f <current-encoding of file> -t utf-8 data.csv outputfile.csv```
     
-if you dont know the encoding, you can use this command to determine: "
+if you don't know the encoding, you can use this command to determine: "
 ``` python enca -L none data.csv```
 
 Also before you start, make sure your raw data files are saved in a separate bucket in a folder
@@ -212,7 +212,7 @@ NOTE: If you have any "id" column as integer, please make sure type is set to "d
 
 1. In the glue console, Go to Notebooks, click Create notebook
 2. Notebook name: aws-glue-`byod`
-3. Attach to development: choose the endopoint created some steps back
+3. Attach to development: choose the endpoint created some steps back
 4. Create a new IAM Role.
 5. **Create notebook**
 

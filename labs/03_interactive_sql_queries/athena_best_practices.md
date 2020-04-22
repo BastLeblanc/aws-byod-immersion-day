@@ -80,7 +80,7 @@ You can use ```CREATE TABLE AS SELECY```(CTAS) query to bucket the data within a
 
 A `CREATE TABLE AS SELECT` (CTAS) query creates a new table in Athena from the results of a `SELECT` statement from another query. Athena stores data files created by the CTAS statement in a specified location in Amazon S3
 
-> Note: You not need to create the S3 folder before running the CTAS query; Athena will do it for you. Just choose the S3 path to store the data. Feel free to use any path as long as you own the  S3 bucket and it is in the same region you are using through out this lab.
+> Note: You not need to create the S3 folder before running the CTAS query; Athena will do it for you. Just choose the S3 path to store the data. Feel free to use any path as long as you own the  S3 bucket and it is in the same region you are using throughout this lab.
 > If you choose to create the folder before running the query, make sure the folder is empty otherwise the query will fail.
 
 Use CTAS queries to:

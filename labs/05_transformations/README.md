@@ -31,7 +31,7 @@ job.init("byod-workshop-" + str(datetime.datetime.now().timestamp()))
 
 We are going to use the data we transformed to parquet in previous steps. For that, we create a dynamic frame pointing to the database and table that our crawler inferred, then we are going to show the schema.
 
-If you dont remember the database/ table names, just go to Databases/ Table tab in Glue and copy its names.
+If you do not remember the database/table names, just go to Databases/ Table tab in Glue and copy its names.
 
 ``` python
 dynamicF = glueContext.create_dynamic_frame.from_catalog(database="DATABASE_NAME", table_name="TABLE_NAME")
