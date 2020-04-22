@@ -1,7 +1,7 @@
 site_name: Bring your own data labs
 site_url: https://github.com/BastLeblanc/aws-byod-immersion-day
 repo_url: https://github.com/BastLeblanc/aws-byod-immersion-day
-repo_name: 'GitHub'
+repo_name: 'BastLeblanc/aws-byod-immersion-day'
 site_description: Bring Your Own Data Labs
 docs_dir: labs
 nav:
@@ -17,14 +17,12 @@ nav:
   - 5-Transformations: 05_transformations/README.md
 theme:
   highlightjs: true
-  #name: 'ivory'
+  #name: 'bootstrap'
   name: 'material'
   language: 'en'
   palette:
     primary: 'blue grey'
     accent: 'orange'
-  logo: 'img/Amazon_Web_Services_Logo.svg'
-  favicon: 'img/favicon.ico'
 plugins:
   - search
 #  - pdf-export:
@@ -56,7 +54,7 @@ markdown_extensions:
 #  - pymdownx.emoji:
 #      emoji_generator: !!python/name:pymdownx.emoji.to_svg
 #  - pymdownx.inlinehilite
-  - pymdownx.magiclink
+#  - pymdownx.magiclink
 #  - pymdownx.mark
 #  - pymdownx.smartsymbols
 #  - pymdownx.superfences
