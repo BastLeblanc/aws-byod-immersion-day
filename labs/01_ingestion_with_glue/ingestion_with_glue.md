@@ -101,6 +101,10 @@ NOTE: “AWSGlueServiceRole” is an AWS Managed Policy to provide Glue with nee
 
 ### Creating a Development Endpoint and Notebook (First Part)
 
+
+In AWS Glue can create an environment—known as a development endpoint—that you can use to iteratively develop and test your extract, transform, and load (ETL) scripts. 
+You can then create a notebook that connects to the endpoint, and use your notebook to author and test your ETL script. When you're satisfied with the results of your development process, you can create an ETL job that runs your script. With this process, you can add functions and debug your scripts in an interactive manner.
+
 Go to Glue in the console https://console.aws.amazon.com/glue/
 
 1. On the left menu, click in Dev. enpoints and **Add endpoint**.
@@ -153,6 +157,8 @@ We will place this data under the folder named "_curated_" in the data lake.
 - click **Next**, then **Save job and edit script**. You will be redirected to script editor.
 - Paste the following code to the editor. **DONT FORGET TO PUT IN YOUR INPUT AND OUTPUT FOLDER LOCATIONS.**
 
+This step needs to be done per each file you have.
+
 ```python
 import sys
 import datetime
@@ -183,21 +189,26 @@ job.commit()
 
 Click \* **Save** and **Run Job**
 
+
 ![add a glue job](./img/ingestion/glue-job3.png)
 
-Check the status of the job by selecting the job and go to history tab in the lower panel. In order to continue we need to wait until this job is done, this can take around 5 minutes, depending on the size of your dataset.
+Check the status of the job by selecting the job and go to history tab in the lower panel. In order to continue we need to wait until this job is done, this can take around 5 minutes (and up to 10 minutes to start), depending on the size of your dataset.
 
 ![add a glue job](./img/ingestion/seejob.png)
 
 To make sure the job transformed the data, go to S3, you should see a new sub-folder called curated with data on it.
 
-Now repeat this last step per each file / table you had originally.
+Now, remember to repeat this last step per each file you had originally.
 
 ## Add a crawler for curated data
 
 Note: To proceed with this step, you need to wait for the previous job to finish.
 
 Now that we have the data in Parquet format, we need to infer the schema from the parquet files.
+Glue crawler connects to a data store to determine the schema for your data, and then creates metadata tables in the data catalog.
+
+Now that we have the data in Parquet format, we need to infer the schema. Repeat this step per each job/ file you created in the previous step.
+
 Glue crawler connects to a data store to determine the schema for your data, and then creates metadata tables in the data catalog.
 
 - start by navigating to the _Crawlers_ menu on the navigation pane, then press **Add crawler**.
