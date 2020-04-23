@@ -52,7 +52,7 @@ In this lab you will be using the S3 bucket with your data and the Athena table 
 
 6. **Before continuing with the following steps, make sure you are in the N. Virginia Region to edit permissions.**
 
-Now, on the Amazon QuickSight dashboard, navigate to User Settings page on the Top-Right section and click **Manage QuickSight**.
+Now, on the Amazon QuickSight dashboard, navigate to User Settings page by clicking on the Top-Right section - see image below - and click **Manage QuickSight**.
 
    ![image](img/quicksight-first-page.png)
 
@@ -61,12 +61,32 @@ Now, on the Amazon QuickSight dashboard, navigate to User Settings page on the T
 <p align="center"><img src="img/updated1.png" /></p> 
 
 8. Click on **Amazon S3** and on the tab that says **S3 buckets linked to QuickSight account**.
-9. Ensure **Select All** is checked.
+9. You have two options depending on the permissions of your account:
+  a. Choose **Select All** if you have permissions on all S3 folders
+  b. Choose the following two buckets:
+    i. The S3 bucket(s) you store your data
+    ii. The S3 bucket that that you store Athena query results, as specified in your Athena workgroup settings.
+  
 10. Click on **Select buckets**.
 
 ![image](https://s3.amazonaws.com/us-east-1.data-analytics/labcontent/reinvent2017content-abd313/lab2/qsimage6.PNG)
 
 12. When you are done doing all this, click **Update** to bring you back to the user settings back.
+
+## Some Quicksight definitions
+
+**What is a data source and what is a dataset?**
+A **data source** is an external data store and you use it to access the data in this external data store eg. Amazon S3, Amazon Athena, Salesforce etc.
+
+A **data set** identifies the specific data in a data source that you want to use. For example, the data source might be a table if you are connecting to a database data source. It might be a file if you are connecting to an Amazon S3 data source. A data set also stores any data preparation you have performed on that data, such as renaming a field or changing its data type. Storing this preparation means that you don't have to reprepare the data each time you want to create an analysis based on it.
+
+**What is an Analysis, a Visual and a Dashboard?
+An **analysis** is a container for a set of related visuals and stories, for example all the ones that apply to a given business goal or key performance indicator. You can use multiple data sets in an analysis, although any given visual can only use one of those data sets.
+
+A **visual** is a graphical representation of your data. You can create a wide variety of visuals in an analysis, using different datasets and visual types.
+
+A **dashboard** is a read-only snapshot of an analysis that you can share with other Amazon QuickSight users for reporting purposes. A dashboard preserves the configuration of the analysis at the time you publish it, including such things as filtering, parameters, controls, and sort order. The data used for the analysis isn't captured as part of the dashboard. When you view the dashboard, it reflects the current data in the data sets used by the analysis.
+
 
 ## Configuring Amazon QuickSight to use Amazon Athena as data source
 
@@ -107,17 +127,17 @@ You can choose to create a dataset using S3 as your data source. For this:
 ## Preparing your data
 
 1. You can edit an existing data set to perform data preparation. To edit a data set from the Your **Data Sets page**, choose the data set, and then choose **Edit Data Set**. The data set opens in the data preparation page.
-*If you want to create a copy of the data set, choose **Duplicate** data set, and enter a name for the copy.*
+* You can duplicate an existing data set to save a copy of it with a new name. The new data set is a completely separate copy. Choose **Duplicate** data set, and enter a name for the copy.*
 
 2. Select the fields that you will use for the visualization.
 ![image](img/Select_Fields.png)
 
 3. We suggest that you pick two - three columns from your data set that meet the following criteria:
-*. The first column is a date column (can be year, month or day. Usually marked by **calendar icon**
+..i. The first column is a date column (can be year, month or day. Usually marked by **calendar icon**
 in **Fields list** on the left)
-*. The second column is a quantifiable number (revenue, count, distance, etc. Usually
+..ii. The second column is a quantifiable number (revenue, count, distance, etc. Usually
 marked by a **green hash #**)
-*. The third column has categorical value, which means it has specific limited set of values (type,
+..iii. The third column has categorical value, which means it has specific limited set of values (type,
 category, etc. Usually marked by **ticket icon**)
 
 4. Optional - Change the data type. You can change the field's data type in one of the available data types.
