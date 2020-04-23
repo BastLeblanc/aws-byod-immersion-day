@@ -101,6 +101,10 @@ NOTE: “AWSGlueServiceRole” is an AWS Managed Policy to provide Glue with nee
 
 ### Creating a Development Endpoint and Notebook (First Part)
 
+
+In AWS Glue can create an environment—known as a development endpoint—that you can use to iteratively develop and test your extract, transform, and load (ETL) scripts. 
+You can then create a notebook that connects to the endpoint, and use your notebook to author and test your ETL script. When you're satisfied with the results of your development process, you can create an ETL job that runs your script. With this process, you can add functions and debug your scripts in an interactive manner.
+
 Go to Glue in the console https://console.aws.amazon.com/glue/
 
 1. On the left menu, click in Dev. enpoints and **Add endpoint**.
@@ -120,11 +124,14 @@ In the following section, we will create one job per each file to transform the 
 
 ![parquet vs csv](./img/ingestion/csv_parquet.png)
 
-We will place this data under the folder named "*curated*" in the data lake.
+This step needs to be done per each file you have.
+
+We will place this data under the folder named "*curated*" in the data lake. 
 
 * In the Glue Console select the **Jobs** section in the left navigation panel'
 * Click on the *Add job* button;
 * specify a name (preferably **TABLE-NAME-1-job**) in the name field, then select the *"glue-processor-role"*;
+* select Type: **Spark**
 * select the option "*A new script to be authored by you*";
 * Provide a script name (preferably **TABLE-NAME-1-job-script.py**)
 * Tick the checkbox for "*Job Metrics*", under **Monitoring Options** and hit **Next**;
@@ -170,32 +177,34 @@ job.commit()
 
 Click * **Save** and  **Run Job**
 
+
 ![add a glue job](./img/ingestion/glue-job3.png)
 
-Check the status of the job by selecting the job and go to history tab in the lower panel. In order to continue we need to wait until this job is done, this can take around 5 minutes, depending on the size of your dataset.
+Check the status of the job by selecting the job and go to history tab in the lower panel. In order to continue we need to wait until this job is done, this can take around 5 minutes (and up to 10 minutes to start), depending on the size of your dataset.
 
 ![add a glue job](./img/ingestion/seejob.png)
 
 To make sure the job transformed the data, go to S3, you should see a new sub-folder called curated with data on it.
 
-Now repeat this last step per each file / table you had originally.
+Now, remember to repeat this last step per each file you had originally.
 
 ## Add a crawler
 
 Note: To proceed with this step, you need to wait for the previous job to finish.
 
-Now that we have the data in Parquet format, we need to infer the schema.
+Now that we have the data in Parquet format, we need to infer the schema. Repeat this step per each job/ file you created in the previous step.
+
 Glue crawler connects to a data store to determine the schema for your data, and then creates metadata
 tables in the data catalog.
 
 * start by navigating to the *Crawlers* menu on the navigation pane, then press **Add crawler**.
 * specify the name: {choose-name}-ds and press **Next**;
 * choose *Data stores* as *Crawler source type* and press **Next**;
-* Choose *S3* as data store. Add S3 path where your raw data resides and press \**Next*;
+* Choose *S3* as data store. Add S3 path where your curated data resides and press \**Next*;
 * At this stage we don't add any other data source;
 * Choose the *glue-processor-role* as IAM Role and proceed to the schedule;
 * Leave the *Run on demand* option at the Frequency section and press **Next**;
-* Click on the **Add database** button and specify {choose-name}\_src as database name (this will be the name representing the source database in the data catalog). Press **Next** and **Finish**;
+* Click on the **Add database** button and specify {choose-name}\_src as database name (this will be the name representing the source database in the data catalog - make sure the name does not have "-" since you may have problems in the future steps). Press **Next** and **Finish**;
 
 ![add a new database](./img/ingestion/crawler2.png)
 
