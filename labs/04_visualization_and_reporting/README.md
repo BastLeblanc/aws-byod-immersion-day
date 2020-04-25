@@ -1,16 +1,6 @@
-# Lab 4: Visualization using Amazon QuickSight
+[0-Prerequisites](../00_Prerequisites/README.md) > [1-Ingestion](../01_ingestion_with_glue/README.md) > [2-Orchestration](../02_orchestration/README.md) > [3-Interactive-SQL](../03_interactive_sql_queries/README.md) > 4-Visualisation > [5-Transformations](../05_transformations/README.md)
 
-- [Lab 4: Visualization using Amazon QuickSight](#Lab-4-Visualization-using-Amazon-QuickSight)
-  - [Architectural Diagram](#Architectural-Diagram)
-  - [Signing up for Amazon QuickSight Enterprise Edition](#Signing-up-for-Amazon-QuickSight-Enterprise-Edition)
-  - [Configuring Amazon QuickSight to use Amazon Athena as data source](#Configuring-Amazon-QuickSight-to-use-Amazon-Athena-as-data-source)
-  - [Preparing your data](#Preparing-your-data)
-  - [Visualizing the data using Amazon QuickSight](#Visualizing-the-data-using-Amazon-QuickSight)
-    - [Forecast Monthly Trend for your Quantity Column](#Forecast-Monthly-Trend-for-your-Quantity-Column)
-    - [Adding Filters](#Adding-Filters)
-    - [Visualize Month over Month Quantity](#Visualize-Month-over-Month-Quantity)
-    - [Review ML Insights](#Review-ML-Insights)
-  - [License](#License)
+# Lab 4: Visualization using Amazon QuickSight
 
 
 ## Architectural Diagram
@@ -215,7 +205,7 @@ This library is licensed under the Apache 2.0 License.
 
 
 
-Now go to lab 5 : [Transformation](../05_transformations/transformation.md)
+Now go to lab 5 : [Transformation](../05_transformations/README.md)
 
 
 
