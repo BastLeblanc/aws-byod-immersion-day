@@ -1,4 +1,6 @@
-# Playing with the data
+[0-Prerequisites](../00_Prerequisites/README.md) > [1-Ingestion](../01_ingestion_with_glue/README.md) > [2-Orchestration](../02_orchestration/README.md) > [3-Interactive-SQL](../03_interactive_sql_queries/README.md) > [4-Visualisation](../04_visualization_and_reporting/README.md) > 5-Transformations
+
+# Lab 05 - Transformations
 
 
 Now we are going to start cleaning, transforming, aggregating and partitioning data. For development and debugging purposes, we are going to use the Developer Endpoint and Notebook we created some steps back.
@@ -29,7 +31,7 @@ job.init("byod-workshop-" + str(datetime.datetime.now().timestamp()))
 
 We are going to use the data we transformed to parquet in previous steps. For that, we create a dynamic frame pointing to the database and table that our crawler inferred, then we are going to show the schema.
 
-If you dont remember the database/ table names, just go to Databases/ Table tab in Glue and copy its names.
+If you do not remember the database/table names, just go to Databases/ Table tab in Glue and copy its names.
 
 ``` python
 dynamicF = glueContext.create_dynamic_frame.from_catalog(database="DATABASE_NAME", table_name="TABLE_NAME")
@@ -38,7 +40,7 @@ dynamicF.printSchema()
 
 ## Transformations
 
-You probably have a large number of columns and some of them can have complicated names. To analyze the data, perphaps we may not need all the columns, just a small set of them, and to make easier to recall, we may want to change the name of the columns. Therefore, we are going to select only the columns we are interested in, drop the rest of them and we are going to rename them.
+You probably have a large number of columns and some of them can have complicated names. To analyze the data, perhaps we may not need all the columns, just a small set of them, and to make easier to recall, we may want to change the name of the columns. Therefore, we are going to select only the columns we are interested in, drop the rest of them and we are going to rename them.
 
 ### Drop Columns
 
@@ -60,7 +62,7 @@ dynamicF.printSchema()
 
 Please check the datetime column schema, from the previous step. It may be string or another type different than what we may need it to be. Therefore, we are going to do some transformations.
 
-First, lets add the libraries we need to make this conversion:
+First, let's add the libraries we need to make this conversion:
 
 ``` python 
 from pyspark.sql.functions import date_format
@@ -122,7 +124,7 @@ In order to partition our data, we will first create extra columns for year, mon
 /curated/TABLE-NAME-1/year=YYYY/month=MM/day=DD/file1.parquet
 ```
 
-You can also add additional partitions if you know you will often use those fields to filter data. For example if you will often filter your data on product types, you can add a column for that field and also partition by that column additionally.
+You can also add additional partitions if you know you will often use those fields to filter data. For example, if you will often filter your data on product types, you can add a column for that field and also partition by that column additionally.
 
 Add this code at the end of your script:
 ```python
@@ -139,7 +141,7 @@ See that there are three extra fields for year, month and day.
 ## Run this in a Glue Job
 
 
-Please add this lines to the end of your notebook 
+Please add these lines to the end of your notebook 
 
 ``` python
 ## DONT FORGET TO PUT IN YOUR BUCKET NAME.
@@ -150,7 +152,7 @@ df.write.mode("overwrite").partitionBy("year","month","day").parquet(output_loca
 job.commit()
 ```
 
-Now, lets export our job and move it into a glue job.
+Now, let's export our job and move it into a glue job.
 
 ![exporting notebook to glue](./img/notebook-to-glue.png)
 

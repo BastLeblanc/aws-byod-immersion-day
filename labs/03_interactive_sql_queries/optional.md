@@ -1,4 +1,4 @@
-# Optional Labs
+# Lab 3: Interactive SQL - Optional Labs
 
  * [Introduction](#introduction)
  * [Creating Amazon Athena Database and Table](#creating-amazon-athena-database-and-table)
@@ -14,9 +14,9 @@ These are optional labs:
 ## Creating Amazon Athena Database and Table
   
 
-> Note: If you  completed the [Lab 1: Ingestion with Glue](../01_ingestion_with_glue/ingestion_with_glue.md) you can skip this section and go back to [Start Exploring with Athena](./main.md/#start-exploring-with-athena)
+> Note: If you  completed the [Lab 1: Ingestion with Glue](../01_ingestion_with_glue/README.md) you can skip this section and go back to [Start Exploring with Athena](./main.md/#start-exploring-with-athena)
 
-One other method to populate the Data Catalog is using Amazon Athena. If you have a simple dataset and you already know the schema, you can manually populate the Data Catlog using SQL DDL statements. You eneter these SQL DDL statements in Athena Console and Athena will execute them **free of charge**
+One other method to populate the Data Catalog is using Amazon Athena. If you have a simple dataset and you already know the schema, you can manually populate the Data Catalog using SQL DDL statements. You enter these SQL DDL statements in Athena Console and Athena will execute them **free of charge**
 
  Athena uses Apache Hive to define tables and create databases. Databases are a logical grouping of tables. When you create a database and table in Athena, you are simply describing the schema and location of the table data in Amazon S3\. In case of Hive, databases and tables don’t store the data along with the schema definition unlike traditional relational database systems. The data is read from Amazon S3 only when you query the table. The other benefit of using Hive is that the metastore found in Hive can be used in many other big data applications such as Spark, Hadoop, and Presto. With Athena catalog, you can now have Hive-compatible metastore in the cloud without the need for provisioning a Hadoop cluster or RDS instance. For guidance on databases and tables creation refer [Apache Hive documentation](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+DDL). The following steps provides guidance specifically for Amazon Athena.
 
@@ -154,5 +154,5 @@ If your table has sub-partitions (for example; partition by year and month), cre
  7. Wait for the query to finish and check the results.
    ![image](img/athena_newpart_msc.png)
    
- 8. Run the ```SHOW PARTITIONS {curated_table_name}``` query again and wait for the query to finish. You will notice in the results that Athena now recogises the new partitions.
+ 8. Run the ```SHOW PARTITIONS {curated_table_name}``` query again and wait for the query to finish. You will notice in the results that Athena now recognises the new partitions.
    ![image](img/athena_showpart2.png)
