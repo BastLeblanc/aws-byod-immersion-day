@@ -18,7 +18,7 @@ In this lab, we will use Athena to explore, analyze and prepare the data for vis
 
 ## Architectural Diagram
 
-This is an example Architecture, the raw data is stored in S3 in CSV format and the curated data is stored in another S3 bucket in Parquet. While you might have a different setup, this is only for illustrative purposes. Amazon Athena will be used to query both data sources if needed. 
+This is an example architecture, the raw data is stored in S3 in CSV format and the curated data is stored in another S3 bucket in Parquet. While you might have a different setup, this is only for illustrative purposes. Amazon Athena will be used to query both data sources if needed. 
 
 ![architecture-overview-lab2.png](https://s3.amazonaws.com/us-east-1.data-analytics/labcontent/reinvent2017content-abd313/lab2/architecture-overview-lab2.png)
 
@@ -38,7 +38,7 @@ Workgroups are used to isolate queries for teams, applications, or different wor
 
   
 
-You may create separate workgroups for different teams in your organisation. In this lab, we will create a workgroup for our Quicksight Users
+You may create separate workgroups for different teams in your organisation. In this lab, we will create a workgroup for our QuickSight Users
 
   
 
@@ -91,7 +91,7 @@ If you’re a first time Athena user, you will have to configure an S3 bucket, w
 
   
 
-> Note: If you have already have an S3 bucket in your AWS Account and can be used to store Athena Query results, you can skip this section.
+> Note: If you have already had an S3 bucket in your AWS Account and can be used to store Athena Query results, you can skip this section.
 
   
 
@@ -146,7 +146,7 @@ You can use an already existing bucket with a dedicated folder or you can create
 
   
 
-After initial setup you can start exploring your data with Athena. You can run normal SQL queries using the **Query Editor** in Athena console. To run your first query follow the below:
+After initial setup you can start exploring your data with Athena. You can run normal SQL queries using the **Query Editor** in Athena console. To run your first query, follow the below:
 
   
 
@@ -172,7 +172,7 @@ After initial setup you can start exploring your data with Athena. You can run n
 
 4. On the right pane, enter the first query and click on **Run query**. 
 
-For example, the below query returns all records inside the table. Remove the the curly braces - {} - and replace it with your table name.
+For example, the below query returns all records inside the table. Remove the curly braces - {} - and replace it with your table name.
 
 ```sql
 
@@ -219,7 +219,7 @@ Before joining *two* tables, let's create a new table (with mocked data) and wil
 
 1. Open the [AWS Management Console for Athena](https://console.aws.amazon.com/athena/home) and make sure you are on the same AWS Region.
 
-2. Choose the *{curated database}* from the dropdown menu and execute ```CREATE EXTRENAL TABLE``` query. Replace any curly braces - {} - with your actual values :
+2. Choose the *{curated database}* from the dropdown menu and execute ```CREATE EXTRENAL TABLE``` query. Replace any curly braces - {} - with your actual values:
 
 ```sql
 
@@ -280,7 +280,7 @@ LOCATION  's3://athena-query-results-byod/mocked_table_1/'
 ```
   
 
-> Note: You not need to create the S3 folder before running the query; Athena will do it for you. Just choose the S3 path to store the data. However, the S3 bucket should exist before running the query. Feel free to use any path as long as you own the S3 bucket and it is in the same region you are using through out this lab.
+> Note: You not need to create the S3 folder before running the query; Athena will do it for you. Just choose the S3 path to store the data. However, the S3 bucket should exist before running the query. Feel free to use any path as long as you own the S3 bucket and it is in the same region you are using throughout this lab.
 
   
 
@@ -395,7 +395,7 @@ There are two options to store the results from a SQL join statement; *physicall
 
   
 
--  *Physically:* When the results are written to S3. Useful, if the data does not change frequently. This is useful when integrating Quicksight with Athena. To store the join results in S3, check [Create Table as Select Queries](#create-table-as-select-queries)
+-  *Physically:* When the results are written to S3. Useful, if the data does not change frequently. This is useful when integrating QuickSight with Athena. To store the join results in S3, check [Create Table as Select Queries](#create-table-as-select-queries)
 
 -  *Virtually*: A logical representation of the data is stored as View. Every time the view queried, the query that created the view runs again. To create a view from the join, check [Creating Views](#creating-views)
 

@@ -2,7 +2,7 @@
 
 # Lab 01 - Ingestion with Glue
 
-In this Lab we will create a schema from your data optimized for analytics and place the result in an S3 bucket based data lake.
+In this Lab we will create a schema from your data optimized for analytics and place the result in an S3 bucket-based data lake.
 
 ## Before you begin
 
@@ -19,7 +19,7 @@ or by using this Linux command:
 if you don't know the encoding, you can use this command to determine: "
 ``` python enca -L none data.csv```
 
-Also before you start, make sure your raw data files are saved in a separate bucket in a folder
+Also, before you start, make sure your raw data files are saved in a separate bucket in a folder
 called "raw". Each file should be a separate table. Each table file should be preferably in a
 separate folder with the table name. An example would be as follows:
 
@@ -93,7 +93,7 @@ NOTE: “AWSGlueServiceRole” is an AWS Managed Policy to provide Glue with nee
 
 Go to Glue in the console https://console.aws.amazon.com/glue/
 
-1. On the left menu, click in Dev. enpoints and **Add endpoint**.
+1. On the left menu, click in Dev. endpoints and **Add endpoint**.
 2. Development endpoint name: `byod`
 3. IAM role: **glue-processor-role**
 4. Click **Next**
