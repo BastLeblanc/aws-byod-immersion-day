@@ -174,10 +174,10 @@ and copy it. In the AWS Glue Console (https://console.aws.amazon.com/glue/), cli
 
 # Terminate the following resources
 
-The Glue development endpoint and the notebook will incur charges. So please go to the glue console https://console.aws.amazon.com/glue/home?region=us-east-1#etl:tab=devEndpoints
+The Glue development endpoint and the notebook will incur charges. So please go to [GLue](https://console.aws.amazon.com/glue/home?region=us-east-1#etl:tab=devEndpoints)
 Select the endpoint - Action -> Delete
 
-Then go to the notebook https://console.aws.amazon.com/glue/home?region=us-east-1#etl:tab=notebooks
+Then go to the [notebook](https://console.aws.amazon.com/glue/home?region=us-east-1#etl:tab=notebooks)
 Select the notebook - Action -> Stop or Delete
 
 
