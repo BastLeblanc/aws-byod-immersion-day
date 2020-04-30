@@ -27,15 +27,15 @@ For this basic example we decided to automate the following steps:
 * Transform data into parquet
 * Crawl Parquet/ curated data
 
-The first two steps were done in the previous part. The updated diagram of what we did including the crawler should look something like this:
+The first three steps were done in the previous part. The updated diagram of what we did including the crawler should look something like this:
 
-![all_steps_glue](./img/orchestration/steps_glue.png)
+![all_steps_glue](./img/orchestration/all_steps_glue2.png)
 
 Now, let's automate this process so we don't have to worry about it...
 
 Once we are done, it should look something like this:
 
-![complete workflow](./img/orchestration/workflow_complete.png)
+![complete workflow](./img/orchestration/workflow_complete2.png)
 
 Let's get started - navigate to the *Workflows* in the *ETL* section on the left side-pane.
 
@@ -48,20 +48,34 @@ Now, in the new created workflow, please click on **Add Trigger**
 
 ![add triggers](./img/orchestration/wf2.png)
 
-
 * Make sure you select the *Add New* tab;
-* Define a *Name* for the new trigger (`trigger-parquet-job`);
+* Define a *Name* for the new trigger (`trigger-crawler-rawdata`);
 
-![configuring the trigger](./img/orchestration/wf3.png)
+![configuring the trigger](./img/orchestration/2-1.png)
 
 Now, let's specify the *Frequency* before you press **Add** (let's say you run this workflow once a day);
 ![configuring the scheduler](./img/orchestration/wf3-1.png)
 
 Now, we need to configure the job that is going to be triggered. Click **Add Node**
 
-![adding node](./img/orchestration/wf4.png)
+#![adding node](./img/orchestration/wf4.png)
 
-Select the job that needs to run first- In this case, we want the transformation job created in the first step (you probably named it **TABLE-NAME-1-job**), then click **Add**.
+Select the job that needs to run first- In this case, we want the raw data crawler created in the first step (you probably named it **{choose-name}-initial-ds**), then click **Add**.
+
+![adding jobs to the trigger](./img/orchestration/wf51.png)
+
+Until this point it should look something like this 
+
+![workflow](./img/orchestration/workflow61.png)
+
+now, we need to set up the job that converts data into parquet. For that please click on the crawler (byod-ds in the image)and then click in **Add Trigger**
+
+repite the creation of the trigger
+Note: Make sure you select Add new at the top and give it a name (trigger-job-parquet). The trigger type Event should be already selected and the option Start after ANY watched event as well. It should look something like this
+
+![workflow](./img/orchestration/workflow61.png)
+
+Select the job that needs to run - In this case, we want the transformation job created in the first step (you probably named it **TABLE-NAME-1-job**), then click **Add**.
 
 ![adding jobs to the trigger](./img/orchestration/wf5.png)
 
