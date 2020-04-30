@@ -57,7 +57,7 @@ Now, we need to configure the job that is going to be triggered. Click **Add Nod
 
 ![adding node](./img/orchestration/addcrawler-trigger.png)
 
-Select the job that needs to run first- In this case, we want the raw data crawler created in the first step (you probably named it **{choose-name}-initial-ds**), then click **Add**.
+Select the crawler that needs to run first- In this case, we want the raw data crawler created in the first step (you probably named it **{choose-name}-initial-ds**), then click **Add**.
 
 ![adding jobs to the trigger](./img/orchestration/wf51.png)
 
