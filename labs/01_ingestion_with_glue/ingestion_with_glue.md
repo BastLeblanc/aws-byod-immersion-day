@@ -150,10 +150,11 @@ We will place this data under the folder named "_curated_" in the data lake.
 - In the Glue Console select the **Jobs** section in the left navigation panel'
 - Click on the _Add job_ button;
 - specify a name (preferably **TABLE-NAME-1-job**) in the name field, then select the _"glue-processor-role"_;
+- select Type: **Spark**
 - select the option "_A new script to be authored by you_";
 - Provide a script name (preferably **TABLE-NAME-1-job-script.py**)
-- Tick the checkbox for "_Job Metrics_", under **Monitoring Options** and hit **Next**;
-- Under "Security configuration, script libraries, and job parameters (optional)", set **Maximum capacity** as 20. This determines the number of processing units to be used for the job. Higher numbers result in faster processing times but incur higher costs. This should be determined according to data size, data type etc. (further info can be found in [Glue documentation](https://docs.aws.amazon.com/glue/latest/dg/add-job.html).)
+- Tick the checkbox for "_Job Metrics_", under **Monitoring Options** and DO NOT hit **Next** yet;
+- Under "Security configuration, script libraries, and job parameters (optional)", set **Maximum capacity** as 20. This determines the number of processing units to be used for the job. Higher numbers result in faster processing times but incur higher costs. This should be determined according to data size, data type etc. (further info can be found in [Glue documentation](https://docs.aws.amazon.com/glue/latest/dg/add-job.html).) - hit **Next**
 - click **Next**, then **Save job and edit script**. You will be redirected to script editor.
 - Paste the following code to the editor. **DONT FORGET TO PUT IN YOUR INPUT AND OUTPUT FOLDER LOCATIONS.**
 
@@ -204,9 +205,6 @@ Now, remember to repeat this last step per each file you had originally.
 
 Note: To proceed with this step, you need to wait for the previous job to finish.
 
-Now that we have the data in Parquet format, we need to infer the schema from the parquet files.
-Glue crawler connects to a data store to determine the schema for your data, and then creates metadata tables in the data catalog.
-
 Now that we have the data in Parquet format, we need to infer the schema. Repeat this step per each job/ file you created in the previous step.
 
 Glue crawler connects to a data store to determine the schema for your data, and then creates metadata tables in the data catalog.
@@ -218,7 +216,7 @@ Glue crawler connects to a data store to determine the schema for your data, and
 - If you have more than one folder (meaning different sets type of data), you need to add them as other datastores one by one in this step. Otherwide, choose "No".
 - Choose the _glue-processor-role_ as IAM Role and proceed to the schedule;
 - Leave the _Run on demand_ option at the Frequency section and press **Next**;
-- Click on the **Add database** button and specify {choose-name}\_curated as database name (this will be the name representing the source database in the data catalog). Press **Next** and **Finish**;
+- Click on the **Add database** button and specify {choose-name}\_src as database name (this will be the name representing the source database in the data catalog - make sure the name does not have "-" since you may have problems in the future steps). Press **Next** and **Finish**;
 
 - select the newly created crawler and push the **Run crawler** button. It will take a few minutes until it populates the data catalog.
 
