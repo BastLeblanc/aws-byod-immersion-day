@@ -2,7 +2,6 @@
   - [Orchestrate the data pipeline using the Workflow feature](#Orchestrate-the-data-pipeline-using-the-Workflow-feature)
     - [Reviewing the results](#Reviewing-the-results)
   - [Orchestrate YOUR data pipeline using Workflows](#Orchestrate-YOUR-data-pipeline-using-Workflows)
-
 # Lab 2 Orchestrating the data pipeline
 
 In this lab we will continue to work with [Glue](https://aws.amazon.com/glue/) and convert the raw data we have extracted in [the previous lab](../01_ingestion_with_glue/ingestion_with_glue.md) into a curated data set by making some automation.
@@ -70,10 +69,10 @@ Until this point it should look something like this
 
 now, we need to set up the job that converts data into parquet. For that please click on the crawler (byod-ds in the image)and then click in **Add Trigger**
 
-repite the creation of the trigger
-Note: Make sure you select Add new at the top and give it a name (trigger-job-parquet). The trigger type Event should be already selected and the option Start after ANY watched event as well. It should look something like this
+Repeat the creation of the trigger
+Note: Make sure you select Add new at the top and give it a name (trigger-job-parquet). The trigger type Event should be already selected and the option Start after ANY watched event as well. After done, it should look something like this
 
-![workflow](./img/orchestration/workflow61.png)
+![workflow](./img/orchestration/workflow71.png)
 
 Select the job that needs to run - In this case, we want the transformation job created in the first step (you probably named it **TABLE-NAME-1-job**), then click **Add**.
 
