@@ -45,8 +45,6 @@ Let's get started - navigate to the *Workflows* in the *ETL* section on the left
 
 Now, in the new created workflow, please click on **Add Trigger**
 
-![add triggers](./img/orchestration/wf2.png)
-
 * Make sure you select the *Add New* tab;
 * Define a *Name* for the new trigger (`trigger-crawler-rawdata`);
 
@@ -67,12 +65,14 @@ Until this point it should look something like this
 
 ![workflow](./img/orchestration/workflow61.png)
 
-now, we need to set up the job that converts data into parquet. For that please click on the crawler (byod-ds in the image)and then click in **Add Trigger**
+now, we need to set up the job that converts data into parquet. For that please click on the crawler (byod-ds in the image) and then click in **Add Trigger**
 
 Repeat the creation of the trigger
 Note: Make sure you select Add new at the top and give it a name (trigger-job-parquet). The trigger type Event should be already selected and the option Start after ANY watched event as well. After done, it should look something like this
 
 ![workflow](./img/orchestration/workflow71.png)
+
+Click on the triiger and then **Add Node**
 
 Select the job that needs to run - In this case, we want the transformation job created in the first step (you probably named it **TABLE-NAME-1-job**), then click **Add**.
 
@@ -80,7 +80,7 @@ Select the job that needs to run - In this case, we want the transformation job 
 
 We are almost there, however there's one more thing: we need to add the crawler for the curated data - Please follow the same steps
 
-1. Add a triger
+Click on the byod job and then click in **Add Trigger**.
 
 ![adding jobs to the trigger](./img/orchestration/wf6.png)
 
@@ -92,11 +92,11 @@ For the Event, we want that after the previous job is done (SUCCESS) then trigge
 
 ![adding jobs to the trigger](./img/orchestration/wf8.png)
 
-2. Add a job to be watched (In this case the transform job)
+Now, please click on the trigger, and then **Add Node**.
 
-![adding jobs to the trigger](./img/orchestration/wf9.png)
+![adding jobs to the trigger](./img/orchestration/wf8-1.png)
 
-3. Add a job to be triggered (In this case the crawler created in the previous step - you probably nameed it something like this {choose-name}-ds )
+Add a job to be triggered (In this case the crawler created in the previous step - you probably nameed it something like this {choose-name}-ds )
 
 ![adding jobs to the trigger](./img/orchestration/wf51.png)
 
