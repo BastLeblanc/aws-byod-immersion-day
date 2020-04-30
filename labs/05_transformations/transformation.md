@@ -172,6 +172,13 @@ and copy it. In the AWS Glue Console (https://console.aws.amazon.com/glue/), cli
 - Now, paste the txt downloaded from the notebook
 - Save and Run
 
+# Terminate the following resources
+
+The Glue development endpoint and the notebook will incur charges. So please go to the glue console https://console.aws.amazon.com/glue/home?region=us-east-1#etl:tab=devEndpoints
+Select the endpoint - Action -> Delete
+
+Then go to the notebook https://console.aws.amazon.com/glue/home?region=us-east-1#etl:tab=notebooks
+Select the notebook - Action -> Stop or Delete
 
 
 
