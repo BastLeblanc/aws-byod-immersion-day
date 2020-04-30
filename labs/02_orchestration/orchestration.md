@@ -47,6 +47,7 @@ Now, in the new created workflow, please click on **Add Trigger**
 
 * Make sure you select the *Add New* tab;
 * Define a *Name* for the new trigger (`trigger-crawler-rawdata`);
+* Trigger Type - Schedule
 
 ![configuring the trigger](./img/orchestration/2-1.png)
 
