@@ -89,7 +89,7 @@ Now, on the Amazon QuickSight dashboard, navigate to User Settings page on the T
 
 5. Enter the **Data source** **name** (e.g. *AthenaDataSource*).
 
-6. Select the Athena **workgroup** you created specifically for Quicksight. Then **Validate the Connection**.
+6. Select the Athena **workgroup** you created specifically for QuickSight. Then **Validate the Connection**.
 
 ![image](img/AthenaWorkGroup_DataSource.png)
 
@@ -135,7 +135,7 @@ start by forecasting values in future dates based on your sample data.
 
 ### Forecast Monthly Trend for your Quantity Column
 
-2. Under the **Fields list**, Select your **Date** column for x-axis by clicking on the field name.
+2. Under the **Fields list**, select your **Date** column for x-axis by clicking on the field name.
 3. Change the visual type to a line chart by selecting the line chart icon highlighted in the screenshot below under **Visual types**.
 
 At this point, the Y-axis of the visual will be populated automatically with count of records

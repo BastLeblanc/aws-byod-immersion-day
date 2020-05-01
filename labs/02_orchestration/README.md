@@ -77,7 +77,7 @@ Note: Make sure you select Add new at the top and give it a name (trigger-job-pa
 
 ![workflow](./img/orchestration/workflow71.png)
 
-Click on the triiger and then **Add Node**
+Click on the trigger and then **Add Node**
 
 Select the job that needs to run - In this case, we want the transformation job created in the first step (you probably named it **TABLE-NAME-1-job**), then click **Add**.
 
@@ -101,7 +101,7 @@ Now, please click on the trigger, and then **Add Node**.
 
 ![adding jobs to the trigger](./img/orchestration/wf8-1.png)
 
-Add a job to be triggered (In this case the crawler created in the previous step - you probably named it something like this {choose-name}-curated-ds )
+Add a job to be triggered (In this case the crawler created in the previous step - you probably named it something like this {choose-name}-curated-ds)
 
 ![adding jobs to the trigger](./img/orchestration/wf51.png)
 
