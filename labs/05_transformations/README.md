@@ -2,6 +2,17 @@
 
 # Lab 05 - Transformations
 
+- [Lab 05 - Transformations](#Lab-05---Transformations)
+  - [Open the notebook](#Open-the-notebook)
+  - [Transformations](#Transformations)
+    - [Drop Columns](#Drop-Columns)
+      - [Example NY Taxis dataset](#Example-NY-Taxis-dataset)
+    - [Convert to Time stamp](#Convert-to-Time-stamp)
+      - [Example NY Taxis dataset](#Example-NY-Taxis-dataset-1)
+  - [Partitioning](#Partitioning)
+  - [Run this in a Glue Job](#Run-this-in-a-Glue-Job)
+- [Terminate the following resources](#Terminate-the-following-resources)
+
 
 Now we are going to start cleaning, transforming, aggregating and partitioning data. For development and debugging purposes, we are going to use the Developer Endpoint and Notebook we created some steps back.
 

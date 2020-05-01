@@ -2,6 +2,19 @@
 
 # Lab 01 - Ingestion with Glue
 
+- [Lab 01 - Ingestion with Glue](#Lab-01---Ingestion-with-Glue)
+  - [Before you begin](#Before-you-begin)
+  - [Preparing your environment](#Preparing-your-environment)
+    - [Configure Permissions](#Configure-Permissions)
+      - [Creating a Policy for Amazon S3 Bucket (Console)](#Creating-a-Policy-for-Amazon-S3-Bucket-Console)
+      - [Creating a Role for AWS Service Glue (Console)](#Creating-a-Role-for-AWS-Service-Glue-Console)
+    - [Creating a Development Endpoint and Notebook (First Part)](#Creating-a-Development-Endpoint-and-Notebook-First-Part)
+  - [Create data catalog from S3 files](#Create-data-catalog-from-S3-files)
+  - [Transform the data to Parquet format](#Transform-the-data-to-Parquet-format)
+  - [Add a crawler for curated data](#Add-a-crawler-for-curated-data)
+  - [Schema Validation](#Schema-Validation)
+    - [Creating a Development Endpoint and Notebook (Second Part)](#Creating-a-Development-Endpoint-and-Notebook-Second-Part)
+
 In this Lab we will create a schema from your data optimized for analytics and place the result in an S3 bucket-based data lake.
 
 ## Before you begin

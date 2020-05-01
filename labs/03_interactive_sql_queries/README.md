@@ -3,7 +3,21 @@
 
 # Lab 3: Interactive SQL Queries Using Amazon Athena
 
-
+- [Lab 3: Interactive SQL Queries Using Amazon Athena](#Lab-3-Interactive-SQL-Queries-Using-Amazon-Athena)
+  - [Introduction](#Introduction)
+  - [Architectural Diagram](#Architectural-Diagram)
+  - [Setting up Workgroups](#Setting-up-Workgroups)
+  - [Setting up Amazon S3 and Athena for Storing Query Results](#Setting-up-Amazon-S3-and-Athena-for-Storing-Query-Results)
+    - [Creating an Amazon S3 Bucket](#Creating-an-Amazon-S3-Bucket)
+    - [Setting up Amazon Athena](#Setting-up-Amazon-Athena)
+  - [Start Exploring with Athena](#Start-Exploring-with-Athena)
+  - [Amazon Athena Best Practices](#Amazon-Athena-Best-Practices)
+  - [Joining Tables](#Joining-Tables)
+    - [Create a new Table](#Create-a-new-Table)
+    - [SQL Joins](#SQL-Joins)
+    - [Storing SQL Join Results](#Storing-SQL-Join-Results)
+  - ['Create Table as Select' Queries](#Create-Table-as-Select-Queries)
+  - [Creating Views](#Creating-Views)
 
 ## Introduction
 
