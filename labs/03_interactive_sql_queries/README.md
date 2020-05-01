@@ -18,6 +18,8 @@
     - [Storing SQL Join Results](#Storing-SQL-Join-Results)
   - ['Create Table as Select' Queries](#Create-Table-as-Select-Queries)
   - [Creating Views](#Creating-Views)
+- [Optional] In [lab 1](../01_ingestion_with_glue/README.md), we used Glue Crawlers to create our Database and Tables. To create your Database and tables using Athena, click [here](./optional.md)
+- [Optional] [Amazon Athena Best Practices](./athena_best_practices.md)
 
 ## Introduction
 
