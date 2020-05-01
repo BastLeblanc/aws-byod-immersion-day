@@ -2,7 +2,6 @@
   - [Orchestrate the data pipeline using the Workflow feature](#Orchestrate-the-data-pipeline-using-the-Workflow-feature)
     - [Reviewing the results](#Reviewing-the-results)
   - [Orchestrate YOUR data pipeline using Workflows](#Orchestrate-YOUR-data-pipeline-using-Workflows)
-
 # Lab 2 Orchestrating the data pipeline
 
 In this lab we will continue to work with [Glue](https://aws.amazon.com/glue/) and convert the raw data we have extracted in [the previous lab](../01_ingestion_with_glue/ingestion_with_glue.md) into a curated data set by making some automation.
@@ -27,15 +26,15 @@ For this basic example we decided to automate the following steps:
 * Transform data into parquet
 * Crawl Parquet/ curated data
 
-The first two steps were done in the previous part. The updated diagram of what we did including the crawler should look something like this:
+The first three steps were done in the previous part. The updated diagram of what we did including the crawler should look something like this:
 
-![all_steps_glue](./img/orchestration/steps_glue.png)
+![all_steps_glue](./img/orchestration/all_steps_glue2.png)
 
 Now, let's automate this process so we don't have to worry about it...
 
 Once we are done, it should look something like this:
 
-![complete workflow](./img/orchestration/workflow_complete.png)
+![complete workflow](./img/orchestration/workflow_complete2.png)
 
 Let's get started - navigate to the *Workflows* in the *ETL* section on the left side-pane.
 
@@ -46,28 +45,43 @@ Let's get started - navigate to the *Workflows* in the *ETL* section on the left
 
 Now, in the new created workflow, please click on **Add Trigger**
 
-![add triggers](./img/orchestration/wf2.png)
-
-
 * Make sure you select the *Add New* tab;
-* Define a *Name* for the new trigger (`trigger-parquet-job`);
+* Define a *Name* for the new trigger (`trigger-crawler-rawdata`);
+* Trigger Type - Schedule
 
-![configuring the trigger](./img/orchestration/wf3.png)
+![configuring the trigger](./img/orchestration/2-1.png)
 
 Now, let's specify the *Frequency* before you press **Add** (let's say you run this workflow once a day);
 ![configuring the scheduler](./img/orchestration/wf3-1.png)
 
 Now, we need to configure the job that is going to be triggered. Click **Add Node**
 
-![adding node](./img/orchestration/wf4.png)
+![adding node](./img/orchestration/addcrawler-trigger.png)
 
-Select the job that needs to run first- In this case, we want the transformation job created in the first step (you probably named it **TABLE-NAME-1-job**), then click **Add**.
+Select the crawler that needs to run first- In this case, we want the raw data crawler created in the first step (you probably named it **{choose-name}-initial-ds**), then click **Add**.
+
+![adding jobs to the trigger](./img/orchestration/wf51.png)
+
+Until this point it should look something like this 
+
+![workflow](./img/orchestration/workflow61.png)
+
+now, we need to set up the job that converts data into parquet. For that please click on the crawler (byod-ds in the image) and then click in **Add Trigger**
+
+Repeat the creation of the trigger
+Note: Make sure you select Add new at the top and give it a name (trigger-job-parquet). The trigger type Event should be already selected and the option Start after ANY watched event as well. After done, it should look something like this
+
+![workflow](./img/orchestration/workflow71.png)
+
+Click on the triiger and then **Add Node**
+
+Select the job that needs to run - In this case, we want the transformation job created in the first step (you probably named it **TABLE-NAME-1-job**), then click **Add**.
 
 ![adding jobs to the trigger](./img/orchestration/wf5.png)
 
 We are almost there, however there's one more thing: we need to add the crawler for the curated data - Please follow the same steps
 
-1. Add a triger
+Click on the byod job and then click in **Add Trigger**.
 
 ![adding jobs to the trigger](./img/orchestration/wf6.png)
 
@@ -79,11 +93,11 @@ For the Event, we want that after the previous job is done (SUCCESS) then trigge
 
 ![adding jobs to the trigger](./img/orchestration/wf8.png)
 
-2. Add a job to be watched (In this case the transform job)
+Now, please click on the trigger, and then **Add Node**.
 
-![adding jobs to the trigger](./img/orchestration/wf9.png)
+![adding jobs to the trigger](./img/orchestration/wf8-1.png)
 
-3. Add a job to be triggered (In this case the crawler created in the previous step - you probably nameed it something like this {choose-name}-ds )
+Add a job to be triggered (In this case the crawler created in the previous step - you probably named it something like this {choose-name}-curated-ds )
 
 ![adding jobs to the trigger](./img/orchestration/wf51.png)
 
