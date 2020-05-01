@@ -1,3 +1,5 @@
+[0-Prerequisites](../00_Prerequisites/README.md) > [1-Ingestion](../01_ingestion_with_glue/README.md) > [2-Orchestration](../02_orchestration/README.md) > [3-Interactive-SQL](../03_interactive_sql_queries/README.md) > 4-Visualisation > [5-Transformations](../05_transformations/README.md)
+
 # Lab 4: Visualization using Amazon QuickSight
 
 - [Lab 4: Visualization using Amazon QuickSight](#Lab-4-Visualization-using-Amazon-QuickSight)
@@ -11,7 +13,6 @@
     - [Visualize Month over Month Quantity](#Visualize-Month-over-Month-Quantity)
     - [Review ML Insights](#Review-ML-Insights)
   - [License](#License)
-
 
 ## Architectural Diagram
 ![architecture-overview-lab2.png](https://s3.amazonaws.com/us-east-1.data-analytics/labcontent/reinvent2017content-abd313/lab2/architecture-overview-lab2.png)
@@ -88,7 +89,7 @@ Now, on the Amazon QuickSight dashboard, navigate to User Settings page on the T
 
 5. Enter the **Data source** **name** (e.g. *AthenaDataSource*).
 
-6. Select the Athena **workgroup** you created specifically for Quicksight. Then **Validate the Connection**.
+6. Select the Athena **workgroup** you created specifically for QuickSight. Then **Validate the Connection**.
 
 ![image](img/AthenaWorkGroup_DataSource.png)
 
@@ -134,7 +135,7 @@ start by forecasting values in future dates based on your sample data.
 
 ### Forecast Monthly Trend for your Quantity Column
 
-2. Under the **Fields list**, Select your **Date** column for x-axis by clicking on the field name.
+2. Under the **Fields list**, select your **Date** column for x-axis by clicking on the field name.
 3. Change the visual type to a line chart by selecting the line chart icon highlighted in the screenshot below under **Visual types**.
 
 At this point, the Y-axis of the visual will be populated automatically with count of records
@@ -215,7 +216,7 @@ This library is licensed under the Apache 2.0 License.
 
 
 
-Now go to lab 5 : [Transformation](../05_transformations/transformation.md)
+Now go to lab 5 : [Transformation](../05_transformations/README.md)
 
 
 

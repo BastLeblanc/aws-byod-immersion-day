@@ -1,21 +1,25 @@
+[0-Prerequisites](../00_Prerequisites/README.md) > [1-Ingestion](../01_ingestion_with_glue/README.md) > 2-Orchestration > [3-Interactive-SQL](../03_interactive_sql_queries/README.md) > [4-Visualisation](../04_visualization_and_reporting/README.md) > [5-Transformations](../05_transformations/README.md)
+
+# Lab 2 Orchestrating the data pipeline
+
 - [Lab 2 Orchestrating the data pipeline](#Lab-2-Orchestrating-the-data-pipeline)
   - [Orchestrate the data pipeline using the Workflow feature](#Orchestrate-the-data-pipeline-using-the-Workflow-feature)
     - [Reviewing the results](#Reviewing-the-results)
   - [Orchestrate YOUR data pipeline using Workflows](#Orchestrate-YOUR-data-pipeline-using-Workflows)
-# Lab 2 Orchestrating the data pipeline
 
-In this lab we will continue to work with [Glue](https://aws.amazon.com/glue/) and convert the raw data we have extracted in [the previous lab](../01_ingestion_with_glue/ingestion_with_glue.md) into a curated data set by making some automation.
 
-> **Please note**: this Lab depends on the steps executed in the [Transformation](../01_ingestion_with_glue/ingestion_with_glue.md) LAB;
+In this lab we will continue to work with [Glue](https://aws.amazon.com/glue/) and convert the raw data we have extracted in [the previous lab](../01_ingestion_with_glue/README.md) into a curated data set by making some automation.
+
+> **Please note**: this Lab depends on the steps executed in the [Transformation](../01_ingestion_with_glue/README.md) LAB;
 > In case you didn't finish that one yet, now is the time :)
 
-At this stage we have Glue Jobs configured to covert our raw data into Parquet. We should be able to observe 2 main folders in our data-lake bucket (raw and curated).
+At this stage we have Glue Jobs configured to convert our raw data into Parquet. We should be able to observe 2 main folders in our data-lake bucket (raw and curated).
 
 ![data-lake with raw and curated](./img/orchestration/s3_raw_and_curated.png)
 
 ## Orchestrate the data pipeline using the Workflow feature
 
-When you only have a Glue job or a single Crawler that needs to be run periodically, you can schedule it with Glue scheduler or maybe you can use Cloudwatch events with a Lambda function. But if you need more complex flows - for example chaining multiple jobs and crawlers, running different jobs in parallel - Glue provides a workflow mechanism.
+When you only have a Glue job or a single Crawler that needs to be run periodically, you can schedule it with Glue scheduler or maybe you can use Amazon CloudWatch events with a Lambda function. But if you need more complex flows - for example chaining multiple jobs and crawlers, running different jobs in parallel - Glue provides a workflow mechanism.
 
 The example presented here assumes a lineal/ dependant approach - some jobs before running the others. The plan is to create a pipeline, which will refresh the data-set every once in a while.
 
@@ -73,7 +77,7 @@ Note: Make sure you select Add new at the top and give it a name (trigger-job-pa
 
 ![workflow](./img/orchestration/workflow71.png)
 
-Click on the triiger and then **Add Node**
+Click on the trigger and then **Add Node**
 
 Select the job that needs to run - In this case, we want the transformation job created in the first step (you probably named it **TABLE-NAME-1-job**), then click **Add**.
 
@@ -97,7 +101,7 @@ Now, please click on the trigger, and then **Add Node**.
 
 ![adding jobs to the trigger](./img/orchestration/wf8-1.png)
 
-Add a job to be triggered (In this case the crawler created in the previous step - you probably named it something like this {choose-name}-curated-ds )
+Add a job to be triggered (In this case the crawler created in the previous step - you probably named it something like this {choose-name}-curated-ds)
 
 ![adding jobs to the trigger](./img/orchestration/wf51.png)
 
@@ -123,8 +127,8 @@ When you navigate to the **Tables**, you will observe tables created from your d
 
 ## Orchestrate YOUR data pipeline using Workflows
 
-We just walked you trough an example, now its time you think about your own workflow case. Which are those jobs that have to run on a recurring/ schedule basis? 
+We just walked you through an example, now its time you think about your own workflow case. Which are those jobs that have to run on a recurring/ schedule basis? 
 Please note that this was a lineal job, but you can run some jobs in parallel, you can add them in parallel in the pipeline.
 Think about how your workflow will look like, you can ask help to one of the support members from AWS.
 
-Now go to lab 3 : [Interactive SQL Queries](../03_interactive_sql_queries/main.md)
+Now go to lab 3 : [Interactive SQL Queries](../03_interactive_sql_queries/README.md)

@@ -1,18 +1,21 @@
-- [Introduction](#Introduction)
+[0-Prerequisites](../00_Prerequisites/README.md) > 1-Ingestion > [2-Orchestration](../02_orchestration/README.md) > [3-Interactive-SQL](../03_interactive_sql_queries/README.md) > [4-Visualisation](../04_visualization_and_reporting/README.md) > [5-Transformations](../05_transformations/README.md)
+
+# Lab 01 - Ingestion with Glue
+
+- [Lab 01 - Ingestion with Glue](#Lab-01---Ingestion-with-Glue)
   - [Before you begin](#Before-you-begin)
   - [Preparing your environment](#Preparing-your-environment)
     - [Configure Permissions](#Configure-Permissions)
       - [Creating a Policy for Amazon S3 Bucket (Console)](#Creating-a-Policy-for-Amazon-S3-Bucket-Console)
       - [Creating a Role for AWS Service Glue (Console)](#Creating-a-Role-for-AWS-Service-Glue-Console)
     - [Creating a Development Endpoint and Notebook (First Part)](#Creating-a-Development-Endpoint-and-Notebook-First-Part)
+  - [Create data catalog from S3 files](#Create-data-catalog-from-S3-files)
   - [Transform the data to Parquet format](#Transform-the-data-to-Parquet-format)
-  - [Add a crawler](#Add-a-crawler)
+  - [Add a crawler for curated data](#Add-a-crawler-for-curated-data)
   - [Schema Validation](#Schema-Validation)
     - [Creating a Development Endpoint and Notebook (Second Part)](#Creating-a-Development-Endpoint-and-Notebook-Second-Part)
 
-# Introduction
-
-In this Lab we will create a schema from your data optimized for analytics and place the result in an S3 bucket based data lake.
+In this Lab we will create a schema from your data optimized for analytics and place the result in an S3 bucket-based data lake.
 
 ## Before you begin
 
@@ -23,13 +26,13 @@ All resources to be created **must** be in the same region.
 
 The encoding of your raw files should be UTF-8. You should export your files from your source with UTF-8 encoding. For this workshop, you may convert the encoding before uploading files to S3 bucket with text editing tools, such as Sublime Text
 
-or by using this Linux command:
-`python iconv -f <current-encoding of file> -t utf-8 data.csv outputfile.csv`
+or by using this Linux command: 
+``` python iconv -f <current-encoding of file> -t utf-8 data.csv outputfile.csv```
+    
+if you don't know the encoding, you can use this command to determine: "
+``` python enca -L none data.csv```
 
-if you dont know the encoding, you can use this command to determine: "
-`python enca -L none data.csv`
-
-Also before you start, make sure your raw data files are saved in a separate bucket in a folder
+Also, before you start, make sure your raw data files are saved in a separate bucket in a folder
 called "raw". Each file should be a separate table. Each table file should be preferably in a
 separate folder with the table name. An example would be as follows:
 
@@ -107,7 +110,7 @@ You can then create a notebook that connects to the endpoint, and use your noteb
 
 Go to Glue in the console https://console.aws.amazon.com/glue/
 
-1. On the left menu, click in Dev. enpoints and **Add endpoint**.
+1. On the left menu, click in Dev. endpoints and **Add endpoint**.
 2. Development endpoint name: `byod`
 3. IAM role: **glue-processor-role**
 4. Click **Next**
@@ -239,8 +242,9 @@ NOTE: If you have any "id" column as integer, please make sure type is set to "d
 
 1. In the glue console, Go to Notebooks, click Create notebook
 2. Notebook name: aws-glue-`byod`
-3. Attach to development: choose the endopoint created some steps back
+3. Attach to development: choose the endpoint created some steps back
 4. Create a new IAM Role.
 5. **Create notebook**
 
-Now go to lab 2 : [Orchestration](../02_orchestration/orchestration.md)
+
+Now go to lab 2 : [Orchestration](../02_orchestration/README.md)

@@ -1,39 +1,40 @@
-  
-- [Lab 3: Interactive SQL Queries Using Amazon Athena](#Lab-3-Interactive-SQL-Queries-Using-Amazon-Athena)
-	- [Introduction](#Introduction)
-	- [Architectural Diagram](#Architectural-Diagram)
-	- [Setting up Workgroups](#Setting-up-Workgroups)
-	- [Setting up Amazon S3 and Athena for Storing Query Results](#Setting-up-Amazon-S3-and-Athena-for-Storing-Query-Results)
-		- [Creating an Amazon S3 Bucket](#Creating-an-Amazon-S3-Bucket)
-		- [Setting up Amazon Athena](#Setting-up-Amazon-Athena)
-	- [Start Exploring with Athena](#Start-Exploring-with-Athena)
-	- [Amazon Athena Best Practices](#Amazon-Athena-Best-Practices)
-	- [Joining Tables](#Joining-Tables)
-		- [Create a new Table](#Create-a-new-Table)
-		- [SQL Joins](#SQL-Joins)
-		- [Storing SQL Join Results](#Storing-SQL-Join-Results)
-	- ['Create Table as Select' Queries](#Create-Table-as-Select-Queries)
-	- [Creating Views](#Creating-Views)
+[0-Prerequisites](../00_Prerequisites/README.md) > [1-Ingestion](../01_ingestion_with_glue/README.md) > [2-Orchestration](../02_orchestration/README.md) > 3-Interactive-SQL > [4-Visualisation](../04_visualization_and_reporting/README.md) > [5-Transformations](../05_transformations/README.md)
 
 
 # Lab 3: Interactive SQL Queries Using Amazon Athena
 
-
+- [Lab 3: Interactive SQL Queries Using Amazon Athena](#Lab-3-Interactive-SQL-Queries-Using-Amazon-Athena)
+  - [Introduction](#Introduction)
+  - [Architectural Diagram](#Architectural-Diagram)
+  - [Setting up Workgroups](#Setting-up-Workgroups)
+  - [Setting up Amazon S3 and Athena for Storing Query Results](#Setting-up-Amazon-S3-and-Athena-for-Storing-Query-Results)
+    - [Creating an Amazon S3 Bucket](#Creating-an-Amazon-S3-Bucket)
+    - [Setting up Amazon Athena](#Setting-up-Amazon-Athena)
+  - [Start Exploring with Athena](#Start-Exploring-with-Athena)
+  - [Amazon Athena Best Practices](#Amazon-Athena-Best-Practices)
+  - [Joining Tables](#Joining-Tables)
+    - [Create a new Table](#Create-a-new-Table)
+    - [SQL Joins](#SQL-Joins)
+    - [Storing SQL Join Results](#Storing-SQL-Join-Results)
+  - ['Create Table as Select' Queries](#Create-Table-as-Select-Queries)
+  - [Creating Views](#Creating-Views)
+- [Optional] In [lab 1](../01_ingestion_with_glue/README.md), we used Glue Crawlers to create our Database and Tables. To create your Database and tables using Athena, click [here](./optional.md)
+- [Optional] [Amazon Athena Best Practices](./athena_best_practices.md)
 
 ## Introduction
 
 Amazon Athena is an interactive query service that makes it easy to analyze data in Amazon S3 using standard SQL. Athena is serverless, so there is no infrastructure to setup or manage, and you can start analyzing data immediately. You don’t even need to load your data into Athena, it works directly with data stored in S3.
 
-In this lab, we will use Athena to explore, analyze and prepare the data for visualization in QuickSight. This lab is divided into three sections; one manadatory and two optional:
+In this lab, we will use Athena to explore, analyze and prepare the data for visualization in QuickSight. This lab is divided into three sections; one mandatory and two optional:
 
-*  To start working with Athena, continue on this lab and follow throught the different section. Next lab is [Setting up Workgroups](#setting-up-workgroups)
-*  [Optional] In [lab 1](../01_ingestion_with_glue/ingestion_with_glue.md), we used Glue Crawlers to create our Database and Tables. To create your Database and tables using Athena, click [here](./optional.md)
+*  To start working with Athena, continue on this lab and follow through the different section. Next lab is [Setting up Workgroups](#setting-up-workgroups)
+*  [Optional] In [lab 1](../01_ingestion_with_glue/README.md), we used Glue Crawlers to create our Database and Tables. To create your Database and tables using Athena, click [here](./optional.md)
 *  [Optional] To review Athena best practices, click on [Amazon Athena Best Practices](./athena_best_practices.md)
 
 
 ## Architectural Diagram
 
-This is an example Architecture, the raw data is stored in S3 in CSV format and the curated data is stored in another S3 bucket in Parquet. While you might have a different setup, this is only for illustrative purposes. Amazon Athena will be used to query both data sources if needed. 
+This is an example architecture, the raw data is stored in S3 in CSV format and the curated data is stored in another S3 bucket in Parquet. While you might have a different setup, this is only for illustrative purposes. Amazon Athena will be used to query both data sources if needed. 
 
 ![architecture-overview-lab2.png](https://s3.amazonaws.com/us-east-1.data-analytics/labcontent/reinvent2017content-abd313/lab2/architecture-overview-lab2.png)
 
@@ -53,7 +54,7 @@ Workgroups are used to isolate queries for teams, applications, or different wor
 
   
 
-You may create separate workgroups for different teams in your organisation. In this lab, we will create a workgroup for our Quicksight Users
+You may create separate workgroups for different teams in your organisation. In this lab, we will create a workgroup for our QuickSight Users
 
   
 
@@ -106,7 +107,7 @@ If you’re a first time Athena user, you will have to configure an S3 bucket, w
 
   
 
-> Note: If you have already have an S3 bucket in your AWS Account and can be used to store Athena Query results, you can skip this section.
+> Note: If you have already had an S3 bucket in your AWS Account and can be used to store Athena Query results, you can skip this section.
 
   
 
@@ -161,11 +162,11 @@ You can use an already existing bucket with a dedicated folder or you can create
 
   
 
-After initial setup you can start exploring your data with Athena. You can run normal SQL queries using the **Query Editor** in Athena console. To run your first query follow the below:
+After initial setup you can start exploring your data with Athena. You can run normal SQL queries using the **Query Editor** in Athena console. To run your first query, follow the below:
 
   
 
-> Note: If you do not have a database created, you can follow [Lab 1: Ingestion with Glue](../01_ingestion_with_glue/ingestion_with_glue.md) to create your first database. Alternatively, you can follow this lab to [create your first database and table using Athena](./optional.md#creating-amazon-athena-database-and-table).
+> Note: If you do not have a database created, you can follow [Lab 1: Ingestion with Glue](../01_ingestion_with_glue/README.md) to create your first database. Alternatively, you can follow this lab to [create your first database and table using Athena](./optional.md#creating-amazon-athena-database-and-table).
 
   
 
@@ -187,7 +188,7 @@ After initial setup you can start exploring your data with Athena. You can run n
 
 4. On the right pane, enter the first query and click on **Run query**. 
 
-For example, the below query returns all records inside the table. Remove the the curly braces - {} - and replace it with your table name.
+For example, the below query returns all records inside the table. Remove the curly braces - {} - and replace it with your table name.
 
 ```sql
 
@@ -212,7 +213,7 @@ FROM {name_of_your_table}
 
   
 
-In [Lab 1: Ingestion with Glue](../01_ingestion_with_glue/ingestion_with_glue.md) we converted the data format from *row-based* (csv, json, etc..) to columnar (parquet). To explore other optimisations that could be employed, check [Athena Best Practices Lab](./athena_best_practices.md). In addition to this, see [Top Performance Tuning Tips for Amazon Athena](http://aws.amazon.com/blogs/big-data/top-10-performance-tuning-tips-for-amazon-athena/) for general best practices that should be done when working with Athena.
+In [Lab 1: Ingestion with Glue](../01_ingestion_with_glue/README.md) we converted the data format from *row-based* (csv, json, etc..) to columnar (parquet). To explore other optimisations that could be employed, check [Athena Best Practices Lab](./athena_best_practices.md). In addition to this, see [Top Performance Tuning Tips for Amazon Athena](http://aws.amazon.com/blogs/big-data/top-10-performance-tuning-tips-for-amazon-athena/) for general best practices that should be done when working with Athena.
 
   
 
@@ -234,7 +235,7 @@ Before joining *two* tables, let's create a new table (with mocked data) and wil
 
 1. Open the [AWS Management Console for Athena](https://console.aws.amazon.com/athena/home) and make sure you are on the same AWS Region.
 
-2. Choose the *{curated database}* from the dropdown menu and execute ```CREATE EXTRENAL TABLE``` query. Replace any curly braces - {} - with your actual values :
+2. Choose the *{curated database}* from the dropdown menu and execute ```CREATE EXTRENAL TABLE``` query. Replace any curly braces - {} - with your actual values:
 
 ```sql
 
@@ -295,7 +296,7 @@ LOCATION  's3://athena-query-results-byod/mocked_table_1/'
 ```
   
 
-> Note: You not need to create the S3 folder before running the query; Athena will do it for you. Just choose the S3 path to store the data. However, the S3 bucket should exist before running the query. Feel free to use any path as long as you own the S3 bucket and it is in the same region you are using through out this lab.
+> Note: You not need to create the S3 folder before running the query; Athena will do it for you. Just choose the S3 path to store the data. However, the S3 bucket should exist before running the query. Feel free to use any path as long as you own the S3 bucket and it is in the same region you are using throughout this lab.
 
   
 
@@ -410,7 +411,7 @@ There are two options to store the results from a SQL join statement; *physicall
 
   
 
--  *Physically:* When the results are written to S3. Useful, if the data does not change frequently. This is useful when integrating Quicksight with Athena. To store the join results in S3, check [Create Table as Select Queries](#create-table-as-select-queries)
+-  *Physically:* When the results are written to S3. Useful, if the data does not change frequently. This is useful when integrating QuickSight with Athena. To store the join results in S3, check [Create Table as Select Queries](#create-table-as-select-queries)
 
 -  *Virtually*: A logical representation of the data is stored as View. Every time the view queried, the query that created the view runs again. To create a view from the join, check [Creating Views](#creating-views)
 
@@ -531,4 +532,4 @@ CREATE [ OR REPLACE ] VIEW {view_name} AS {your_query}
 
 ```
 
-Now go to lab 4 : [Vizualization](../04_visualization_and_reporting/README.md)
+Now go to lab 4 : [Visualization](../04_visualization_and_reporting/README.md)
