@@ -78,16 +78,15 @@ There is two different ways to drop columns
 1. You use the select_fields class to drop all the columns and keep just the ones you need
 
 ``` python
-dynamicF_drop = dynamicF
-dynamicF_drop = dynamicF_drop.select_fields(['COLUMN1_TO_KEEP','COLUMN2_TO_KEEP']).rename_field('COLUMN1_TO_KEEP/RENAME', 'NEW_COLUMN_NAME').rename_field('COLUMN2_TO_RENAME', 'NEW_COLUMN_NAME')
-dynamicF_drop.printSchema()
+dynamicF= dynamicF.select_fields(['COLUMN1_TO_KEEP','COLUMN2_TO_KEEP']).rename_field('COLUMN1_TO_KEEP/RENAME', 'NEW_COLUMN_NAME').rename_field('COLUMN2_TO_RENAME', 'NEW_COLUMN_NAME')
+dynamicF.printSchema()
 ```
 
 2. You use the drop_fields class to keep all the columns and just drop the ones you do not need. 
 
 ``` python
-dynamicF_drop = dynamicF_drop.drop_fields(['COLUMN1_TO_DROP','COLUMN2_TO_DROP']).rename_field('COLUMN1_TO_KEEP/RENAME', 'NEW_COLUMN_NAME').rename_field('COLUMN2_TO_RENAME', 'NEW_COLUMN_NAME')
-dynamicF_drop.printSchema()
+dynamicF = dynamicF.drop_fields(['COLUMN1_TO_DROP','COLUMN2_TO_DROP']).rename_field('COLUMN1_TO_KEEP/RENAME', 'NEW_COLUMN_NAME').rename_field('COLUMN2_TO_RENAME', 'NEW_COLUMN_NAME')
+dynamicF.printSchema()
 ```
 
 For the rename part, we are using the rename_fields class. This should be invoked for each column you want to rename
@@ -96,7 +95,7 @@ For the rename part, we are using the rename_fields class. This should be invoke
 #### Example NY Taxis dataset
 
 ``` python
-dynamicF_drop = dynamicF_drop.select_fields(['tpep_pickup_datetime','trip_distance']).rename_field('tpep_pickup_datetime', 'pickup_datetime')
+dynamicF = dynamicF.select_fields(['tpep_pickup_datetime','trip_distance']).rename_field('tpep_pickup_datetime', 'pickup_datetime')
 dynamicF.printSchema()
 ```
 
@@ -157,11 +156,12 @@ You can also add additional partitions if you know you will often use those fiel
 
 Add this code at the end of your script:
 ```python
-df = df.withColumn('trx_date', date_format("YOUR-DATE-FIELD", "yyyy-MM-dd").cast(DateType()))
+df_partition = dynamicF.toDF()
+df_partition = df_partition.withColumn('trx_date', date_format("YOUR-DATE-FIELD", "yyyy-MM-dd").cast(DateType()))
 
-df = df.withColumn('year', year(df.trx_date)).withColumn('month', month(df.trx_date)).withColumn('day', dayofmonth(df.trx_date))
+df_partition = df_partition.withColumn('year', year(df.trx_date)).withColumn('month', month(df.trx_date)).withColumn('day', dayofmonth(df.trx_date))
 
-df.show()
+df_partition.show()
 
 ```
 
@@ -176,7 +176,7 @@ Please add these lines to the end of your notebook
 ## DONT FORGET TO PUT IN YOUR BUCKET NAME.
 output_location = "s3://YOUR-BUCKET/curated"
 
-df.write.mode("overwrite").partitionBy("year","month","day").parquet(output_location)
+df_partition.write.mode("overwrite").partitionBy("year","month","day").parquet(output_location)
 
 job.commit()
 ```
