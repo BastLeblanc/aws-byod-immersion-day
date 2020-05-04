@@ -155,9 +155,9 @@ You can also add additional partitions if you know you will often use those fiel
 
 Add this code at the end of your script:
 ```python
-df = df_partition.withColumn('trx_date', date_format("YOUR-DATE-FIELD", "yyyy-MM-dd").cast(DateType()))
+df = df.withColumn('trx_date', date_format("YOUR-DATE-FIELD", "yyyy-MM-dd").cast(DateType()))
 
-df = df_partition.withColumn('year', year(df.trx_date)).withColumn('month', month(df.trx_date)).withColumn('day', dayofmonth(df.trx_date))
+df = df.withColumn('year', year(df.trx_date)).withColumn('month', month(df.trx_date)).withColumn('day', dayofmonth(df.trx_date))
 
 df.show()
 
