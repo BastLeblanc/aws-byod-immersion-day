@@ -75,12 +75,12 @@ Now, on the Amazon QuickSight dashboard, navigate to User Settings page by click
 
 ## Some Quicksight definitions
 
-**What is a data source and what is a dataset?**
+**What is a data source and what is a dataset?**<br>
 A **data source** is an external data store and you use it to access the data in this external data store eg. Amazon S3, Amazon Athena, Salesforce etc.
 
 A **data set** identifies the specific data in a data source that you want to use. For example, the data source might be a table if you are connecting to a database data source. It might be a file if you are connecting to an Amazon S3 data source. A data set also stores any data preparation you have performed on that data, such as renaming a field or changing its data type. Storing this preparation means that you don't have to reprepare the data each time you want to create an analysis based on it.
 
-**What is an Analysis, a Visual and a Dashboard?
+**What is an Analysis, a Visual and a Dashboard?**<br>
 An **analysis** is a container for a set of related visuals and stories, for example all the ones that apply to a given business goal or key performance indicator. You can use multiple data sets in an analysis, although any given visual can only use one of those data sets.
 
 A **visual** is a graphical representation of your data. You can create a wide variety of visuals in an analysis, using different datasets and visual types.
@@ -127,17 +127,18 @@ You can choose to create a dataset using S3 as your data source. For this:
 ## Preparing your data
 
 1. You can edit an existing data set to perform data preparation. To edit a data set from the Your **Data Sets page**, choose the data set, and then choose **Edit Data Set**. The data set opens in the data preparation page.
-* You can duplicate an existing data set to save a copy of it with a new name. The new data set is a completely separate copy. Choose **Duplicate** data set, and enter a name for the copy.*
+
+  You can duplicate an existing data set to save a copy of it with a new name. The new data set is a completely separate copy.  Choose **Duplicate** data set, and enter a name for the copy.
 
 2. Select the fields that you will use for the visualization.
 ![image](img/Select_Fields.png)
 
 3. We suggest that you pick two - three columns from your data set that meet the following criteria:
-..i. The first column is a date column (can be year, month or day. Usually marked by **calendar icon**
+  * The first column is a date column (can be year, month or day. Usually marked by **calendar icon**
 in **Fields list** on the left)
-..ii. The second column is a quantifiable number (revenue, count, distance, etc. Usually
+  * The second column is a quantifiable number (revenue, count, distance, etc. Usually
 marked by a **green hash #**)
-..iii. The third column has categorical value, which means it has specific limited set of values (type,
+  * The third column has categorical value, which means it has specific limited set of values (type,
 category, etc. Usually marked by **ticket icon**)
 
 4. Optional - Change the data type. You can change the field's data type in one of the available data types.
