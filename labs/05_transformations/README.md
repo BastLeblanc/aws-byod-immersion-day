@@ -155,12 +155,11 @@ You can also add additional partitions if you know you will often use those fiel
 
 Add this code at the end of your script:
 ```python
-df_partition = dynamicF.toDF()
-df_partition = df_partition.withColumn('trx_date', date_format("YOUR-DATE-FIELD", "yyyy-MM-dd").cast(DateType()))
+df = df_partition.withColumn('trx_date', date_format("YOUR-DATE-FIELD", "yyyy-MM-dd").cast(DateType()))
 
-df_partition = df_partition.withColumn('year', year(df.trx_date)).withColumn('month', month(df.trx_date)).withColumn('day', dayofmonth(df.trx_date))
+df = df_partition.withColumn('year', year(df.trx_date)).withColumn('month', month(df.trx_date)).withColumn('day', dayofmonth(df.trx_date))
 
-df_partition.show()
+df.show()
 
 ```
 
@@ -175,7 +174,7 @@ Please add these lines to the end of your notebook
 ## DONT FORGET TO PUT IN YOUR BUCKET NAME.
 output_location = "s3://YOUR-BUCKET/curated"
 
-df_partition.write.mode("overwrite").partitionBy("year","month","day").parquet(output_location)
+df.write.mode("overwrite").partitionBy("year","month","day").parquet(output_location)
 
 job.commit()
 ```
