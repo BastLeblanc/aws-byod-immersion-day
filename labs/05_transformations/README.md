@@ -75,14 +75,14 @@ You probably have a large number of columns and some of them can have complicate
 
 There is two different ways to drop columns
 
-1. You use the select_fields class to drop all the columns and keep just the ones you need
+1. You use the select_fields method to drop all the columns and keep just the ones you need
 
 ``` python
 dynamicF= dynamicF.select_fields(['COLUMN1_TO_KEEP','COLUMN2_TO_KEEP']).rename_field('COLUMN1_TO_KEEP/RENAME', 'NEW_COLUMN_NAME').rename_field('COLUMN2_TO_RENAME', 'NEW_COLUMN_NAME')
 dynamicF.printSchema()
 ```
 
-2. You use the drop_fields class to keep all the columns and just drop the ones you do not need. 
+2. You use the drop_fields method to keep all the columns and just drop the ones you do not need. 
 
 ``` python
 dynamicF = dynamicF.drop_fields(['COLUMN1_TO_DROP','COLUMN2_TO_DROP']).rename_field('COLUMN1_TO_KEEP/RENAME', 'NEW_COLUMN_NAME').rename_field('COLUMN2_TO_RENAME', 'NEW_COLUMN_NAME')
@@ -127,7 +127,7 @@ Below is example code that can be used to do the conversion from ISO 8601 date f
 
 ``` python 
 ## Adding trx_date date column with y-M format converting a current timestamp/unix date format
-df = df.withColumn('trx_date', date_format(df['{YOUR_DATE_COL_NAME}'], "yyyy-MM-dd").cast(DateType()))
+df = df.withColumn('trx_date', to_date("trx-date", "yyyy-MM-dd").cast(DateType()))
 ```
 
 If you do not get an error but the date column is full of NULL, then probably you didn't substitute your own date-format in yyyy-MM-dd
@@ -136,8 +136,8 @@ If you still have errors, then please go to the other date formats section.
 #### Example NY Taxis dataset
 
 ``` python 
-## Adding trx_date date column with yyyy-MM-dd format converting a current timestamp/unix date format
-df = df.withColumn('pickup_datetime', to_date("pickup_datetime", "yyyy-MM-dd"))
+## Adding pickup_datetime date column with yyyy-MM-dd format converting a current timestamp/unix date format
+df = df.withColumn('pickup_datetime', to_date("pickup_datetime", "yyyy-MM-dd")).cast(DateType()))
 df.show()
 ```
 
@@ -155,7 +155,6 @@ You can also add additional partitions if you know you will often use those fiel
 
 Add this code at the end of your script:
 ```python
-df = df.withColumn('trx_date', date_format("YOUR-DATE-FIELD", "yyyy-MM-dd").cast(DateType()))
 
 df = df.withColumn('year', year(df.trx_date)).withColumn('month', month(df.trx_date)).withColumn('day', dayofmonth(df.trx_date))
 
@@ -163,7 +162,7 @@ df.show()
 
 ```
 
-See that there are three extra fields for year, month and day.
+See that there are three extra fields for year, month and day - If you want, you can also drop the "trx_date" column using ```df.drop('trx_date').collect()``` - Please note that since we are using data frame instead of dynamic frame, we can not use the same method *drop_fields* introduced earlier.
 
 ## Run this in a Glue Job
 
