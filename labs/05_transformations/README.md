@@ -109,7 +109,7 @@ First, let's add the libraries we need to make this conversion:
 from pyspark.sql.functions import date_format
 from pyspark.sql.functions import to_date
 from pyspark.sql.types import DateType
-from pyspark.sql.functions import year, month, dayofmonth, date_format, cast
+from pyspark.sql.functions import year, month, dayofmonth, date_format
 ```
 Then, depending on the format of our current field, we may want to convert it into another format that contains year and month only. This will allow us later to partition our data according to year and month easily. Select which line of code you will use according to your date type format.
 
