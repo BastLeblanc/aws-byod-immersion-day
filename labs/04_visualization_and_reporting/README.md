@@ -121,22 +121,22 @@ marked by a **green hash #**)
 category, etc. Usually marked by **ticket icon**)
 
 4. Optional - Change the data type. You can change the field's data type in one of the available data types.
-..a. Go to the datasets page
+  * Go to the datasets page
 ![image](img/manage-data.png)
 
-..b. Choose your dataset
+  * Choose your dataset
 ![image](img/choose-dataset.png)
 
-..c. Choose to Edit your Dataset
+  * Choose to Edit your Dataset
 ![image](img/Edit-dataset.png)
 
-..d. Press over the arrow on the right side of the field you want to modify
+  * Press over the arrow on the right side of the field you want to modify
 ![image](img/arrow-edit-dataset-type.png)
 
-..e. Choose one of the available data types
+  * Choose one of the available data types
 ![image](img/Field_DataTypes.png)
 
-..f. Once you finish your edit, press the **Save and Visualize** button on top of the screen.
+  * Once you finish your edit, press the **Save and Visualize** button on top of the screen.
 ![image](img/save-visualize.png)
    
    You can modify the **format of your date field(s)** into one of the supported formats.
