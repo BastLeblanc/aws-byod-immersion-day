@@ -20,6 +20,8 @@ Now we are going to start cleaning, transforming, aggregating and partitioning d
 
 Click in the Notebooks and Open the Notebook created. This will launch Jupyter Notebook. Go to New -> Sparkmagic (PySpark)
 
+It should open a brand new notebook, we will be adding and running line by line of code, this will make it easier to understand the step by step and find errors faster. If this is your first time using notebok, then 
+
 We will start by importing all the libraries we need 
 
 ``` python
@@ -40,7 +42,12 @@ job.init("byod-workshop-" + str(datetime.datetime.now().timestamp()))
 
 ```
 
-We are going to use the data we transformed to parquet in previous steps. For that, we create a dynamic frame pointing to the database and table that our crawler inferred, then we are going to show the schema.
+**Dynamic Frame vs Spark/ Data frames**
+One of the major abstractions in Apache Spark is the SparkSQL DataFrame, which is similar to the DataFrame construct found in R and Pandas. A DataFrame is similar to a table and supports functional-style (map/reduce/filter/etc.) operations and SQL operations (select, project, aggregate).
+
+DataFrames are powerful and widely used, but they have limitations with respect to extract, transform, and load (ETL) operations. Most significantly, they require a schema to be specified before any data is loaded. To address these limitations, AWS Glue introduces the DynamicFrame. A DynamicFrame is similar to a DataFrame, except that each record is self-describing, so no schema is required initially. Instead, AWS Glue computes a schema on-the-fly when required, and explicitly encodes schema inconsistencies using a choice (or union) type.
+
+We are going to use the data we transformed to parquet in previous steps. For that, we create a dynamic frame pointing to the database and table that our crawler inferred, then we are going to show the schema
 
 If you do not remember the database/table names, just go to Databases/ Table tab in Glue and copy its names.
 
@@ -55,19 +62,32 @@ You probably have a large number of columns and some of them can have complicate
 
 ### Drop Columns
 
+There is two different ways to drop columns
+
+1. You use the select_fields class to drop all the columns and keep just the ones you need
 
 ``` python
-dynamicF = dynamicF.select_fields(['COLUMN1_TO_KEEP/RENAME','COLUMN2_TO_KEEP']).rename_field('COLUMN1_TO_KEEP/RENAME', 'NEW_COLUMN_NAME')
-dynamicF.printSchema()
+dynamicF_drop = dynamicF
+dynamicF_drop = dynamicF_drop.select_fields(['COLUMN1_TO_KEEP','COLUMN2_TO_KEEP']).rename_field('COLUMN1_TO_KEEP/RENAME', 'NEW_COLUMN_NAME').rename_field('COLUMN2_TO_RENAME', 'NEW_COLUMN_NAME')
+dynamicF_drop.printSchema()
 ```
+
+2. You use the drop_fields class to keep all the columns and just drop the ones you do not need. 
+
+``` python
+dynamicF_drop = dynamicF_drop.drop_fields(['COLUMN1_TO_DROP','COLUMN2_TO_DROP']).rename_field('COLUMN1_TO_KEEP/RENAME', 'NEW_COLUMN_NAME').rename_field('COLUMN2_TO_RENAME', 'NEW_COLUMN_NAME')
+dynamicF_drop.printSchema()
+```
+
+For the rename part, we are using the rename_fields class. This should be invoked for each column you want to rename
+
 
 #### Example NY Taxis dataset
 
 ``` python
-dynamicF = dynamicF.select_fields(['tpep_pickup_datetime','trip_distance']).rename_field('tpep_pickup_datetime', 'pickup_datetime')
+dynamicF_drop = dynamicF_drop.select_fields(['tpep_pickup_datetime','trip_distance']).rename_field('tpep_pickup_datetime', 'pickup_datetime')
 dynamicF.printSchema()
 ```
-
 
 ### Convert to Time stamp
 
@@ -79,10 +99,11 @@ First, let's add the libraries we need to make this conversion:
 from pyspark.sql.functions import date_format
 from pyspark.sql.functions import to_date
 from pyspark.sql.types import DateType
+from pyspark.sql.functions import year, month, dayofmonth, date_format, cast
 ```
 Then, depending on the format of our current field, we may want to convert it into another format that contains year and month only. This will allow us later to partition our data according to year and month easily. Select which line of code you will use according to your date type format.
 
-First, we need to change the format from dynamic frame to dataframe. This will allow us to use some the libraries previously imported:
+First, we need to change the format from dynamic frame to dataframe (If you do not remember the difference between dynamic frame and data frame, you can read again the explanation above). This will allow us to use some the libraries previously imported:
 
 
 ``` python 
@@ -90,31 +111,15 @@ df = dynamicF.toDF()
 df.show()
 ```
 
-Now, depending on the time format, please select which line of code you will use according to your date type format.
 
 **ISO 8601 TIMESTAMP**
-Below is example code that can be used to do the conversion from ISO 8601 date format.
+Below is example code that can be used to do the conversion from ISO 8601 date format. Please substitute your own date-format in place of yyyy-MM-dd
 
 ``` python 
 ## Adding trx_date date column with y-M format converting a current timestamp/unix date format
 df = df.withColumn('trx_date', date_format(df['{YOUR_DATE_COL_NAME}'], "yyyy-MM-dd").cast(DateType()))
 ```
 
-**UNIX TIMESTAMP**
-
-``` python
-## Adding trx_date date column with yyyy-MM-dd format converting a current timestamp/unix date format
-df = df.withColumn('trx_date', date_format(from_unixtime(df['{YOUR_DATE_COL_NAME}']), "yyyy-MM-dd").cast(DateType()))
-```
-
-**OTHER DATE FORMATS**
-
-To convert unique data formats, we use to_date() function to specify how to parse your value specifying date literals in second attribute (Look at resources section for more information).
-
-``` python
-## Adding trx_date date column with yyyy-MM-dd format converting a current timestamp/unix date format
-df = df.withColumn('trx_date', date_format(to_date(df['{YOUR_DATE_COL_NAME}'], {DATE_LITERALS}), "yyyy-MM-dd").cast(DateType()))
-```
 
 #### Example NY Taxis dataset
 
@@ -184,6 +189,26 @@ and copy it. In the AWS Glue Console (https://console.aws.amazon.com/glue/), cli
 - Connections - Save job and edit script
 - Now, paste the txt downloaded from the notebook
 - Save and Run
+
+# Others
+
+Now, depending on the time format, please select which line of code you will use according to your date type format.
+
+**UNIX TIMESTAMP**
+
+``` python
+## Adding trx_date date column with yyyy-MM-dd format converting a current timestamp/unix date format
+df = df.withColumn('trx_date', date_format(from_unixtime(df['{YOUR_DATE_COL_NAME}']), "yyyy-MM-dd").cast(DateType()))
+```
+
+**OTHER DATE FORMATS**
+
+To convert unique data formats, we use to_date() function to specify how to parse your value specifying date literals in second attribute (Look at resources section for more information).
+
+``` python
+## Adding trx_date date column with yyyy-MM-dd format converting a current timestamp/unix date format
+df = df.withColumn('trx_date', date_format(to_date(df['{YOUR_DATE_COL_NAME}'], {DATE_LITERALS}), "yyyy-MM-dd").cast(DateType()))
+```
 
 # Terminate the following resources
 
