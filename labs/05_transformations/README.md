@@ -20,9 +20,16 @@ Now we are going to start cleaning, transforming, aggregating and partitioning d
 
 Click in the Notebooks and Open the Notebook created. This will launch Jupyter Notebook. Go to New -> Sparkmagic (PySpark)
 
-It should open a brand new notebook, we will be adding and running line by line of code, this will make it easier to understand the step by step and find errors faster. If this is your first time using notebok, then 
+It should open a brand new notebook, we will be adding and running line by line of code, this will make it easier to understand the step by step and find errors faster. It should look something like this
 
-We will start by importing all the libraries we need 
+![notebook](./img/notebook.png)
+
+1. Make sure that the notebook is running pyspark
+2. This is the plus button for adding new lines - In this image I have added two lines of code
+3. Once you add a line of code, then click Run
+4. Once it has run, then you should see a number here
+
+Click plus [2] - We will start by importing all the libraries we need 
 
 ``` python
 import sys
@@ -41,6 +48,7 @@ job = Job(glueContext)
 job.init("byod-workshop-" + str(datetime.datetime.now().timestamp()))
 
 ```
+Then click Run
 
 **Dynamic Frame vs Spark/ Data frames**
 One of the major abstractions in Apache Spark is the SparkSQL DataFrame, which is similar to the DataFrame construct found in R and Pandas. A DataFrame is similar to a table and supports functional-style (map/reduce/filter/etc.) operations and SQL operations (select, project, aggregate).
@@ -51,10 +59,13 @@ We are going to use the data we transformed to parquet in previous steps. For th
 
 If you do not remember the database/table names, just go to Databases/ Table tab in Glue and copy its names.
 
+CLick plus [2] and add the following code in a separate line
+
 ``` python
 dynamicF = glueContext.create_dynamic_frame.from_catalog(database="DATABASE_NAME", table_name="TABLE_NAME")
 dynamicF.printSchema()
 ```
+Then click Run
 
 ## Transformations
 
@@ -120,6 +131,8 @@ Below is example code that can be used to do the conversion from ISO 8601 date f
 df = df.withColumn('trx_date', date_format(df['{YOUR_DATE_COL_NAME}'], "yyyy-MM-dd").cast(DateType()))
 ```
 
+If you do not get an error but the date column is full of NULL, then probably you didn't substitute your own date-format in yyyy-MM-dd
+If you still have errors, then please go to the other date formats section.
 
 #### Example NY Taxis dataset
 
@@ -190,7 +203,7 @@ and copy it. In the AWS Glue Console (https://console.aws.amazon.com/glue/), cli
 - Now, paste the txt downloaded from the notebook
 - Save and Run
 
-# Others
+## Others time formats
 
 Now, depending on the time format, please select which line of code you will use according to your date type format.
 
@@ -210,13 +223,13 @@ To convert unique data formats, we use to_date() function to specify how to pars
 df = df.withColumn('trx_date', date_format(to_date(df['{YOUR_DATE_COL_NAME}'], {DATE_LITERALS}), "yyyy-MM-dd").cast(DateType()))
 ```
 
-# Terminate the following resources
+## Terminate the following resources
 
 The Glue development endpoint and the notebook will incur charges. So please go to [Glue](https://console.aws.amazon.com/glue/home?region=us-east-1#etl:tab=devEndpoints)
 Select the endpoint - Action -> Delete
 
 Then go to the [notebook](https://console.aws.amazon.com/glue/home?region=us-east-1#etl:tab=notebooks)
-Select the notebook - Action -> Stop or Delete
+Select the notebook - Action -> Stop, then Delete
 
 
 
