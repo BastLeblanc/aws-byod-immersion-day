@@ -59,7 +59,7 @@ We are going to use the data we transformed to parquet in previous steps. For th
 
 If you do not remember the database/table names, just go to Databases/ Table tab in Glue and copy its names.
 
-CLick plus [2] and add the following code in a separate line
+Click plus [2] and add the following code in a separate line
 
 ``` python
 dynamicF = glueContext.create_dynamic_frame.from_catalog(database="DATABASE_NAME", table_name="TABLE_NAME")
