@@ -137,7 +137,6 @@ If you still have errors, then please go to the other date formats section.
 
 ``` python 
 ## Adding trx_date date column with yyyy-MM-dd format converting a current timestamp/unix date format
-df = dynamicF.toDF()
 df = df.withColumn('pickup_datetime', to_date("pickup_datetime", "yyyy-MM-dd"))
 df.show()
 ```
