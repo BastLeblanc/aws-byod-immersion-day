@@ -11,7 +11,8 @@
       - [Example NY Taxis dataset](#Example-NY-Taxis-dataset-1)
   - [Partitioning](#Partitioning)
   - [Run this in a Glue Job](#Run-this-in-a-Glue-Job)
-- [Terminate the following resources](#Terminate-the-following-resources)
+  - [Others time formats](#Others-time-formats)
+  - [Terminate the following resources](#Terminate-the-following-resources)
 
 
 Now we are going to start cleaning, transforming, aggregating and partitioning data. For development and debugging purposes, we are going to use the Developer Endpoint and Notebook we created some steps back.
@@ -20,7 +21,7 @@ Now we are going to start cleaning, transforming, aggregating and partitioning d
 
 Click in the Notebooks and Open the Notebook created. This will launch Jupyter Notebook. Go to New -> Sparkmagic (PySpark)
 
-It should open a brand new notebook, we will be adding and running line by line of code, this will make it easier to understand the step by step and find errors faster. It should look something like this
+A brand new notebook will be opened. We will be adding and running code blocks one by one, to make it easier to understand operations step by step and we will be able to find errors faster. It should look something like this:
 
 ![notebook](./img/notebook.png)
 
@@ -55,6 +56,8 @@ One of the major abstractions in Apache Spark is the SparkSQL DataFrame, which i
 
 DataFrames are powerful and widely used, but they have limitations with respect to extract, transform, and load (ETL) operations. Most significantly, they require a schema to be specified before any data is loaded. To address these limitations, AWS Glue introduces the DynamicFrame. A DynamicFrame is similar to a DataFrame, except that each record is self-describing, so no schema is required initially. Instead, AWS Glue computes a schema on-the-fly when required, and explicitly encodes schema inconsistencies using a choice (or union) type.
 
+It is possible to convert a DataFrame to a DynamicFrame and vice versa with ```toDF()``` and ```fromDF()``` methods.
+
 We are going to use the data we transformed to parquet in previous steps. For that, we create a dynamic frame pointing to the database and table that our crawler inferred, then we are going to show the schema
 
 If you do not remember the database/table names, just go to Databases/ Table tab in Glue and copy its names.
@@ -73,23 +76,23 @@ You probably have a large number of columns and some of them can have complicate
 
 ### Drop Columns
 
-There is two different ways to drop columns
+There are two different ways to drop columns
 
 1. You use the select_fields method to drop all the columns and keep just the ones you need
 
 ``` python
-dynamicF= dynamicF.select_fields(['COLUMN1_TO_KEEP','COLUMN2_TO_KEEP']).rename_field('COLUMN1_TO_KEEP/RENAME', 'NEW_COLUMN_NAME').rename_field('COLUMN2_TO_RENAME', 'NEW_COLUMN_NAME')
+dynamicF= dynamicF.select_fields(['COLUMN1_TO_KEEP','COLUMN2_TO_KEEP']).rename_field('COLUMN1_TO_RENAME', 'NEW_COLUMN_NAME').rename_field('COLUMN2_TO_RENAME', 'NEW_COLUMN_NAME')
 dynamicF.printSchema()
 ```
 
 2. You use the drop_fields method to keep all the columns and just drop the ones you do not need. 
 
 ``` python
-dynamicF = dynamicF.drop_fields(['COLUMN1_TO_DROP','COLUMN2_TO_DROP']).rename_field('COLUMN1_TO_KEEP/RENAME', 'NEW_COLUMN_NAME').rename_field('COLUMN2_TO_RENAME', 'NEW_COLUMN_NAME')
+dynamicF = dynamicF.drop_fields(['COLUMN1_TO_DROP','COLUMN2_TO_DROP']).rename_field('COLUMN1_TO_RENAME', 'NEW_COLUMN_NAME').rename_field('COLUMN2_TO_RENAME', 'NEW_COLUMN_NAME')
 dynamicF.printSchema()
 ```
 
-For the rename part, we are using the rename_fields class. This should be invoked for each column you want to rename
+For the rename part, we are using the ```rename_field()``` method. This should be invoked for each column you want to rename
 
 
 #### Example NY Taxis dataset
@@ -162,7 +165,7 @@ df.show()
 
 ```
 
-See that there are three extra fields for year, month and day - If you want, you can also drop the "trx_date" column using ```df.drop('trx_date').collect()``` - Please note that since we are using data frame instead of dynamic frame, we can not use the same method *drop_fields* introduced earlier.
+See that there are three extra fields for year, month and day - If you want, you can also drop the "trx_date" column using ```df.drop('trx_date')``` - Please note that since we are using data frame instead of dynamic frame, we can not use the same method *drop_fields* introduced earlier.
 
 ## Run this in a Glue Job
 
@@ -200,7 +203,7 @@ and copy it. In the AWS Glue Console (https://console.aws.amazon.com/glue/), cli
 - Now, paste the txt downloaded from the notebook
 - Save and Run
 
-## Others time formats
+## Other time formats
 
 Now, depending on the time format, please select which line of code you will use according to your date type format.
 
