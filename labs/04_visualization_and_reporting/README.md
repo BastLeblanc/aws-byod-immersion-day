@@ -5,6 +5,7 @@
 - [Lab 4: Visualization using Amazon QuickSight](#Lab-4-Visualization-using-Amazon-QuickSight)
   - [Architectural Diagram](#Architectural-Diagram)
   - [Signing up for Amazon QuickSight Enterprise Edition](#Signing-up-for-Amazon-QuickSight-Enterprise-Edition)
+  - [Some Quicksight definitions](#Some-Quicksight-definitions)
   - [Configuring Amazon QuickSight to use Amazon Athena as data source](#Configuring-Amazon-QuickSight-to-use-Amazon-Athena-as-data-source)
   - [Preparing your data](#Preparing-your-data)
   - [Visualizing the data using Amazon QuickSight](#Visualizing-the-data-using-Amazon-QuickSight)

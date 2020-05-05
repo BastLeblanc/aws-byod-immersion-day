@@ -11,7 +11,7 @@
       - [Example NY Taxis dataset](#Example-NY-Taxis-dataset-1)
   - [Partitioning](#Partitioning)
   - [Run this in a Glue Job](#Run-this-in-a-Glue-Job)
-  - [Others time formats](#Others-time-formats)
+  - [Other time formats](#Other-time-formats)
   - [Terminate the following resources](#Terminate-the-following-resources)
 
 
